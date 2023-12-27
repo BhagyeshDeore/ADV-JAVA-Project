@@ -3,7 +3,7 @@ import { SHeader } from "./SHeader";
 export function S_DashBoard(props){
     return(
         <>
-            <SHeader text="Student DashBoard Page"></SHeader>
+            <SHeader text="Student DashBoard Page edited by viraj"></SHeader>
         </>
     )
 }
