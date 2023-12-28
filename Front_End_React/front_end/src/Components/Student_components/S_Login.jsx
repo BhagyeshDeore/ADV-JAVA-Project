@@ -25,24 +25,24 @@ export function S_Login(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate form fields
-    const validationErrors = {};
+        // Validate form fields
+        const validationErrors = {};
 
-    // Check for empty fields
-    Object.keys(formData).forEach((key) => {
-      if (formData[key].trim() === "") {
-        validationErrors[key] = "This field is required";
-      }
-    });
+        // Check for empty fields
+        Object.keys(formData).forEach((key) => {
+        if (formData[key].trim() === "") {
+            validationErrors[key] = "This field is required";
+        }
+        });
 
-    // Display validation errors inline
-    setErrors(validationErrors);
+        // Display validation errors inline
+        setErrors(validationErrors);
 
-    // If no errors, proceed with login or perform necessary actions
-    if (Object.keys(validationErrors).length === 0) {
-      // Add your login logic here
-      alert("Login successful!");
-    }
+        // If no errors, proceed with login or perform necessary actions
+        if (Object.keys(validationErrors).length === 0) {
+        // Add your login logic here
+        alert("Login successful!");
+        }
   };
 
   return (
