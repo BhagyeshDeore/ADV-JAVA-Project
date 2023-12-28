@@ -109,6 +109,7 @@ export function S_Register(props) {
             marginLeft: "-11.5px",
             marginRight: "-11.5px",
             borderRadius: "15px 15px 0 0",
+            paddingtop: "inherit"
             }}
         >
             Student Sign Up
