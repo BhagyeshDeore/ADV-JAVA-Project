@@ -9,11 +9,11 @@ export function T_Contest_card(props){
     }
 
     return(
-        <Card className="mt-3 "  text="muted" >
+        <Card className="mt-3 " border="danger"  text="muted" >
             <Card.Header  as="h5">Contest ID : {props.ID}</Card.Header>
             <Card.Body>
-                <Card.Title>Title : {props.title}</Card.Title>
-                <Card.Text>
+                <Card.Title >Title : {props.title}</Card.Title>
+                <Card.Text >
                     <h6>Description : </h6>{props.description} <hr></hr><br/>
                     <h6>Start Time : {props.start_time} </h6>
                     <h6>End Time : {props.end_time} </h6>
