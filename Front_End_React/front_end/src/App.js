@@ -6,7 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { S_Register } from "./Components/Student_components/S_Register";
 import { S_Login } from "./Components/Student_components/S_Login";
 import { S_DashBoard } from "./Components/Student_components/S_DashBoard";
-import { S_Contest } from "./Components/Student_components/S_Contest";
+//import { S_Contest } from "./Components/Student_components/S_Contest";
+import S_Contest from "./Components/Student_components/S_Contest";
 import { S_AttemptProblem } from "./Components/Student_components/S_AttemptProblem";
 import { HomePage } from "./Components/HomePage";
 
