@@ -141,9 +141,9 @@ export function S_DashBoard(props) {
       <div>
       <THeader text="Student DashBoard Page "></THeader>
       </div>
-    <div className="d-flex justify-content-end align-items-center">
+    <div className="d-flex justify-content-end align-items-center pe-5">
         <DropdownButton
-          title={`Filter by ${selectedCategory}`}
+          title={`Search by ${selectedCategory}`}
           onSelect={(eventKey) => setSelectedCategory(eventKey)}
         >
           <Dropdown.Item eventKey="All">All</Dropdown.Item>
@@ -164,6 +164,7 @@ export function S_DashBoard(props) {
                   description={element.description}
                   topic={element.topic}
                   ID={element.contest_id}
+                  category={element.category}
                   start_time={element.start_time}
                   end_time={element.end_time}
                 />
