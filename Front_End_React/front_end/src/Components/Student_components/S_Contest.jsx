@@ -20,7 +20,6 @@ const S_Contest = () => {
   };
 
   const problemsData = [
-    // ... your JSON data here
     {
         "problem_id" : 1 ,
         "contest_id" : 1,
@@ -106,10 +105,11 @@ const S_Contest = () => {
         (problem) => problem.contest_id.toString() === contest_id
     );
 
-  const filteredProblems = problemsData.filter(
-    (problem) =>
-      filter[problem.difficulty_level.toLowerCase()] && filter[problem.status.toUpperCase()]
-  );
+    // Filter problems based on the difficulty_level
+    const filteredProblems = problemsData.filter(
+        (problem) =>
+        filter[problem.difficulty_level.toLowerCase()] && filter[problem.status.toUpperCase()]
+    );
   
 
   return (
@@ -121,7 +121,7 @@ const S_Contest = () => {
         <Col md={9} style={{ height: '200px' }}>
           <h2>Problems</h2>
           {filteredProblems.map((problem) => (
-            <div key={problem.problem_id} className="border p-3 mb-3 rounded" >
+            <div key={problem.problem_id} className="border p-3 mb-3 rounded" style={{backgroundColor:"lightgrey"}}>
               <h3>{problem.title}</h3>
               <h6>Marks: {problem.marks}</h6>
               <h6>Difficulty: {problem.difficulty_level}</h6>
@@ -134,7 +134,7 @@ const S_Contest = () => {
             </div>
           ))}
         </Col>
-        <Col md={3} className="border p-3 rounded" style={{ marginTop: '46px' }}>
+        <Col md={3} className="border p-3 rounded" style={{ marginTop: '46px', width:"310px", backgroundColor:"lightgrey" }}>
           <Form>
             <h3>Filters: </h3>
             <Form.Group controlId="formDifficulty">
