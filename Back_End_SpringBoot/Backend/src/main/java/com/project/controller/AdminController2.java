@@ -1,5 +1,8 @@
 package com.project.controller;
 
-public class AdminController2 {
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+public class AdminController2 {
+//adding comments
 }
