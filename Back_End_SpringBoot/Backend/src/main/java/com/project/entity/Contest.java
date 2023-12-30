@@ -6,6 +6,8 @@ import java.util.List;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -47,9 +49,11 @@ public class Contest {
 	@JoinColumn(name="teacherId")
 	private Teacher teacher;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "contest")
 	private List<Problem> problems;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "contest")
 	private List<Attempt> attempts;
 

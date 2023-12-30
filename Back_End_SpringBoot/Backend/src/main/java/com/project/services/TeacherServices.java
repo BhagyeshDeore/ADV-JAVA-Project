@@ -1,5 +1,6 @@
 package com.project.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +84,6 @@ public class TeacherServices {
 	//create Contest
 	public StatusT createContest( Contest contest,  int teacherId ) {
 		
-		System.out.println("Teacher Id called "+teacherId);
 		Optional<Teacher> foundTeacher = teacherRepository.findById(teacherId);
 		contest.setTeacher(foundTeacher.get());
 		contestRepository.save(contest);
@@ -93,6 +93,16 @@ public class TeacherServices {
 		
 		return status;
 	}
+	
+		//create Contest
+		public List<Contest> getContestList(  int teacherId ) {
+			
+			System.out.println("Teacher Id called "+teacherId);
+			Optional<Teacher> foundTeacher = teacherRepository.findById(teacherId);
+			
+			return contestRepository.findAllByTeacher(foundTeacher.get());
+			
+		}
 	
 	
 

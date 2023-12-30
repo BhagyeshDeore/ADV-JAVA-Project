@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.hibernate.annotations.ColumnDefault;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -41,9 +43,11 @@ public class Student {
 	@Enumerated(EnumType.STRING)
 	private StudentStatus status = StudentStatus.emailUnverified;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "student")
 	private List<EmailVerifyOtp> otpRequests;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "student")
 	private List<Attempt> attempts;
 

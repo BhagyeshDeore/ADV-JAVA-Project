@@ -57,11 +57,11 @@ public class Problem {
 	@Column(columnDefinition="LONGTEXT")
 	private String solutionCode;
 	
-	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="contestId")
 	private Contest contest;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "problem")
 	private List< Attempt> attempts;
 
