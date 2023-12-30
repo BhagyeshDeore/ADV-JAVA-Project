@@ -8,7 +8,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.dto.NewContest;
+import com.project.dto.StatusT;
 import com.project.dto.TeacherLoginStatus;
+import com.project.dto.TeacherUpdatePassword;
+import com.project.dto.newContest;
+import com.project.entity.Contest;
+import com.project.entity.Contest.ContestTopic;
 import com.project.entity.Teacher;
 import com.project.services.TeacherServices;
 
@@ -24,6 +30,26 @@ public class TeacherController {
 		
 		ResponseEntity<TeacherLoginStatus> status = teacherServices.teacherLogin(teacher);
 		return status;
+		
+	}
+	
+	@PostMapping("/teacher/update-password")
+	public ResponseEntity<TeacherLoginStatus> teacherUpdatePassword(@RequestBody TeacherUpdatePassword teacher) {
+		
+		ResponseEntity<TeacherLoginStatus> status = teacherServices.teacherUpdatePassword(teacher);
+		return status;
+		
+	}
+	
+	@PostMapping("/teacher/create-contest")
+	public ResponseEntity<StatusT> createContest(@RequestBody NewContest newContest) {
+		
+		Contest contest = new Contest();
+		contest.setDescription(newContest.getDescription());
+		contest.setTitle(newContest.getTitle());
+		contest.setTopic(ContestTopic.valueOf(newContest.getTopic()));
+		StatusT status = teacherServices.createContest( contest, newContest.getTeacherId());
+		return new ResponseEntity<StatusT> (status, HttpStatus.ACCEPTED);
 		
 	}
 

@@ -9,5 +9,7 @@ import com.project.entity.Teacher;
 public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
 	
 	public Optional<Teacher> findByEmailAndPassword(String email , String Password);
+	
+	public Optional<Teacher> findByTeacherIdAndEmailAndPassword(int teacherId ,String email , String Password);
 
 }
