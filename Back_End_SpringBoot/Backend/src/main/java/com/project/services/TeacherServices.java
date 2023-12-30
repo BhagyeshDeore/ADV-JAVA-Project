@@ -23,18 +23,21 @@ public class TeacherServices {
 		Optional<Teacher> foundTeacher = teacherRepository.findByEmailAndPassword(teacher.getEmail(), teacher.getPassword());
 		TeacherLoginStatus status = new TeacherLoginStatus();
 		
-		if(foundTeacher.isEmpty()) {
-			//not found
-			status.setStatus(false);
-			status.setMessage("Wrong Email Or Password!");
-			return new ResponseEntity<TeacherLoginStatus>(status, HttpStatus.BAD_REQUEST);
+		if(foundTeacher.isPresent()) {
 			
-		}else {
 			//found
 			status.setStatus(true);
 			status.setMessage("Successfully Logged In!");
 			status.setTeacherId(foundTeacher.get().getTeacherId());
 			return new ResponseEntity<TeacherLoginStatus>(status, HttpStatus.ACCEPTED);
+			
+		}else{
+			
+			//not found
+			status.setStatus(false);
+			status.setMessage("Wrong Email Or Password!");
+			return new ResponseEntity<TeacherLoginStatus>(status, HttpStatus.BAD_REQUEST);
+			
 		}
 		
 	}
