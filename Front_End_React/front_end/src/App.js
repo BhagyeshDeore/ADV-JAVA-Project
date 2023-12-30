@@ -14,7 +14,8 @@ import { HomePage } from "./Components/HomePage";
 import { A_Login } from "./Components/Admin_components/A_Login";
 import { A_DashBoard } from "./Components/Admin_components/A_DashBoard";
 import { A_CreateTeacherAccount } from "./Components/Admin_components/A_CreateTeacherAccount";
-import { A_StudentsRegisterRequests } from "./Components/Admin_components/A_StudentsRegisterRequests";
+//import  { A_StudentsRegisterRequests }  from "./Components/Admin_components/A_StudentsRegisterRequests";
+import A_StudentsRegisterRequests from "./Components/Admin_components/A_StudentsRegisterRequests";
 
 import { T_Login } from "./Components/Teacher_components/T_Login";
 import { T_DashBoard } from "./Components/Teacher_components/T_DashBoard";
@@ -32,32 +33,17 @@ function App() {
         <Route path="/student-login" element={<S_Login />}></Route>
         <Route path="/student-dashboard" element={<S_DashBoard />}></Route>
         <Route path="/student-seeContest" element={<S_Contest />}></Route>
-        <Route
-          path="/student-attemptProblem"
-          element={<S_AttemptProblem />}
-        ></Route>
+        <Route path="/student-attemptProblem" element={<S_AttemptProblem />}></Route>
 
         <Route path="/admin-login" element={<A_Login />}></Route>
         <Route path="/admin-dashboard" element={<A_DashBoard />}></Route>
-        <Route
-          path="/admin-create-new-teacher-account"
-          element={<A_CreateTeacherAccount />}
-        ></Route>
-        <Route
-          path="/admin-students-register-request"
-          element={<A_StudentsRegisterRequests />}
-        ></Route>
+        <Route path="/admin-create-new-teacher-account" element={<A_CreateTeacherAccount />}></Route>
+        <Route path="/admin-students-register-request" element={<A_StudentsRegisterRequests />}></Route>
 
         <Route path="/teacher-login" element={<T_Login />}></Route>
         <Route path="/teacher-dashboard" element={<T_DashBoard />}></Route>
-        <Route
-          path="/teacher-update-password"
-          element={<T_UpdatePassword />}
-        ></Route>
-        <Route
-          path="/teacher-create-contest"
-          element={<T_CreateContest />}
-        ></Route>
+        <Route path="/teacher-update-password"  element={<T_UpdatePassword />}  ></Route>
+        <Route path="/teacher-create-contest"  element={<T_CreateContest />}  ></Route>
         <Route path="/teacher-see-attempts" element={<T_SeeAttempts />}></Route>
       </Routes>
     </BrowserRouter>

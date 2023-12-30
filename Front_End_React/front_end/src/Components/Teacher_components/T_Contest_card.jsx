@@ -8,6 +8,10 @@ export function T_Contest_card(props){
         navigate(`/teacher-see-attempts?contest_id=${props.ID}`)
     }
 
+    function editContest() {
+        navigate(`/teacher-create-contest?contest_id=${props.ID}`)
+    }
+
     return(
         <Card className="mt-3 " border="danger"  text="muted" >
             <Card.Header  as="h5">Contest ID : {props.ID}</Card.Header>
@@ -18,7 +22,8 @@ export function T_Contest_card(props){
                     <h6>Start Time : {props.start_time} </h6>
                     <h6>End Time : {props.end_time} </h6>
                 </Card.Text>
-                <Button onClick={seeAttemptPage} variant="primary">See Results</Button>
+                <Button  onClick={seeAttemptPage} variant="primary">See Results</Button> &nbsp;&nbsp;
+                <Button  onClick={editContest} variant="success">Edit contest</Button>
             </Card.Body>
             <Card.Footer className="text-muted">Created AT : {props.created_at}</Card.Footer>
         </Card>
