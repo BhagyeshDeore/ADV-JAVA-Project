@@ -14,7 +14,8 @@ import { HomePage } from "./Components/HomePage";
 import { A_Login } from "./Components/Admin_components/A_Login";
 import { A_DashBoard } from "./Components/Admin_components/A_DashBoard";
 import { A_CreateTeacherAccount } from "./Components/Admin_components/A_CreateTeacherAccount";
-import { A_StudentsRegisterRequests } from "./Components/Admin_components/A_StudentsRegisterRequests";
+//import  { A_StudentsRegisterRequests }  from "./Components/Admin_components/A_StudentsRegisterRequests";
+import A_StudentsRegisterRequests from "./Components/Admin_components/A_StudentsRegisterRequests";
 
 import { T_Login } from "./Components/Teacher_components/T_Login";
 import { T_DashBoard } from "./Components/Teacher_components/T_DashBoard";
