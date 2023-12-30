@@ -12,5 +12,7 @@ import com.project.entity.Teacher;
 
 public interface ProblemRepository extends JpaRepository< Problem, Integer> {
 	
+
 	List<Problem> findByContest(Contest contest);
+
 }

@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.dto.NewContest;
+import com.project.dto.NewProblem;
 import com.project.dto.StatusT;
 import com.project.dto.TeacherLoginStatus;
 import com.project.dto.TeacherUpdatePassword;
+import com.project.entity.Attempt;
 import com.project.entity.Contest;
 import com.project.entity.Contest.ContestTopic;
+import com.project.entity.Problem.DifficultyLevel;
+import com.project.entity.Problem;
 import com.project.entity.Teacher;
 import com.project.services.TeacherServices;
 
@@ -60,6 +64,40 @@ public class TeacherController {
 	public List<Contest> getContestsList(@RequestParam int teacherId) {
 
 		return teacherServices.getContestList(teacherId);
+		
+	}
+	
+	@PostMapping("/teacher/create-problem")
+	public ResponseEntity<StatusT> createProblem(@RequestBody NewProblem newProblem) {
+		
+		Problem problem = new Problem();
+		problem.setTitle(newProblem.getTitle());
+		problem.setProblemStatement(newProblem.getProblemStatement());
+		problem.setExplanation(newProblem.getExplanation());
+		problem.setDifficultyLevel(DifficultyLevel.valueOf(newProblem.getDifficultyLevel()));
+		problem.setMarks(newProblem.getMarks());
+		problem.setSampleInput(newProblem.getSampleInput());
+		problem.setSampleOutput(newProblem.getSampleOutput());
+		problem.setTestCase(newProblem.getTestCase());
+		problem.setResulTestCase(newProblem.getResulTestCase());
+		problem.setSolutionCode(newProblem.getSolutionCode());
+		
+		StatusT status = teacherServices.createProblem(problem, newProblem.getContestId());
+		return new ResponseEntity<StatusT> (status, HttpStatus.ACCEPTED);
+		
+	}
+	
+	@GetMapping("/teacher/get-problem-list")
+	public List<Problem> getProblemList(@RequestParam int contestId) {
+
+		return teacherServices.getProblemsList(contestId);
+		
+	}
+	
+	@GetMapping("/teacher/get-attempts-list")
+	public List<Attempt> getAttemptsList(@RequestParam int contestId) {
+
+		return teacherServices.getAttemptsList(contestId);
 		
 	}
 
