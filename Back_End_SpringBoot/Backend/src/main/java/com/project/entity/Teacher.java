@@ -32,7 +32,7 @@ public class Teacher {
 	private LocalDateTime createdAt;
 	
 	public static enum teacherStatus{
-		ACTIVE, INACTIVE
+		ACTIVE  , INACTIVE
 	}
 	@Enumerated(EnumType.STRING)
 	private teacherStatus status;

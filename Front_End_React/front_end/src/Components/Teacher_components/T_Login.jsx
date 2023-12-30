@@ -4,9 +4,8 @@ import { Button, Container, Form, Row, Col } from "react-bootstrap";
 
 export function T_Login(props) {
   const [formData, setFormData] = useState({
-    teacherId: "",
-    teacherPassword: "",
-    // newPassword: "",
+    email: "",
+    password: ""
   });
   //   const [updatePasswordMode, setUpdatePasswordMode] = useState(false);
   //   const [newPassword, setNewPassword] = useState("");
@@ -96,7 +95,7 @@ export function T_Login(props) {
               <Form.Label>User Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter User Name"
+                placeholder="Enter Email..."
                 name="teacherId"
                 value={formData.teacherId}
                 onChange={handleChange}
