@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.project.dto.StatusT;
 import com.project.dto.TeacherLoginStatus;
 import com.project.dto.TeacherUpdatePassword;
+import com.project.entity.Attempt;
 import com.project.entity.Contest;
+import com.project.entity.Problem;
 import com.project.entity.Teacher;
+import com.project.repository.AttemptRepository;
 import com.project.repository.ContestRepository;
+import com.project.repository.ProblemRepository;
 import com.project.repository.TeacherRepository;
 
 @Service
@@ -26,6 +30,12 @@ public class TeacherServices {
 	
 	@Autowired
 	private ContestRepository contestRepository;
+	
+	@Autowired
+	private ProblemRepository problemRepository;
+	
+	@Autowired
+	private AttemptRepository attemptRepository;
 	
 	//teacher Login
 	public ResponseEntity<TeacherLoginStatus> teacherLogin(Teacher teacher) {
@@ -94,15 +104,49 @@ public class TeacherServices {
 		return status;
 	}
 	
-		//create Contest
-		public List<Contest> getContestList(  int teacherId ) {
+	//list Contest
+	public List<Contest> getContestList(  int teacherId ) {
+		
+		System.out.println("Teacher Id called "+teacherId);
+		Optional<Teacher> foundTeacher = teacherRepository.findById(teacherId);
+		
+		return contestRepository.findAllByTeacher(foundTeacher.get());
+		
+	}
+	
+	//create Problem
+	public StatusT createProblem( Problem problem,  int contestId ) {
+		
+		Optional<Contest> foundContest =  contestRepository.findById(contestId);
+		problem.setContest(foundContest.get());
+		problemRepository.save(problem);
+		StatusT status = new StatusT();
+		status.setMessage("Problem Created!");
+		status.setStatus(true);
+		
+		return status;
+	}
+	
+	//list Contest
+	public List<Problem> getProblemsList(  int ContestId ) {
+		
+		Optional<Contest> contest = contestRepository.findById(ContestId);
+		
+		return problemRepository.findAllByContest( contest.get() );
+		
+	}
+		
+	//list Attempt
+	public List<Attempt> getAttemptsList(  int ContestId ) {
+		
+		Optional<Contest> contest = contestRepository.findById(ContestId);
+		
+		return attemptRepository.findAllByContest( contest.get() );
+		
+	}
 			
-			System.out.println("Teacher Id called "+teacherId);
-			Optional<Teacher> foundTeacher = teacherRepository.findById(teacherId);
-			
-			return contestRepository.findAllByTeacher(foundTeacher.get());
-			
-		}
+		
+		
 	
 	
 
