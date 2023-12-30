@@ -141,21 +141,20 @@ export function S_DashBoard(props) {
       <div>
       <THeader text="Student DashBoard Page "></THeader>
       </div>
-    <div className="d-flex justify-content-end align-items-center pe-5">
-        <DropdownButton
-          title={`Search by ${selectedCategory}`}
-          onSelect={(eventKey) => setSelectedCategory(eventKey)}
-        >
-          <Dropdown.Item eventKey="All">All</Dropdown.Item>
-          <Dropdown.Item eventKey="DSA">DSA</Dropdown.Item>
-          <Dropdown.Item eventKey="OOPs">OOPs</Dropdown.Item>
-          <Dropdown.Item eventKey="String">String</Dropdown.Item>
-          <Dropdown.Item eventKey="ExceptionHandling">ExceptionHandling</Dropdown.Item>
-        </DropdownButton>
     
-    </div>
     <div>
         <Container>
+            <div className="d-flex justify-content-end align-items-center pe-5">
+              <DropdownButton
+                title={`Search by ${selectedCategory}`}
+                onSelect={(eventKey) => setSelectedCategory(eventKey)}>
+                <Dropdown.Item eventKey="All">All</Dropdown.Item>
+                <Dropdown.Item eventKey="DSA">DSA</Dropdown.Item>
+                <Dropdown.Item eventKey="OOPs">OOPs</Dropdown.Item>
+                <Dropdown.Item eventKey="String">String</Dropdown.Item>
+                <Dropdown.Item eventKey="ExceptionHandling">ExceptionHandling</Dropdown.Item>
+              </DropdownButton>
+          </div>
           <Row xs={1} md={3} className="g-4">
             {filteredContests.map((element) => (
               <Col key={element.contest_id}>
