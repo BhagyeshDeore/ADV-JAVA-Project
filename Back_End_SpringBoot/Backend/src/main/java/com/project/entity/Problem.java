@@ -59,7 +59,7 @@ public class Problem {
 	
 	//@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="contestId")
+	@JoinColumn(name="contest_id")
 	private Contest contest;
 	
 	@OneToMany(mappedBy = "problem")

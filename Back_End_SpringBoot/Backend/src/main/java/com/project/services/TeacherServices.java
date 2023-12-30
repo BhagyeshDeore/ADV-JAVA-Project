@@ -23,7 +23,7 @@ public class TeacherServices {
 		Optional<Teacher> foundTeacher = teacherRepository.findByEmailAndPassword(teacher.getEmail(), teacher.getPassword());
 		TeacherLoginStatus status = new TeacherLoginStatus();
 		
-		if(foundTeacher.isEmpty()) {
+		if(!(foundTeacher.isPresent())) {
 			//not found
 			status.setStatus(false);
 			status.setMessage("Wrong Email Or Password!");

@@ -1,5 +1,36 @@
 package com.project.controller;
 
-public class StudentController2 {
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.project.dto.StudentLoginStatus;
+import com.project.entity.Problem;
+import com.project.entity.Student;
+import com.project.services.StudentServices;
+
+@RestController
+@CrossOrigin
+public class StudentController2 {
+	
+	@Autowired
+	private StudentServices studentServices;
+	
+	@PostMapping("/student/login")
+	public ResponseEntity<StudentLoginStatus> studentLogin(@RequestBody Student student){
+		
+		ResponseEntity<StudentLoginStatus> status = studentServices.studentLogin(student);
+		return status;
+		
+	}
+	
+	
 }
+

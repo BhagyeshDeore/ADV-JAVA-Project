@@ -26,5 +26,5 @@ public class TeacherController {
 		return status;
 		
 	}
-
+	
 }
