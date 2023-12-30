@@ -1,49 +1,105 @@
 // A_StudentsRegisterRequests.jsx
 
 import React from 'react';
-import { Table, Form } from 'react-bootstrap';
+import { Table, Form, Button } from 'react-bootstrap';
 import { THeader } from '../Teacher_components/THeader';
 
 const data = [
-  // Your JSON data here
+ 
   {
-    "PRN" : 230940520069,
-    "NAME" : "Vaishnavi Gawraskar",
-    "Email" : "vaishnavi@gmail.com",
-    "email-verification-status" : "true",
-    "status" : "accept" 
+    "studentId" :  1,
+    "pnr" : 230940520069,
+    "name" : "bdbdubduxobx",
+    "email" :  "bdhvhv@gmail.com",
+    "emailverificationStatus" : "true",
+     "mobileNumber" : "7894561230",
+    "department" : "CDAC",
+    "password" :  "varchar",
+    "status" : "new_account"
 
   },
   {
-    "PRN" : 230940520068,
-    "NAME" : "Ankita Pareek",
-    "Email" : "ankita@gmail.com",
-    "email-verification-status" : "false",
-    "status" : "reject" 
+    "studentId" :  2,
+    "pnr" : 230940520069,
+    "name" : "bdbdubduxobx",
+    "email" :  "bdhvhv@gmail.com",
+    "emailverificationStatus" : "true",
+     "mobileNumber" : "7894561230",
+    "department" : "CDAC",
+    "password" :  "varchar",
+    "status" : "new_account"
 
   },
   {
-    "PRN" : 230940520067,
-    "NAME" : "Bhagyesh Deore",
-    "Email" : "bhagyesh@gmail.com",
-    "email-verification-status" : "true",
-    "status" : "accept" 
+    "studentId" :  3,
+    "pnr" : 230940520069,
+    "name" : "bdbdubduxobx",
+    "email" :  "bdhvhv@gmail.com",
+    "emailverificationStatus" : "true",
+     "mobileNumber" : "7894561230",
+    "department" : "CDAC",
+    "password" :  "varchar",
+    "status" : "new_account"
 
   },
   {
-    "PRN" : 230940520066,
-    "NAME" : "Viraj Tandel",
-    "Email" : "viraj@gmail.com",
-    "email-verification-status" : "false",
-    "status" : "reject" 
+    "studentId" :  4,
+    "pnr" : 230940520069,
+    "name" : "bdbdubduxobx",
+    "email" :  "bdhvhv@gmail.com",
+    "emailverificationStatus" : "true",
+     "mobileNumber" : "7894561230",
+    "department" : "CDAC",
+    "password" :  "varchar",
+    "status" : "new_account"
 
   },
   {
-    "PRN" : 230940520065,
-    "NAME" : "Rushikesh Jagdale",
-    "Email" : "rushikeshjagdale10@gmail.com",
-    "email-verification-status" : "true",
-    "status" : "accept" 
+    "studentId" :  5,
+    "pnr" : 230940520069,
+    "name" : "bdbdubduxobx",
+    "email" :  "bdhvhv@gmail.com",
+    "emailverificationStatus" : "true",
+     "mobileNumber" : "7894561230",
+    "department" : "CDAC",
+    "password" :  "varchar",
+    "status" : "new_account"
+
+  },
+  {
+    "studentId" :  6,
+    "pnr" : 230940520069,
+    "name" : "bdbdubduxobx",
+    "email" :  "bdhvhv@gmail.com",
+    "emailverificationStatus" : "true",
+     "mobileNumber" : "7894561230",
+    "department" : "CDAC",
+    "password" :  "varchar",
+    "status" : "new_account"
+
+  },
+  {
+    "studentId" :  7,
+    "pnr" : 230940520069,
+    "name" : "bdbdubduxobx",
+    "email" :  "bdhvhv@gmail.com",
+    "emailverificationStatus" : "true",
+     "mobileNumber" : "7894561230",
+    "department" : "CDAC",
+    "password" :  "varchar",
+    "status" : "new_account"
+
+  },
+  {
+    "studentId" :  8,
+    "pnr" : 230940520069,
+    "name" : "bdbdubduxobx",
+    "email" :  "bdhvhv@gmail.com",
+    "emailverificationStatus" : "true",
+     "mobileNumber" : "7894561230",
+    "department" : "CDAC",
+    "password" :  "varchar",
+    "status" : "new_account"
 
   }
 ];
@@ -54,12 +110,12 @@ const A_StudentsRegisterRequests = () => {
         <div style={{ textAlign:"center" }}>
             <THeader text="Admin Accept/Reject Student Registration List  " ></THeader>
         </div>
-        <div style={{  margin: '100px auto', maxWidth:"1200px" }}>
+        <div style={{  margin: '50px auto', maxWidth:"1300px" }}>
         <Table striped bordered hover responsive>
             <thead>
             <tr>
                 {Object.keys(data[0])
-                .filter((key) => key !== 'status') // Exclude the 'status' column
+                //.filter((key) => key !== 'status') // Exclude the 'status' column
                 .map((key) => (
                     <th key={key}>{key}</th>
                 ))}
@@ -70,26 +126,16 @@ const A_StudentsRegisterRequests = () => {
             {data.map((row) => (
                 <tr key={row.PRN}>
                 {Object.keys(row)
-                    .filter((key) => key !== 'status') // Exclude the 'status' column
+                    //.filter((key) => key !== 'status') // Exclude the 'status' column
                     .map((key) => (
                     <td key={key}>{row[key]}</td>
                     ))}
-                <td>
-                    <Form.Check
-                    inline
-                    type="radio"
-                    label="Accept"
-                    name={`action-${row.PRN}`}
-                    id={`accept-${row.PRN}`}
-                    />
-                    <Form.Check
-                    inline
-                    type="radio"
-                    label="Reject"
-                    name={`action-${row.PRN}`}
-                    id={`reject-${row.PRN}`}
-                    />
-                </td>
+                    <td>
+                        
+                        <Button variant="success">Accept</Button> &nbsp;
+                        <Button variant="danger">Deny</Button>
+                        
+                    </td>
                 </tr>
             ))}
             </tbody>
