@@ -10,4 +10,8 @@ import com.project.entity.Teacher;
 public interface ContestRepository extends JpaRepository<Contest, Integer> {
 
 	public List<Contest> findAllByTeacher(Teacher teacher);
+
+	
+
+	
 }

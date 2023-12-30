@@ -1,5 +1,6 @@
 package com.project.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.dto.StudentLoginStatus;
-
+import com.project.entity.Contest;
 import com.project.entity.Student;
+import com.project.entity.Teacher;
+import com.project.repository.ContestRepository;
 import com.project.repository.StudentRepository;
 
 @Service
@@ -18,7 +21,8 @@ public class StudentServices {
 	@Autowired
 	private StudentRepository studentRepository;
 	
-	
+	@Autowired
+	private ContestRepository contestRepository;
 	
 	public ResponseEntity<StudentLoginStatus> studentLogin(Student student){
 		
@@ -41,5 +45,13 @@ public class StudentServices {
 		}
 		
 	}
+	
+	public List<Contest> getContest( ) {
+		
+		return contestRepository.findAll();
+		
+	}
+
+
 
 }
