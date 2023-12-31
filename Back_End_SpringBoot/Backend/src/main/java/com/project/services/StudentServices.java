@@ -12,6 +12,7 @@ import com.project.dto.StudentLoginStatus;
 import com.project.entity.Contest;
 
 import com.project.entity.Student;
+import com.project.entity.Student.StudentStatus;
 import com.project.entity.Teacher;
 import com.project.repository.ContestRepository;
 
@@ -87,10 +88,13 @@ public class StudentServices {
 	
 	
 	public int studentRegister(Student student) throws Exception {
-		Long count = studentRepository.findIfStudentExists(student.getEmail());
-		if(count == 1)
-			throw new Exception("Customer already registered!");
+		Optional<Student> ifAlreadyPresent = studentRepository.findByPnr(student.getPnr());
+		if(ifAlreadyPresent.isPresent())
+			throw new Exception("Student already registered!");
 		else {
+			student.setEmailverificationStatus(false);
+			String email = student.getEmail();
+			student.setStatus(StudentStatus.newAccount);
 			studentRepository.save(student);
 			return student.getStudentId();
 		}

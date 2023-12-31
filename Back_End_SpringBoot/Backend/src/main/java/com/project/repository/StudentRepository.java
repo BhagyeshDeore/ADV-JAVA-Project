@@ -13,4 +13,6 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	
 	@Query("select count(s) from Student s where s.email = ?1")
 	public Long findIfStudentExists(String email);
+	
+	public Optional<Student> findByPnr(String pnr);
 }
