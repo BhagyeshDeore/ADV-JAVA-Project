@@ -2,28 +2,29 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { SHeader } from "./SHeader";
 import { CodeEditor } from "./CodeEditor";
 import { AHeader } from "../Admin_components/AHeader";
-import { useState , useEffect} from "react";
 import { useParams } from "react-router-dom";
-
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { getattemptProblem } from "../../Services/Student_services/Student_APIs";
 
 export function S_AttemptProblem(props){
+
     const params = useParams();
-   const [attemptP,setAttemptP]=useState({});
+    const [attemptProblem, setattemptProblem] = useState([]);
 
-   const getProblemFromApi = async () => {
-    try {
-      const response = await axios.get(`http://localhost:9090/student-attemptProblem/${params.problemId}`);
-      setAttemptP(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+    const getFromApi = async () => {
+        try {
+          const result = await getattemptProblem(params.problem_id);
+          console.log(result.data);
+          setattemptProblem(result.data);
+        } catch (error) {
+          setattemptProblem([]);
+          console.log("from api", error.data);
+        }
+      };
 
-  useEffect(() => {
-    getProblemFromApi();
-  }, [params.problem_id]);
-
+      useEffect(() => {
+        getFromApi();
+      }, []);
 
     return(
         <>
@@ -32,23 +33,23 @@ export function S_AttemptProblem(props){
                 <Row>
                     <Col>
                         <div>
-                            <AHeader text={attemptP.title}></AHeader>
+                            <AHeader text={attemptProblem.title}></AHeader>
                             <hr></hr>
-                            <h6>Difficulty : {attemptP.difficultyLevel}</h6>
+                            <h6>Difficulty: {attemptProblem.difficultyLevel}</h6>
                             <h5>Problem:</h5>
-                            <p>{attemptP.problemStatement}</p>
+                            <p>{attemptProblem.problemStatement}</p>
 
                             <h5>Explanation:</h5>
-                            <p>{attemptP.explanation}</p>
+                            <p>{attemptProblem.explanation}</p>
 
                             <h6>Input Format</h6>
                             <p>
-                            {attemptP.sampleInput}
+                            {attemptProblem.sampleInput}
                             </p>
 
                             <h6>Output Format</h6>
                             <p>
-                            {attemptP.sampleOutput}
+                                {attemptProblem.sampleOutput}
                             </p>
 
                             <Button variant="primary">Submit</Button>
