@@ -1,13 +1,15 @@
 package com.project.services;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.project.dto.TeacherDto;
 import com.project.dto.StatusA;
+import com.project.dto.StatusTU;
 import com.project.entity.Teacher;
+import com.project.entity.Teacher.teacherStatus;
 import com.project.repository.TeacherRepository;
 
 @Service
@@ -51,8 +53,21 @@ public class AdminServices {
 		return status;
 	}
 
+	
 		
-		
+//Update Teacher Status
+	
+	 public StatusTU updateTeacherStatus(TeacherDto teacherDto) {
+	        Optional<Teacher> foundteacher = teacherRepository.findById( teacherDto.getTeacherId() );
+	        StatusTU statusTU =new StatusTU ()  ; 
+	        Teacher teacher  = foundteacher.get();
+	        teacher.setStatus( teacherStatus.valueOf( teacherDto.getStatus() ));
+	        statusTU.setMessage("Teacher Status Updated Successfully!");
+	        teacherRepository.save(teacher);
+	        statusTU.setStatus(true);
+	        return statusTU;
+	       
+	    }
 	
 
 }

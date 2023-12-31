@@ -110,8 +110,7 @@ public class Teacher {
 	public void setContests(List<Contest> contests) {
 		this.contests = contests;
 	}
-	
-	
+
 	
 	
 	

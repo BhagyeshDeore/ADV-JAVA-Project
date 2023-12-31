@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.dto.NewContest;
 import com.project.dto.StatusT;
+import com.project.dto.StatusTU;
+import com.project.dto.TeacherDto;
 import com.project.entity.Contest;
 import com.project.entity.Teacher;
 import com.project.entity.Contest.ContestTopic;
@@ -54,15 +56,16 @@ public ResponseEntity<StatusA> registerTeacher(@RequestBody NewTeacher newTeache
 		
 	}
 	
-//	 @PostMapping("")
-//	    public ResponseEntity<String> updateTeacherStatus(@RequestBody UpdateStatusRequest request) {
-//	        Long teacherId = request.getTeacherId();
-//	        String status = request.getStatus();
-//
-//	        String responseMessage = teacherService.updateTeacherStatus(teacherId, status);
-//
-//	        return ResponseEntity.ok().body(responseMessage);
-//	    }
-//	}
+	 @PostMapping("/admin/updateActiveStatusOfTeacher")
+	    public ResponseEntity<StatusTU> updateTeacherStatus(@RequestBody TeacherDto teacherDto) {
+            int teacherId = teacherDto.getTeacherId();
+	        String status = teacherDto.getStatus();
+
+	         StatusTU statusTU = adminServices.updateTeacherStatus(teacherDto);
+			return new ResponseEntity<StatusTU>(statusTU,HttpStatus.CREATED);
+
+      
+	    }
+	}
 	
-}
+
