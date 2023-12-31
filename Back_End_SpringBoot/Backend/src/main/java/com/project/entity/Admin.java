@@ -1,5 +1,7 @@
 package com.project.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +19,7 @@ public class Admin {
 	private String email;
 	private String password;
 	private String name;
+	
 	
 	
 	
