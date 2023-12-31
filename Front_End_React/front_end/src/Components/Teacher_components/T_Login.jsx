@@ -1,6 +1,8 @@
 import { THeader } from "./THeader";
 import React, { useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
+import axios  from "axios";
+import { loginTeacher } from "../../Services/Teacher_services/Teacher_APIs";
 
 export function T_Login(props) {
   const [formData, setFormData] = useState({
@@ -24,6 +26,8 @@ export function T_Login(props) {
       ...prevErrors,
       [name]: undefined,
     }));
+
+    console.log( formData );
   };
 
   //   const handleUpdatePasswordClick = (e) => {
@@ -51,7 +55,8 @@ export function T_Login(props) {
     //if no error stimulate a successful login
     if (Object.keys(validationError).length === 0) {
       //Action after successful login
-      alert("You have successfully loged in!");
+      //alert("You have successfully loged in!");
+      
     }
   };
 
@@ -96,7 +101,7 @@ export function T_Login(props) {
               <Form.Control
                 type="text"
                 placeholder="Enter Email..."
-                name="teacherId"
+                name="email"
                 value={formData.teacherId}
                 onChange={handleChange}
                 isInvalid={!!errors.teacherId}
@@ -114,7 +119,7 @@ export function T_Login(props) {
               <Form.Control
                 type="password"
                 placeholder="Enter Password"
-                name="teacherPassword"
+                name="password"
                 value={formData.teacherPassword}
                 onChange={handleChange}
                 isInvalid={!!errors.teacherPassword}

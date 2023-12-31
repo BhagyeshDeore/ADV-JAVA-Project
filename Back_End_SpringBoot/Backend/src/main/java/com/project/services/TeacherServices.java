@@ -56,7 +56,7 @@ public class TeacherServices {
 			//not found
 			status.setStatus(false);
 			status.setMessage("Wrong Email Or Password!");
-			return new ResponseEntity<TeacherLoginStatus>(status, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<TeacherLoginStatus>(status, HttpStatus.NOT_ACCEPTABLE);
 			
 		}
 		
