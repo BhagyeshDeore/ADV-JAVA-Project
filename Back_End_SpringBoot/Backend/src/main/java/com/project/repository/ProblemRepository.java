@@ -15,4 +15,6 @@ public interface ProblemRepository extends JpaRepository< Problem, Integer> {
 
 	List<Problem> findByContest(Contest contest);
 
+	List<Problem> findAllByContest(Contest contest);
+
 }

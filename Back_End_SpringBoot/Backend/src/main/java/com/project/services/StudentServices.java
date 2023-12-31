@@ -83,5 +83,18 @@ public class StudentServices {
 		return contestRepository.findAll();
 
 	}
+	
+	
+	
+	public int studentRegister(Student student) throws Exception {
+		Long count = studentRepository.findIfStudentExists(student.getEmail());
+		if(count == 1)
+			throw new Exception("Customer already registered!");
+		else {
+			studentRepository.save(student);
+			return student.getStudentId();
+		}
+	}
+	
 
 }
