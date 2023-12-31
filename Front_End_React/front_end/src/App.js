@@ -43,8 +43,8 @@ function App() {
         <Route path="/teacher-login" element={<T_Login />}></Route>
         <Route path="/teacher-dashboard" element={<T_DashBoard />}></Route>
         <Route path="/teacher-update-password"  element={<T_UpdatePassword />}  ></Route>
-        <Route path="/teacher-create-contest"  element={<T_CreateContest />}  ></Route>
-        <Route path="/teacher-see-attempts" element={<T_SeeAttempts />}></Route>
+        <Route path="/teacher-create-contest/:contest_id"  element={<T_CreateContest />}  ></Route>
+        <Route path="/teacher-see-attempts/:contest_id" element={<T_SeeAttempts />}></Route>
       </Routes>
     </BrowserRouter>
   );
