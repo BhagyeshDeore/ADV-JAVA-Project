@@ -24,8 +24,8 @@ export function S_Login(props) {
       ...prevErrors,
       [name]: undefined,
     }));
-
-    console.log( formData );  
+  
+    console.log(formData);
   };
 
   const  handleSubmit = async (e) => {
@@ -58,7 +58,7 @@ export function S_Login(props) {
                localStorage.setItem('studentId' , result.data.studentId);
                navigate("/student-dashboard");
           }catch(error){
-             alert("wrong email or password");
+             alert("Wrong Student Email or Password");
              console.log("from Login api",error.data)
           }
       
@@ -103,12 +103,12 @@ export function S_Login(props) {
                 type="text"
                 placeholder="Enter Email..."
                 name="email"
-                value={formData.studentId}
+                value={formData.email}
                 onChange={handleChange}
-                isInvalid={!!errors.studentId}
+                isInvalid={!!errors.email}
               />
               <Form.Control.Feedback type="invalid" style={{ color: "maroon" }}>
-                {errors.studentId}
+                {errors.email}
               </Form.Control.Feedback>
             </Col>
           </Row>
@@ -121,12 +121,12 @@ export function S_Login(props) {
                 type="password"
                 placeholder="Enter Password"
                 name="password"
-                value={formData.studentPassword}
+                value={formData.password}
                 onChange={handleChange}
-                isInvalid={!!errors.studentPassword}
+                isInvalid={!!errors.password}
               />
               <Form.Control.Feedback type="invalid" style={{ color: "maroon" }}>
-                {errors.studentPassword}
+                {errors.password}
               </Form.Control.Feedback>
             </Col>
           </Row>
