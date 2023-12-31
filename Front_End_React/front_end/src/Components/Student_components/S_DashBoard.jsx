@@ -1,140 +1,36 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { THeader } from "../Teacher_components/THeader";
 import { S_Contest_card } from "./S_Contest_card";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { Card, DropdownButton, Dropdown } from 'react-bootstrap';
+import { getStudentContest } from "../../Services/Student_services/Student_APIs";
 
 export function S_DashBoard(props) {
-  const [contestList, setContestList] = useState([
-    {
-      "contest_id": 1,
-      "Student_id": 1,
-      "title": "Contest1",
-      "topic": "DSA",
-      "category": "DSA",
-      "description": "Desription of contest",
-      "start_time": "2023-10-31 15:30:45",
-      "end_time": "2023-12-31 15:30:45",
-    },
-    {
-      "contest_id": 2,
-      "Student_id": 1,
-      "title": "Contest2",
-      "topic": "String",
-      "category": "String",
-      "description": "Desription of contest",
-      "start_time": "2023-10-31 15:30:45",
-      "end_time": "2023-12-31 15:30:45",
-    }, 
-    {
-      "contest_id": 3,
-      "Student_id": 1,
-      "title": "Contest3",
-      "topic": "OOPs",
-      "category": "OOPs",
-      "description": "Desription of contest",
-      "start_time": "2023-10-31 15:30:45",
-      "end_time": "2023-12-31 15:30:45",
-    }, 
-    {
-      "contest_id": 4,
-      "Student_id": 1,
-      "title": "Contest1",
-      "topic": "String",
-      "category": "String",
-      "description": "Desription of contest",
-      "start_time": "2023-10-31 15:30:45",
-      "end_time": "2023-12-31 15:30:45",
-    }, 
-    {
-      "contest_id": 5,
-      "Student_id": 1,
-      "title": "Contest1",
-      "topic": "String",
-      "category": "String",
-      "description": "Desription of contest",
-      "start_time": "2023-10-31 15:30:45",
-      "end_time": "2023-12-31 15:30:45",
-    },
-    {
-      "contest_id": 6,
-      "Student_id": 1,
-      "title": "Contest1",
-      "topic": "ExceptionHandling",
-      "category": "ExceptionHandling",
-      "description": "Desription of contest",
-      "start_time": "2023-10-31 15:30:45",
-      "end_time": "2023-12-31 15:30:45",
-    },
-    
-    {
-      "contest_id": 7,
-      "Student_id": 1,
-      "title": "Contest1",
-      "topic": "ExceptionHandling",
-      "category": "ExceptionHandling",
-      "description": "Desription of contest",
-      "start_time": "2023-10-31 15:30:45",
-      "end_time": "2023-12-31 15:30:45",
-    },
-    {
-      "contest_id": 8,
-      "Student_id": 1,
-      "title": "Contest1",
-      "topic": "OOPs",
-      "category": "OOPs",
-      "description": "Desription of contest",
-      "start_time": "2023-10-31 15:30:45",
-      "end_time": "2023-12-31 15:30:45",
-    },
-    {
-      "contest_id": 9,
-      "Student_id": 1,
-      "title": "Contest1",
-      "topic": "ExceptionHandling",
-      "category": "ExceptionHandling",
-      "description": "Desription of contest",
-      "start_time": "2023-10-31 15:30:45",
-      "end_time": "2023-12-31 15:30:45",
-    },
-    {
-      "contest_id": 10,
-      "Student_id": 1,
-      "title": "Contest1",
-      "topic": "ExceptionHandling",
-      "category": "ExceptionHandling",
-      "description": "Desription of contest",
-      "start_time": "2023-10-31 15:30:45",
-      "end_time": "2023-12-31 15:30:45",
-    },
-    {
-      "contest_id": 11,
-      "Student_id": 1,
-      "title": "Contest1",
-      "topic": "DSA",
-      "category": "DSA",
-      "description": "Desription of contest",
-      "start_time": "2023-10-31 15:30:45",
-      "end_time": "2023-12-31 15:30:45",
-    },
-    {
-      "contest_id": 12,
-      "Student_id": 1,
-      "title": "Contest1",
-      "topic": "DSA",
-      "category": "DSA",
-      "description": "Desription of contest",
-      "start_time": "2023-10-31 15:30:45",
-      "end_time": "2023-12-31 15:30:45",
-    },
-  ]);
+  const [contestList, setContestList] = useState([]);
 
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedTopic, setSelectedTopic] = useState('All');
+
+  const getContestFromApi = async ()=>{
+    try{
+         const result = await getStudentContest();
+         console.log(result.data);
+         setContestList(result.data);
+         
+    }catch(error){
+      
+       console.log("from api",error.data)
+    }
+ }
+
+useEffect(()=>{
+    getContestFromApi();
+},[]);
 
   // Filter contests based on the selected category
-  const filteredContests = selectedCategory === 'All'
+  const filteredContests = selectedTopic === 'All'
     ? contestList
-    : contestList.filter(contest => contest.category === selectedCategory);
+    : contestList.filter(contest => contest.topic === selectedTopic);
+
 
   return (
     <div>
@@ -146,8 +42,8 @@ export function S_DashBoard(props) {
         <Container>
             <div className="d-flex justify-content-end align-items-center pe-5">
               <DropdownButton
-                title={`Search by ${selectedCategory}`}
-                onSelect={(eventKey) => setSelectedCategory(eventKey)}>
+                title={`Search by ${selectedTopic}`}
+                onSelect={(eventKey) => setSelectedTopic(eventKey)}>
                 <Dropdown.Item eventKey="All">All</Dropdown.Item>
                 <Dropdown.Item eventKey="DSA">DSA</Dropdown.Item>
                 <Dropdown.Item eventKey="OOPs">OOPs</Dropdown.Item>
@@ -157,15 +53,14 @@ export function S_DashBoard(props) {
           </div>
           <Row xs={1} md={3} className="g-4">
             {filteredContests.map((element) => (
-              <Col key={element.contest_id}>
+              <Col key={element.contestId}>
                 <S_Contest_card
                   title={element.title}
                   description={element.description}
                   topic={element.topic}
-                  ID={element.contest_id}
-                  category={element.category}
-                  start_time={element.start_time}
-                  end_time={element.end_time}
+                  ID={element.contestId}
+                  start_time={element.satrtTime}
+                  end_time={element.endTime}
                 />
               </Col>
             ))}

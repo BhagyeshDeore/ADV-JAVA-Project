@@ -28,3 +28,30 @@ export async function getContest(teacherId){
     }
 
 }
+
+export async function getProblems(contestId){
+    try{
+
+        const response = await axios.get(`http://localhost:9090/teacher/get-problem-list?contestId=${contestId}`);
+        return response;
+
+    }catch(error){
+        console.log(error)
+        return error;
+    }
+
+}
+
+
+export async function createContest(data){
+    try{
+
+        const response = await axios.post('http://localhost:9090/teacher/create-contest',data);
+        return response;
+
+    }catch(error){
+        console.log(error)
+        return error;
+    }
+
+}

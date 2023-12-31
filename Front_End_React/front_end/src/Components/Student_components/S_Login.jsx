@@ -1,11 +1,15 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
+import { loginStudent } from "../../Services/Student_services/Student_APIs";
+import { useNavigate } from "react-router-dom";
 
 export function S_Login(props) {
   const [formData, setFormData] = useState({
-    studentId: "",
-    studentPassword: "",
+    email: "",
+    password: "",
   });
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState({});
 
@@ -20,9 +24,11 @@ export function S_Login(props) {
       ...prevErrors,
       [name]: undefined,
     }));
+  
+    console.log(formData);
   };
 
-  const handleSubmit = (e) => {
+  const  handleSubmit = async (e) => {
     e.preventDefault();
 
         // Validate form fields
@@ -40,10 +46,25 @@ export function S_Login(props) {
 
         // If no errors, proceed with login or perform necessary actions
         if (Object.keys(validationErrors).length === 0) {
-        // Add your login logic here
-        alert("Login successful!");
+          
+          postOnAPI();
         }
-  };
+      } 
+
+        const postOnAPI = async ()=>{
+          try{
+               const result = await loginStudent(formData);
+               console.log("from login api ",result.data , result.data.studentId);
+               localStorage.setItem('studentId' , result.data.studentId);
+               navigate("/student-dashboard");
+          }catch(error){
+             alert("Wrong Student Email or Password");
+             console.log("from Login api",error.data)
+          }
+      
+      }
+    
+    
 
   return (
     <Container style={{ textAlign: "center", marginTop: "40px" }}>
@@ -80,14 +101,14 @@ export function S_Login(props) {
               <Form.Label>Student ID</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Student ID"
-                name="studentId"
-                value={formData.studentId}
+                placeholder="Enter Email..."
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
-                isInvalid={!!errors.studentId}
+                isInvalid={!!errors.email}
               />
               <Form.Control.Feedback type="invalid" style={{ color: "maroon" }}>
-                {errors.studentId}
+                {errors.email}
               </Form.Control.Feedback>
             </Col>
           </Row>
@@ -99,13 +120,13 @@ export function S_Login(props) {
               <Form.Control
                 type="password"
                 placeholder="Enter Password"
-                name="studentPassword"
-                value={formData.studentPassword}
+                name="password"
+                value={formData.password}
                 onChange={handleChange}
-                isInvalid={!!errors.studentPassword}
+                isInvalid={!!errors.password}
               />
               <Form.Control.Feedback type="invalid" style={{ color: "maroon" }}>
-                {errors.studentPassword}
+                {errors.password}
               </Form.Control.Feedback>
             </Col>
           </Row>
@@ -136,3 +157,4 @@ export function S_Login(props) {
     </Container>
   );
 }
+

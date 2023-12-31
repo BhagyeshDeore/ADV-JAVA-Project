@@ -2,7 +2,7 @@ import { Button, Card, Col, Container, Modal, Row, Form, DropdownButton, Dropdow
 import { THeader } from "./THeader";
 import { useEffect, useState } from "react";
 import { T_Contest_card } from "./T_Contest_card";
-import { getContest } from "../../Services/Teacher_services/Teacher_APIs";
+import { createContest, getContest } from "../../Services/Teacher_services/Teacher_APIs";
 import { getTeacherID } from "../../Utiles/Teacher_utiles/Teacher_Token_util";
 
 
@@ -11,8 +11,39 @@ export function T_DashBoard(props){
     const [show, setShow] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('DSA');
 
+    const [formData, setFormData] = useState({
+       title : "",
+       description : "",
+       topic : selectedCategory,
+       teacherId : getTeacherID()
+      });
+
     const handleClose = () => setShow(false);
-    const handleAdd = () => setShow(false);
+    const handleAdd = async () => {
+        if(formData.title == ""){
+            alert("enter Title");
+            return ;
+        }
+        if(formData.description == ""){
+            alert("enter Description");
+            return ;
+        }
+        setFormData((prevData) => ({
+            ...prevData,
+            ["topic"]: selectedCategory,
+            }));
+        console.log(formData)
+        await postOnAPI();
+        getFromApi();
+
+        setFormData({
+            title : "",
+            description : "",
+            topic : selectedCategory,
+            teacherId : getTeacherID()
+           });
+        setShow(false);   
+    };
     const handleShow = () => setShow(true);
 
     //dummy data as of now
@@ -30,9 +61,38 @@ export function T_DashBoard(props){
         }
      }
 
+     const postOnAPI = async ()=>{
+        try{
+             const result = await createContest(formData);
+             console.log("from create contest api ",result.data);
+        }catch(error){
+          
+           console.log("from Login api",error)
+        }
+     }
+
     useEffect(()=>{
         getFromApi();
     },[]);
+
+
+    const [errors, setErrors] = useState({});
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+        }));
+        //updates the formData state with the new values and clears any validation errors for the corresponding field
+        setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: undefined,
+        }));
+
+        console.log( formData );
+    };
+
     return(
         <>
             <THeader text="Teacher DashBoard Page "></THeader>
@@ -76,7 +136,11 @@ export function T_DashBoard(props){
                             type="text"
                             placeholder="Add Title here..."
                             autoFocus
-                            required
+                            name="title"
+                            requiredname="title"
+                            value={formData.title}
+                            onChange={handleChange}
+                            isInvalid={!!errors.title}
                         />
                         </Form.Group>
                         <Form.Group
@@ -84,16 +148,23 @@ export function T_DashBoard(props){
                         controlId="exampleForm.ControlTextarea1"
                         >
                         <Form.Label>Contest Description</Form.Label>
-                        <Form.Control as="textarea" rows={3} />
+                        <Form.Control requiredname="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            name="description"
+                            isInvalid={!!errors.description}
+                            as="textarea" rows={3} />
                         </Form.Group>
+
                         <div className="d-flex justify-content-center align-items-center pe-5">
                             <DropdownButton
+                                name="topic"
                                 title={`Topic ${selectedCategory}`}
-                                onSelect={(eventKey) => setSelectedCategory(eventKey)}>
-                                <Dropdown.Item eventKey="DSA">DSA</Dropdown.Item>
-                                <Dropdown.Item eventKey="OOPs">OOPs</Dropdown.Item>
-                                <Dropdown.Item eventKey="String">String</Dropdown.Item>
-                                <Dropdown.Item eventKey="ExceptionHandling">ExceptionHandling</Dropdown.Item>
+                                onSelect={(eventKey) => setSelectedCategory(eventKey)} value={selectedCategory}>
+                                <Dropdown.Item name="topic"  eventKey="DSA" value="DSA">DSA</Dropdown.Item>
+                                <Dropdown.Item name="topic" eventKey="OOPs" value="OOPs">OOPs</Dropdown.Item>
+                                <Dropdown.Item name="topic" eventKey="String" value="String">String</Dropdown.Item>
+                                <Dropdown.Item name="topic" eventKey="ExceptionHandling" value="ExceptionHandling">ExceptionHandling</Dropdown.Item>
                             </DropdownButton>
                         </div>
                     </Form>
