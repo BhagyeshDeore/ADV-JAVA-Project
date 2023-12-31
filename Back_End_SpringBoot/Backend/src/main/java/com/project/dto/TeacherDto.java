@@ -2,6 +2,8 @@ package com.project.dto;
 
 public class TeacherDto {
 
+
+
 	 
 	    private int teacherId;
 	    private String status;
@@ -18,6 +20,8 @@ public class TeacherDto {
 		public void setStatus(String status) {
 			this.status = status;
 		}
-	    
-	    
 }
+	    
+	    
+
+
