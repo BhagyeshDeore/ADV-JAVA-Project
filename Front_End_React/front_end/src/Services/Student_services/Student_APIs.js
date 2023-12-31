@@ -48,3 +48,16 @@ export async function getProblems(contestId){
 
 } 
 
+export async function getattemptProblem(problem_id){
+    try{
+  
+        const response = await axios.get(`http://localhost:9090/problem/${problem_id}`);
+        return response;
+  
+    }catch(error){
+        console.log(error)
+        return error;
+    }
+  
+  }
+
