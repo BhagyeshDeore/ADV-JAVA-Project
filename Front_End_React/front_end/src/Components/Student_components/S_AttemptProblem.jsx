@@ -2,10 +2,28 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { SHeader } from "./SHeader";
 import { CodeEditor } from "./CodeEditor";
 import { AHeader } from "../Admin_components/AHeader";
+import { useState , useEffect} from "react";
+import { useParams } from "react-router-dom";
+import { getAttemptProblem } from "../../Services/Student_services/Student_APIs";
+import axios from "axios";
 
 export function S_AttemptProblem(props){
+    const params = useParams();
+   const [attemptP,setAttemptP]=useState({});
 
-   
+   const getProblemFromApi = async () => {
+    try {
+      const response = await axios.get(`http://localhost:9090/student-attemptProblem/${params.problemId}`);
+      setAttemptP(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    getProblemFromApi();
+  }, [params.problem_id]);
+
 
     return(
         <>
@@ -14,26 +32,23 @@ export function S_AttemptProblem(props){
                 <Row>
                     <Col>
                         <div>
-                            <AHeader text="Smallest Greatest Element"></AHeader>
+                            <AHeader text={attemptP.title}></AHeader>
                             <hr></hr>
-                            <h6>Difficulty : HARD</h6>
+                            <h6>Difficulty : {attemptP.difficultyLevel}</h6>
                             <h5>Problem:</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam molestias corporis praesentium velit similique rem alias dolor ratione, obcaecati, soluta unde enim veniam dicta et! Voluptatibus officiis perferendis et culpa?</p>
+                            <p>{attemptP.problemStatement}</p>
 
                             <h5>Explanation:</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam molestias corporis praesentium velit similique rem alias dolor ratione, obcaecati, soluta unde enim veniam dicta et! Voluptatibus officiis perferendis et culpa?</p>
+                            <p>{attemptP.explanation}</p>
 
                             <h6>Input Format</h6>
                             <p>
-                                2
-                                2
-                                3
+                            {attemptP.sampleInput}
                             </p>
 
                             <h6>Output Format</h6>
                             <p>
-                                1000
-                                2000
+                            {attemptP.sampleOutput}
                             </p>
 
                             <Button variant="primary">Submit</Button>
