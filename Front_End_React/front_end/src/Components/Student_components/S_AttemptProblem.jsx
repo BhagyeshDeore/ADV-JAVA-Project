@@ -4,7 +4,7 @@ import { CodeEditor } from "./CodeEditor";
 import { AHeader } from "../Admin_components/AHeader";
 import { useState , useEffect} from "react";
 import { useParams } from "react-router-dom";
-import { getAttemptProblem } from "../../Services/Student_services/Student_APIs";
+
 import axios from "axios";
 
 export function S_AttemptProblem(props){

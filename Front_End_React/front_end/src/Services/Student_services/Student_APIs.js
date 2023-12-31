@@ -1,5 +1,18 @@
 import axios from "axios";
 
+
+export async function registerStudent(data) {
+    try {
+      const response = await axios.post('http://localhost:9090/student/register', data);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+
+
 export async function getStudentContest(){
     try{
 
@@ -37,17 +50,5 @@ export async function getProblems(contestId){
 
 } 
 
-// export async function getAttemptProblem(problemId){
-//   try{
-
-//       const response = await axios.get(`http://localhost:9090/student-attemptProblem/${problemId}:problem_id`);
-//       return response;
-
-//   }catch(error){
-//       console.log(error)
-//       return error;
-//   }
-
-// }
 
 
