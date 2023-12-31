@@ -5,7 +5,7 @@ export function S_Contest_card(props){
 
     const navigate = useNavigate();
     function ProblemPage() {
-        navigate(`/student-seeContest?contest_id=${props.ID}`)
+        navigate(`/student-seeContest/${props.ID}`)
     }
 
     return(

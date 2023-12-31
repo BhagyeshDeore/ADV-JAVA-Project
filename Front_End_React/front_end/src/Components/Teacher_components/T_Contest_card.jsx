@@ -5,11 +5,11 @@ export function T_Contest_card(props){
 
     const navigate = useNavigate();
     function seeAttemptPage() {
-        navigate(`/teacher-see-attempts?contest_id=${props.ID}`)
+        navigate(`/teacher-see-attempts/${props.ID}`)
     }
 
     function editContest() {
-        navigate(`/teacher-create-contest?contest_id=${props.ID}`)
+        navigate(`/teacher-create-contest/${props.ID}`)
     }
 
     return(

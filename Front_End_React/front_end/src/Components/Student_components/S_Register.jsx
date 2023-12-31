@@ -36,14 +36,14 @@ export function S_Register(props) {
         const validationErrors = {};
 
         // Check for empty fields (except for OTP if form is submitted)
-        Object.keys(formData).forEach((key) => {
-        if (
-            (key !== "otp" && formData[key].trim() === "") ||
-            (key === "otp" && formSubmitted && formData[key].trim() === "")
-        ) {
-            validationErrors[key] = "This field is required";
-        }
-        });
+        // Object.keys(formData).forEach((key) => {
+        // if (
+        //     (key !== "otp" && formData[key].trim() === "") ||
+        //     (key === "otp" && formSubmitted && formData[key].trim() === "")
+        // ) {
+        //     validationErrors[key] = "This field is required";
+        // }
+        // });
 
         // Validate email format
         if (!formData.studentEmail.includes("@")) {
@@ -244,7 +244,7 @@ export function S_Register(props) {
                 </Form.Control.Feedback>
             </Col>
 
-            {/* OTP */}
+            {/* OTP
             <Col md={6}>
                 <Form.Label>Enter OTP</Form.Label>
                 <Form.Control
@@ -259,8 +259,8 @@ export function S_Register(props) {
                 <Form.Control.Feedback type="invalid" style={{ color: "maroon" }}>
                 {errors.otp}
                 </Form.Control.Feedback>
-            </Col>
-            </Row>
+            </Col> */}
+            </Row> 
 
             {/* Centered Sign Up button and text */}
           <div style={{ textAlign: "center", marginTop: "20px" }}>

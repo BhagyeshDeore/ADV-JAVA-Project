@@ -117,9 +117,9 @@ export function T_Login(props) {
                 type="text"
                 placeholder="Enter Email..."
                 name="email"
-                value={formData.teacherId}
+                value={formData.email}
                 onChange={handleChange}
-                isInvalid={!!errors.teacherId}
+                isInvalid={!!errors.email}
               />
               <Form.Control.Feedback type="invalid" style={{ color: "maroon" }}>
                 {errors.teacherId}
@@ -135,9 +135,9 @@ export function T_Login(props) {
                 type="password"
                 placeholder="Enter Password"
                 name="password"
-                value={formData.teacherPassword}
+                value={formData.password}
                 onChange={handleChange}
-                isInvalid={!!errors.teacherPassword}
+                isInvalid={!!errors.password}
               />
               <Form.Control.Feedback type="invalid" style={{ color: "maroon" }}>
                 {errors.teacherPassword}
