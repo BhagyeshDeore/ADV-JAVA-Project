@@ -8,11 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.project.dto.StatusT;
 import com.project.dto.StudentLoginStatus;
+import com.project.entity.Attempt;
 import com.project.entity.Contest;
 
 import com.project.entity.Student;
 import com.project.entity.Teacher;
+import com.project.repository.AttemptRepository;
 import com.project.repository.ContestRepository;
 
 import com.project.entity.Problem;
@@ -33,6 +36,9 @@ public class StudentServices {
 
 	@Autowired
 	private ProblemRepository problemRepository;
+	
+	@Autowired
+	private AttemptRepository attemptRepository;
 
 	public ResponseEntity<StudentLoginStatus> studentLogin(Student student) {
 
@@ -95,6 +101,26 @@ public class StudentServices {
 			return student.getStudentId();
 		}
 	}
+	
+	//create Attempt
+		public StatusT createAttempt( Attempt attempt,  int problemId , int contestIid, int StudentIid) {
+			
+			Optional<Problem> foundProblem =  problemRepository.findById(problemId);
+			attempt.setProblem(foundProblem.get());
+			
+			Optional<Contest> foundContest  = contestRepository.findById(contestIid);
+			attempt.setContest(foundContest.get());
+			
+			Optional<Student> foundStudent  = studentRepository.findById(StudentIid);
+			attempt.setStudent(foundStudent.get());
+			
+			attemptRepository.save(attempt);
+			StatusT status = new StatusT();
+			status.setMessage("Problem Attempted!");
+			status.setStatus(true);
+			
+			return status;
+		}
 	
 
 }
