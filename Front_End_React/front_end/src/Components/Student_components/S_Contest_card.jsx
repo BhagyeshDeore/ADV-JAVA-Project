@@ -14,7 +14,7 @@ export function S_Contest_card(props){
             <Card.Body>
                 <Card.Title>Title : {props.title}</Card.Title>
                 <Card.Text>
-                    <h6>Description : </h6>{props.description} 
+                    <h6>Description : {props.description} </h6>
                     <hr>
                     </hr>
                     <br/>

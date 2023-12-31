@@ -1,15 +1,27 @@
 package com.project.dto;
 
 public class TeacherDto {
-	int teacherId;
 
-	public int getTeacherId() {
-		return teacherId;
-	}
 
-	public void setTeacherId(int teacherId) {
-		this.teacherId = teacherId;
-	}
-	
-	
+
+	 
+	    private int teacherId;
+	    private String status;
+	    
+		public int getTeacherId() {
+			return teacherId;
+		}
+		public void setTeacherId(int teacherId) {
+			this.teacherId = teacherId;
+		}
+		public String getStatus() {
+			return status;
+		}
+		public void setStatus(String status) {
+			this.status = status;
+		}
 }
+	    
+	    
+
+
