@@ -3,6 +3,7 @@ package com.project.dto;
 public class StatusTU {
 	private boolean status;
 	private String message;
+	
 	public boolean isStatus() {
 		return status;
 	}
