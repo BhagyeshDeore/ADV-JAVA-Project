@@ -6,11 +6,39 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getattemptProblem } from "../../Services/Student_services/Student_APIs";
 import { SNavigationBar } from "./SNavigationBar";
+import { getStudentID } from "../../Utiles/Student_utiles/Student_Token_util";
 
 export function S_AttemptProblem(props){
 
     const params = useParams();
     const [attemptProblem, setattemptProblem] = useState([]);
+
+    const [formData, setFormData] = useState({
+        code : `import java.util.Scanner;
+    class Solution{
+        public static void main(String args[]){
+            Scanner sc = new Scanner(System.in);
+                
+            //write your code here
+        }
+    }`,
+        language: "JAVA" , 
+        obtainedMarks:10,
+        result: "",
+        status : "",
+        contestId : params.contest_id,
+        problemId : params.problem_id,
+        studentId: getStudentID()
+    })
+
+    const updateCode = (val) =>{
+        console.log(val);
+        setFormData((prevData) => ({
+            ...prevData,
+            code: val,
+            }));
+        console.log(formData)
+    }
 
     const getFromApi = async () => {
         try {
@@ -59,7 +87,9 @@ export function S_AttemptProblem(props){
                     </Col>
                     <Col>
                         <div>
-                            <CodeEditor/>
+                            <CodeEditor
+                            solutionCode={formData.code}  
+                            updateCode={updateCode}/>
                         </div>
                     </Col>
                 </Row>

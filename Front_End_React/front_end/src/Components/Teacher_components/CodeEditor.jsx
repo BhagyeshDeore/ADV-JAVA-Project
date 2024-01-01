@@ -28,7 +28,11 @@ export function CodeEditor(props) {
         automaticLayout: true,
     }; 
 
-  
+    const handleChange = (nv, e ) => {
+      setsolutionCode(nv);
+      props.updateCode(nv);
+      //console.log(nv,e);
+    }
 
     const handleFileChange = (event) => {
       if (event.target.files) {
@@ -67,6 +71,7 @@ export function CodeEditor(props) {
           options={options}
           theme='vs-dark' 
           name="solutionCode"
+          onChange={handleChange}
         />
       </div>
     );

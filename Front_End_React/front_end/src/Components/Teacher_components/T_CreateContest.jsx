@@ -23,7 +23,14 @@ export function T_CreateContest(props){
         sampleOutput: "",
         testCase: "",
         resulTestCase: "",
-        solutionCode: "hello code",
+        solutionCode: `import java.util.Scanner;
+    class Solution{
+        public static void main(String args[]){
+            Scanner sc = new Scanner(System.in);
+                
+            //write your code here
+        }
+    }`,
         contestId : params.contest_id})
 
 
@@ -60,12 +67,13 @@ export function T_CreateContest(props){
         }
         setFormData((prevData) => ({
             ...prevData,
-            ["difficultyLevel"]: selectedCategory,
+            "difficultyLevel": selectedCategory,
             }));
-        console.log(formData)
+
+        console.log("checking dififcult level ", selectedCategory)
         await postOnAPI();
         getFromApi();
-
+            console.log(formData);
         setFormData({
             title: "",
             problemStatement: "",
@@ -81,7 +89,14 @@ export function T_CreateContest(props){
         setShow(false);   
     };
     
-
+    const updateCode = (val) =>{
+        console.log(val);
+        setFormData((prevData) => ({
+            ...prevData,
+            solutionCode: val,
+            }));
+        console.log(formData)
+    }
     const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
@@ -102,7 +117,7 @@ export function T_CreateContest(props){
     const postOnAPI = async ()=>{
         try{
              const result = await createProblem(formData);
-             console.log("from create contest api ",result.data);
+             console.log("from create problem api ",result.data);
         }catch(error){
           
            console.log("from Login api",error)
@@ -298,12 +313,9 @@ export function T_CreateContest(props){
                                 </Col>
                                 <Col>
                                     <h6>Add Solution Code</h6>
-                                    <CodeEditor name="solutionCode"
-                                                requiredname="solutionCode"
-                                                value={formData.solutionCode}
-                                                onChange={handleChange}
-                                                isInvalid={!!errors.solutionCode}
+                                    <CodeEditor 
                                                 solutionCode={formData.solutionCode}  
+                                                updateCode={updateCode}
                                                 >
 
                                     </CodeEditor>
