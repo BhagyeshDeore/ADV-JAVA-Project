@@ -23,12 +23,12 @@ export function A_DashBoard(props) {
     }));
   };
 
-  // const updateTeacherData = (newTeacherId, newStatus) => {
-  //   setUpateTeacher({
-  //     teacherId: newTeacherId,
-  //     status: newStatus,
-  //   });
-  // };
+  const updateTeacherData = async (newTeacherId, newStatus) => {
+    await setUpateTeacher({
+      teacherId: newTeacherId,
+      status: newStatus,
+    });
+  };
 
   //Get Teachers List
   const getFromAdminApi = async () => {
@@ -56,6 +56,7 @@ export function A_DashBoard(props) {
           " teacher id : " +
           updateTeacher.teacherId
       );
+      console.log("befre sending the api", updateTeacher);
       const result = await updateTeacherStatus(updateTeacher);
       console.log("Update status response => " + result.data);
     } catch (error) {
@@ -63,11 +64,17 @@ export function A_DashBoard(props) {
     }
   };
 
-  const toggleStatus = (teacherId, status) => {
-    //updateTeacherData(3, "DEACTIVE");
-    //updateData;
-    updateTeacherStatusFromApi(teacherId, status);
+  const toggleStatus = async(teacherId, status) => {
+    var newstatus;
+    if(status=="ACTIVE" )
+      newstatus="INACTIVE"
+    else newstatus="ACTIVE"
 
+    await updateTeacherData(teacherId, newstatus);
+    //updateData;
+    console.log("doing the update",updateData);
+    updateTeacherStatusFromApi(teacherId, newstatus);
+    getFromAdminApi();
     setTeacherData((prevData) =>
       prevData.map((teacher) =>
         teacher.teacher_id === teacherId
