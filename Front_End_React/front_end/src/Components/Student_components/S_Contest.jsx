@@ -28,7 +28,7 @@ const S_Contest = (props) => {
   const navigate = useNavigate();
 
   function QuestionPage(problemId) {
-    navigate(`/student-attemptProblem/${problemId}`);
+    navigate(`/student-attemptProblem/${params.contest_id}/${problemId}`);
   }
 
   const getFromApi = async () => {

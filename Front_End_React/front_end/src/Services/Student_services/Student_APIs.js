@@ -59,4 +59,23 @@ export async function getattemptProblem(problem_id){
         return error;
     }
   
+<<<<<<< HEAD
   }
+=======
+  }
+
+export async function attemptProblem2(data){
+    try{
+
+        const response = await axios.post('http://localhost:9090/student/attempt-problem',data);
+        return response;
+
+    }catch(error){
+        console.log(error)
+        return error;
+    }
+
+}
+
+
+>>>>>>> 57d4c6ecd077a84ed6ad7c28a645c65e45c7f225

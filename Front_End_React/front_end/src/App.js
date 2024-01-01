@@ -37,7 +37,7 @@ function App() {
         <Route path="/student-login" element={<SRedirectIfLoggedIn><S_Login /></SRedirectIfLoggedIn>}></Route>
         <Route path="/student-dashboard" element={<SPrivateRoute><S_DashBoard /></SPrivateRoute>}></Route>
         <Route path="/student-seeContest/:contest_id" element={<SPrivateRoute><S_Contest /></SPrivateRoute>}></Route>
-        <Route path="/student-attemptProblem/:problem_id" element={<SPrivateRoute><S_AttemptProblem /></SPrivateRoute>}></Route>
+        <Route path="/student-attemptProblem/:contest_id/:problem_id" element={<SPrivateRoute><S_AttemptProblem /></SPrivateRoute>}></Route>
 
         <Route path="/admin-login" element={<A_Login />}></Route>
         <Route path="/admin-dashboard" element={<A_DashBoard />}></Route>

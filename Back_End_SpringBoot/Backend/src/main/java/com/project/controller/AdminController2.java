@@ -32,8 +32,7 @@ public class AdminController2 {
 
 	private AdminServices adminServices;
 	
-	
-	
+
 
 	@GetMapping("/admin/getTeacherList")
 	public List<Teacher> getTeacherList(@RequestParam int adimnId) {

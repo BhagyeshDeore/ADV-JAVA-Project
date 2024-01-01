@@ -59,10 +59,7 @@ public class StudentController2 {
 		attempt.setObtained_marks(newAttempt.getObtainedMarks());
 		attempt.setResult(newAttempt.getResult());
 		attempt.setStatus(ProblemAttemptStatus.valueOf(newAttempt.getStatus()));
-		
-		
-		
-		
+
 		StatusT status = studentServices.createAttempt(attempt, newAttempt.getProblemId() , newAttempt.getContestId(), newAttempt.getStudentId());
 		return new ResponseEntity<StatusT> (status, HttpStatus.ACCEPTED);
 		
