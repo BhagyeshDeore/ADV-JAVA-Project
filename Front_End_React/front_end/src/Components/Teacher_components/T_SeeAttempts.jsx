@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Table , Alert } from "react-bootstrap";
+import { TNavigationBar } from "./TNavigationBar";
 
 
 export function T_SeeAttempts(props){
@@ -160,6 +161,8 @@ export function T_SeeAttempts(props){
     ]);
 
     return (
+      <>
+        <TNavigationBar/>
         <div>
         <Alert key="dark" variant="secondary" className="text-center">
           <h3>Attempts By Students </h3>
@@ -197,5 +200,6 @@ export function T_SeeAttempts(props){
             </tbody>
           </Table>
         </div>
+      </>
       );
 }

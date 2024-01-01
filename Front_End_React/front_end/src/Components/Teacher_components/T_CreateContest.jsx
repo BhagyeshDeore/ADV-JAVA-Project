@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { CodeEditor } from "../Teacher_components/CodeEditor";
 import { createProblem, getProblems } from "../../Services/Teacher_services/Teacher_APIs";
 import { useParams } from "react-router-dom";
+import { TNavigationBar } from "./TNavigationBar";
 
 export function T_CreateContest(props){
 
@@ -111,6 +112,7 @@ export function T_CreateContest(props){
 
     return(
         <>
+            <TNavigationBar/>
             <THeader text="Teacher Create Contest Page"></THeader>
 
 

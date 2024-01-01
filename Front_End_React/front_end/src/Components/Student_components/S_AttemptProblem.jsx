@@ -5,6 +5,7 @@ import { AHeader } from "../Admin_components/AHeader";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getattemptProblem } from "../../Services/Student_services/Student_APIs";
+import { SNavigationBar } from "./SNavigationBar";
 
 export function S_AttemptProblem(props){
 
@@ -28,6 +29,7 @@ export function S_AttemptProblem(props){
 
     return(
         <>
+            <SNavigationBar/>
             <SHeader text="Student Attempt Problem Page"></SHeader>
             <Container>
                 <Row>
