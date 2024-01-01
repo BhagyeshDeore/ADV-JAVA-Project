@@ -1,5 +1,16 @@
 import axios from "axios";
 
+export async function registerStudent(data) {
+    try {
+      const response = await axios.post('http://localhost:9090/student/register', data);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+
 export async function getStudentContest(){
     try{
 

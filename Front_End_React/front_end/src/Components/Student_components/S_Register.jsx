@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
+import { registerStudent } from "../../Services/Student_services/Student_APIs";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export function S_Register(props) {
   const [formData, setFormData] = useState({
-    studentId: "",
-    studentEmail: "",
-    studentName: "",
-    studentMobileNumber: "",
-    studentDepartment: "",
-    studentPassword: "",
+    pnr: "",
+    email: "",
+    name: "",
+    mobileNumber: "",
+    department: "",
+    password: "",
     confirmPassword: "",
   });
 
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -28,7 +31,7 @@ export function S_Register(props) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate form fields
@@ -42,19 +45,19 @@ export function S_Register(props) {
     });
 
     // Validate email format
-    if (!formData.studentEmail.includes("@")) {
-      validationErrors.studentEmail = "Invalid email format";
+    if (!formData.email.includes("@")) {
+      validationErrors.email = "Invalid email format";
     }
 
     // Validate mobile number format
     const mobileRegex = /^[0-9]{10}$/;
-    if (!mobileRegex.test(formData.studentMobileNumber)) {
-      validationErrors.studentMobileNumber =
+    if (!mobileRegex.test(formData.mobileNumber)) {
+      validationErrors.mobileNumber =
         "Mobile number must be 10 digits";
     }
 
     // Validate password and confirm password
-    if (formData.studentPassword !== formData.confirmPassword) {
+    if (formData.password !== formData.confirmPassword) {
       validationErrors.confirmPassword = "Passwords do not match";
     }
 
@@ -62,12 +65,45 @@ export function S_Register(props) {
     setErrors(validationErrors);
 
     // If no errors and form not submitted yet, proceed with submission
-    if (Object.keys(validationErrors).length === 0 && !formSubmitted) {
-      // Perform your form submission logic here
-      alert("Form submitted successfully!");
-      // Optionally, you can redirect to another page after successful submission
+        if (Object.keys(validationErrors).length === 0 && !formSubmitted) {
+            try {
+                // Call the registerStudent API
+                const response = await registerStudent(formData);
+            
+                // Check if registration was successful based on the response
+                if (response.data && response.data.status) {
+                  // Handle successful registration
+                  console.log("Registration successful:", response.data);
+                  navigate("/student-login");
+                } else {
+                  // Handle registration failure
+                  console.error("Registration failed:", response.data.message);
+                  alert("Registration failed. Please try again.");
+                }
+              } catch (error) {
+                // Handle registration failure (axios error)
+                    console.error("Registration failed:", error);
+
+                    // Check if the error has a response property
+                    if (error.response) {
+                        // Check if the server provided additional details in the response
+                        if (error.response.data && error.response.data.message) {
+                        alert(`Registration failed: ${error.response.data.message}`);
+                        } else {
+                        alert("Registration failed. Please try again.");
+                        }
+                    } else {
+                        // Handle other types of errors (e.g., network issues)
+                        alert("Registration failed. Please try again.");
+                    }
+            
+              // Optionally, you can redirect to another page after successful submission
+            
+              
+            }
+        }
     }
-  };
+  
 
   return (
     <Container style={{ textAlign: "center" }}>
@@ -105,21 +141,21 @@ export function S_Register(props) {
           <Row className="mb-3">
             {/* Student Id */}
             <Col md={6}>
-              <Form.Label>Student Id</Form.Label>
+              <Form.Label>Student PRN Number</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter Student Id"
-                name="studentId"
-                value={formData.studentId}
+                placeholder="Enter Student PRN NO"
+                name="pnr"
+                value={formData.pnr}
                 onChange={handleChange}
-                isInvalid={!!errors.studentId}
+                isInvalid={!!errors.pnr}
                 disabled={formSubmitted}
               />
               <Form.Control.Feedback
                 type="invalid"
                 style={{ color: "maroon" }}
               >
-                {errors.studentId}
+                {errors.pnr}
               </Form.Control.Feedback>
             </Col>
 
@@ -129,17 +165,17 @@ export function S_Register(props) {
               <Form.Control
                 type="text"
                 placeholder="Enter Email"
-                name="studentEmail"
-                value={formData.studentEmail}
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
-                isInvalid={!!errors.studentEmail}
+                isInvalid={!!errors.email}
                 disabled={formSubmitted}
               />
               <Form.Control.Feedback
                 type="invalid"
                 style={{ color: "maroon" }}
               >
-                {errors.studentEmail}
+                {errors.email}
               </Form.Control.Feedback>
             </Col>
           </Row>
@@ -151,10 +187,10 @@ export function S_Register(props) {
               <Form.Control
                 type="text"
                 placeholder="Enter Name"
-                name="studentName"
-                value={formData.studentName}
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
-                isInvalid={!!errors.studentName}
+                isInvalid={!!errors.name}
                 disabled={formSubmitted}
               />
               <Form.Control.Feedback
@@ -171,17 +207,17 @@ export function S_Register(props) {
               <Form.Control
                 type="number"
                 placeholder="Enter Mobile Number"
-                name="studentMobileNumber"
-                value={formData.studentMobileNumber}
+                name="mobileNumber"
+                value={formData.mobileNumber}
                 onChange={handleChange}
-                isInvalid={!!errors.studentMobileNumber}
+                isInvalid={!!errors.mobileNumber}
                 disabled={formSubmitted}
               />
               <Form.Control.Feedback
                 type="invalid"
                 style={{ color: "maroon" }}
               >
-                {errors.studentMobileNumber}
+                {errors.mobileNumber}
               </Form.Control.Feedback>
             </Col>
           </Row>
@@ -193,17 +229,17 @@ export function S_Register(props) {
               <Form.Control
                 type="text"
                 placeholder="Enter Department"
-                name="studentDepartment"
-                value={formData.studentDepartment}
+                name="department"
+                value={formData.department}
                 onChange={handleChange}
-                isInvalid={!!errors.studentDepartment}
+                isInvalid={!!errors.department}
                 disabled={formSubmitted}
               />
               <Form.Control.Feedback
                 type="invalid"
                 style={{ color: "maroon" }}
               >
-                {errors.studentDepartment}
+                {errors.department}
               </Form.Control.Feedback>
             </Col>
 
@@ -213,17 +249,17 @@ export function S_Register(props) {
               <Form.Control
                 type="password"
                 placeholder="Enter Password"
-                name="studentPassword"
-                value={formData.studentPassword}
+                name="password"
+                value={formData.password}
                 onChange={handleChange}
-                isInvalid={!!errors.studentPassword}
+                isInvalid={!!errors.password}
                 disabled={formSubmitted}
               />
               <Form.Control.Feedback
                 type="invalid"
                 style={{ color: "maroon" }}
               >
-                {errors.studentPassword}
+                {errors.password}
               </Form.Control.Feedback>
             </Col>
           </Row>
