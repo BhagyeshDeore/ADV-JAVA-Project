@@ -51,3 +51,17 @@ export async function registerNewTeacher(data) {
     return error;
   }
 }
+
+export async function loginAdmin(data) {
+  try {
+    const response = await axios.post(
+      "http://localhost:9090/admin/login",
+      data
+    );
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}

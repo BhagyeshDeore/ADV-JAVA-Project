@@ -1,9 +1,9 @@
 import MonacoEditor from 'react-monaco-editor';
 import { useEffect, useState } from "react";
 
-export function CodeEditor() {
-    const [code, setCode] = useState('');
-    const [file, setFile] = useState();
+export function CodeEditor(props) {
+  const [solutionCode, setsolutionCode] = useState(props.solutionCode);
+  const [file, setFile] = useState();
     const [language, setLanguage] = useState('java');
     
     const options = {
@@ -35,12 +35,19 @@ export function CodeEditor() {
         setFile(event.target.files[0]);
       }
     };
+
+    const handleChange = (nv, e ) => {
+      setsolutionCode(nv);
+      props.updateCode(nv);
+      //console.log(nv,e);
+    }
+
   
     useEffect(() => {
       if (file) {
         var reader = new FileReader();
         reader.onload = async (e) => {
-          setCode(e.target.result);
+          setsolutionCode(e.target.result);
         };
         reader.readAsText(file);
         let newLanguage = 'java';
@@ -63,9 +70,11 @@ export function CodeEditor() {
         <MonacoEditor
           height="600"
           language={language}
-          value={code}
+          value={solutionCode}
           options={options}
           theme='vs-dark' 
+          name="solutionCode"
+          onChange={handleChange}
         />
       </div>
     );

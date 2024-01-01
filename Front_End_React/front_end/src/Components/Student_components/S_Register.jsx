@@ -90,11 +90,11 @@ export function S_Register(props) {
                         if (error.response.data && error.response.data.message) {
                         alert(`Registration failed: ${error.response.data.message}`);
                         } else {
-                        alert("Registration failed. Please try again.");
+                        alert("Student Already Registered!!");
                         }
                     } else {
                         // Handle other types of errors (e.g., network issues)
-                        alert("Registration failed. Please try again.");
+                        alert("Student Already Registered!!");
                     }
             
               // Optionally, you can redirect to another page after successful submission

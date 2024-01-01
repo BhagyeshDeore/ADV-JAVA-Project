@@ -61,3 +61,17 @@ export async function getattemptProblem(problem_id){
   
   }
 
+export async function attemptProblem2(data){
+    try{
+
+        const response = await axios.post('http://localhost:9090/student/attempt-problem',data);
+        return response;
+
+    }catch(error){
+        console.log(error)
+        return error;
+    }
+
+}
+
+

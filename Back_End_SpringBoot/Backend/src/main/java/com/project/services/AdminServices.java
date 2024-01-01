@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.project.dto.TeacherDto;
+import com.project.dto.TeacherLoginStatus;
 import com.project.dto.StatusA;
 import com.project.dto.StatusTU;
 import com.project.entity.Teacher.teacherStatus;
@@ -70,29 +72,31 @@ public class AdminServices {
 	 
 	 
 	 //Vaishnavi 
-	 
-	 public ResponseEntity<AdminLoginStatus> adminLogin(Admin admin) {
+	 //Admin Login
+		public ResponseEntity<AdminLoginStatus> adminLogin(Admin admin) {
 			
-			Optional<Admin> foundAdmin =  adminRepository.findByEmailAndPassword(admin.getEmail(), admin.getPassword());
+			Optional<Admin> foundAdmin = adminRepository.findByEmailAndPassword(admin.getEmail(), admin.getPassword());
 			AdminLoginStatus status = new AdminLoginStatus();
 			
 
 			if(foundAdmin.isPresent()) {
 				//found
-				 
+				status.setStatus(true);
 				status.setMessage("Successfully Logged In!");
 				status.setAdminId(foundAdmin.get().getAdminId());
-				  
+				return new ResponseEntity<AdminLoginStatus>(status, HttpStatus.ACCEPTED);
+				
 			}else{
 				
 				//not found
+				status.setStatus(false);
 				status.setMessage("Wrong Email Or Password!");
+				return new ResponseEntity<AdminLoginStatus>(status, HttpStatus.BAD_REQUEST);
 				
 			}
-			return null;
 			
 		}
-	 
+//	 
 	//studentlist
 		@Autowired
 		private StudentRepository studentRepository;;
@@ -105,17 +109,17 @@ public class AdminServices {
 			}
 	 
 		//update s status
-				public StatusSU updateStudentStatus(StudentDto studentDto)
-				{
-					Optional<Student> foundstudent = studentRepository.findById( studentDto.getstudentId() );
-					StatusSU statusSU = new StatusSU();
-					Student student =foundstudent.get();
-					student.setStatus(StudentStatus.valueOf(studentDto.getStatus() ));
-					statusSU.setMessage("Student status updated!!");
-					studentRepository.save(student);
-					statusSU.setStatus(true);
-					return statusSU;
-					}
+		public StatusSU updateStudentStatus(StudentDto studentDto)
+		{
+			Optional<Student> foundstudent = studentRepository.findById( studentDto.getstudentId() );
+			StatusSU statusSU = new StatusSU();
+			Student student =foundstudent.get();
+			student.setStatus(StudentStatus.valueOf(studentDto.getStatus() ));
+			statusSU.setMessage("Student status updated!!");
+			studentRepository.save(student);
+			statusSU.setStatus(true);
+			return statusSU;
+			}
 	 
 	
 				
