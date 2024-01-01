@@ -1,152 +1,137 @@
-// A_StudentsRegisterRequests.jsx
+import React, { useEffect, useState } from "react";
+import { Table, Button } from "react-bootstrap";
+import {
+  getStudentList,
+  updateStudentStatus,
+} from "../../Services/Admin_services/Admin_APIs2";
+//import { getAdminID } from "../../Utiles/Admin_utiles/Admin_Token_util";
+import { ANavigationBar } from "./ANavigationBar";
+// ... (imports and other code)
 
-import React from 'react';
-import { Table, Form, Button } from 'react-bootstrap';
-import { THeader } from '../Teacher_components/THeader';
-import { ANavigationBar } from './ANavigationBar';
+export function A_StudentsRegisterRequests(props) {
+  const [studentData, setStudentData] = useState([]);
+  // const [updateStudent, setUpateStudent] = useState({
+  //   studentId: "",
+  //   status: "",
+  // });
 
-const data = [
- 
-  {
-    "studentId" :  1,
-    "pnr" : 230940520069,
-    "name" : "bdbdubduxobx",
-    "email" :  "bdhvhv@gmail.com",
-    "emailverificationStatus" : "true",
-     "mobileNumber" : "7894561230",
-    "department" : "CDAC",
-    "password" :  "varchar",
-    "status" : "new_account"
+  const getFromAdminApi = async () => {
+    try {
+      const result = await getStudentList(1);
+      setStudentData(result.data);
+    } catch (error) {
+      console.log("APIException ", error.data);
+    }
+  };
 
-  },
-  {
-    "studentId" :  2,
-    "pnr" : 230940520069,
-    "name" : "bdbdubduxobx",
-    "email" :  "bdhvhv@gmail.com",
-    "emailverificationStatus" : "true",
-     "mobileNumber" : "7894561230",
-    "department" : "CDAC",
-    "password" :  "varchar",
-    "status" : "new_account"
+  useEffect(() => {
+    getFromAdminApi();
+  }, []);
 
-  },
-  {
-    "studentId" :  3,
-    "pnr" : 230940520069,
-    "name" : "bdbdubduxobx",
-    "email" :  "bdhvhv@gmail.com",
-    "emailverificationStatus" : "true",
-     "mobileNumber" : "7894561230",
-    "department" : "CDAC",
-    "password" :  "varchar",
-    "status" : "new_account"
+  const updateStudentStatusFromApi = async (studentId, status) => {
+    try {
+      const result = await updateStudentStatus( 
+      {  studentId: studentId,
+        status: status,});
+       
+    // console.log("Update status response => " + result.data);
+    } catch (error) {
+      console.log("APIException ", error.data);
+    }
+  };
 
-  },
-  {
-    "studentId" :  4,
-    "pnr" : 230940520069,
-    "name" : "bdbdubduxobx",
-    "email" :  "bdhvhv@gmail.com",
-    "emailverificationStatus" : "true",
-     "mobileNumber" : "7894561230",
-    "department" : "CDAC",
-    "password" :  "varchar",
-    "status" : "new_account"
+  const toggleStatus =   (studentId, status) => {
+    setStudentData((prevData) =>
+      prevData.map((student) =>
+        student.studentId === studentId
+          ? {
+              ...student,
+              status: student.status === "ACTIVE" ? "DEACTIVE" : "ACTIVE",
+            }
+          : student
+      )
+      
+    );
 
-  },
-  {
-    "studentId" :  5,
-    "pnr" : 230940520069,
-    "name" : "bdbdubduxobx",
-    "email" :  "bdhvhv@gmail.com",
-    "emailverificationStatus" : "true",
-     "mobileNumber" : "7894561230",
-    "department" : "CDAC",
-    "password" :  "varchar",
-    "status" : "new_account"
+    updateStudentStatusFromApi(studentId, status);
+  };
 
-  },
-  {
-    "studentId" :  6,
-    "pnr" : 230940520069,
-    "name" : "bdbdubduxobx",
-    "email" :  "bdhvhv@gmail.com",
-    "emailverificationStatus" : "true",
-     "mobileNumber" : "7894561230",
-    "department" : "CDAC",
-    "password" :  "varchar",
-    "status" : "new_account"
-
-  },
-  {
-    "studentId" :  7,
-    "pnr" : 230940520069,
-    "name" : "bdbdubduxobx",
-    "email" :  "bdhvhv@gmail.com",
-    "emailverificationStatus" : "true",
-     "mobileNumber" : "7894561230",
-    "department" : "CDAC",
-    "password" :  "varchar",
-    "status" : "new_account"
-
-  },
-  {
-    "studentId" :  8,
-    "pnr" : 230940520069,
-    "name" : "bdbdubduxobx",
-    "email" :  "bdhvhv@gmail.com",
-    "emailverificationStatus" : "true",
-     "mobileNumber" : "7894561230",
-    "department" : "CDAC",
-    "password" :  "varchar",
-    "status" : "new_account"
-
-  }
-];
-
-const A_StudentsRegisterRequests = () => {
   return (
     <>
-    <ANavigationBar/>
-    <container>
-        <div style={{ textAlign:"center" }}>
-            <THeader text="Admin Accept/Reject Student Registration List  " ></THeader>
-        </div>
-        <div style={{  margin: '50px auto', maxWidth:"1300px" }}>
-        <Table striped bordered hover responsive>
-            <thead>
+      <ANavigationBar />
+      <div
+        style={{
+          padding: "20px",
+          backgroundColor: "#f0f0f0",
+          borderRadius: "10px",
+        }}
+      >
+        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
+          Admin Dashboard
+        </h2>
+        <Table striped bordered hover size="sm">
+          <thead>
             <tr>
-                {Object.keys(data[0])
-                //.filter((key) => key !== 'status') // Exclude the 'status' column
-                .map((key) => (
-                    <th key={key}>{key}</th>
-                ))}
-                <th>Action</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Pnr</th>
+              <th>Phone</th>
+              <th>Password</th>
+              <th>Created At</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
-            </thead>
-            <tbody>
-            {data.map((row) => (
-                <tr key={row.PRN}>
-                {Object.keys(row)
-                    //.filter((key) => key !== 'status') // Exclude the 'status' column
-                    .map((key) => (
-                    <td key={key}>{row[key]}</td>
-                    ))}
-                    <td>
-                        
-                        <Button variant="success">Accept</Button> &nbsp;
-                        <Button variant="danger">Deny</Button>
-                        
-                    </td>
+          </thead>
+          <tbody>
+            {Array.isArray(studentData) && studentData.length > 0 ? (
+              studentData.map((student) => (
+                <tr key={student.studentId}>
+                  <td>{student.studentId}</td>
+                  <td>{student.name}</td>
+                  <td>{student.email}</td>
+                  <td>{student.pnr}</td>
+                  <td>{student.mobileNumber}</td>
+                  <td>{student.password}</td>
+                  <td>{student.createdAt}</td>
+                  <td>
+                    <Button
+                      variant={
+                        student.status === "ACTIVE" ? "success" : "danger"
+                      }
+                      size="sm"
+                      disabled
+                    >
+                      {student.status === "ACTIVE" ? "Active" : "Deactivate"}
+                    </Button>
+                  </td>
+                  <td>
+                    <Button
+                      variant={
+                        student.status === "ACTIVE" ? "danger" : "success"
+                      }
+                      size="sm"
+                      onClick={() =>
+                        toggleStatus(student.studentId, student.status)
+                      }
+                    >
+                      {student.status === "ACTIVE"
+                        ? "Deactivate"
+                        : "Activate"}
+                    </Button>
+                  </td>
                 </tr>
-            ))}
-            </tbody>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="9">No student data available</td>
+              </tr>
+            )}
+          </tbody>
         </Table>
-        </div>
-    </container>
+      </div>
     </>
   );
-};
+}
 
 export default A_StudentsRegisterRequests;

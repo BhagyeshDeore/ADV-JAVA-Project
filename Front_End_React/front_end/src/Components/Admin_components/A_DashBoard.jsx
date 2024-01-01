@@ -57,7 +57,7 @@ export function A_DashBoard(props) {
     getFromAdminApi();
     setTeacherData((prevData) =>
       prevData.map((teacher) =>
-        teacher.teacher_id === teacherId
+        teacher.teacherId === teacherId
           ? {
               ...teacher,
               status: teacher.status === "ACTIVE" ? "DEACTIVE" : "ACTIVE",

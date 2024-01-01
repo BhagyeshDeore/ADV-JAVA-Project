@@ -51,14 +51,14 @@ public class AdminController {
 	
 //student list
 	@GetMapping("/admin/getStudentList")
-	public List<Student> getStudentList(@RequestParam int adimnId) {
+	public List<Student> getStudentList(@RequestParam int adminId) {
 
-		return adminServices.getStudentList(adimnId);
+		return adminServices.getStudentList(adminId);
 		
 	}
 	
-	@GetMapping("/admin/updateStudentStatus")
-	public ResponseEntity<StatusSU> updateStudentStatus(@RequestParam StudentDto studentDto)
+	@PostMapping("/admin/updateStudentStatus")
+	public ResponseEntity<StatusSU> updateStudentStatus(@RequestBody StudentDto studentDto)
 	{
 		int studentId =studentDto.getstudentId();
 		String status = studentDto.getStatus();
