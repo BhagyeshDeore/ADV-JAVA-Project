@@ -55,3 +55,17 @@ export async function createContest(data){
     }
 
 }
+
+
+export async function createProblem(data){
+    try{
+
+        const response = await axios.post('http://localhost:9090/teacher/create-problem',data);
+        return response;
+
+    }catch(error){
+        console.log(error)
+        return error;
+    }
+
+}

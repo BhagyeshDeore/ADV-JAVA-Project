@@ -3,7 +3,7 @@ import { THeader } from "./THeader";
 import { T_Problem_card } from "./T_Problem_card";
 import { useEffect, useState } from "react";
 import { CodeEditor } from "../Teacher_components/CodeEditor";
-import { getProblems } from "../../Services/Teacher_services/Teacher_APIs";
+import { createProblem, getProblems } from "../../Services/Teacher_services/Teacher_APIs";
 import { useParams } from "react-router-dom";
 
 export function T_CreateContest(props){
@@ -27,10 +27,9 @@ export function T_CreateContest(props){
 
 
     const handleClose = () => setShow(false);
-    const handleAdd = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const[problemList, setProblemList] = useState( [ ]);
+    const[problemList, setProblemList] = useState( []);
 
     const getFromApi = async ()=>{
         try{
@@ -49,6 +48,39 @@ export function T_CreateContest(props){
     },[]);
 
 
+    const handleAdd = async () => {
+        if(formData.title == ""){
+            alert("enter Title");
+            return ;
+        }
+        if(formData.description == ""){
+            alert("enter Description");
+            return ;
+        }
+        setFormData((prevData) => ({
+            ...prevData,
+            ["difficultyLevel"]: selectedCategory,
+            }));
+        console.log(formData)
+        await postOnAPI();
+        getFromApi();
+
+        setFormData({
+            title: "",
+            problemStatement: "",
+            explanation: "",
+            difficultyLevel: selectedCategory,
+            marks: 0,
+            sampleInput: "",
+            sampleOutput: "",
+            testCase: "",
+            resulTestCase: "",
+            solutionCode: "hello code",
+            contestId : params.contest_id});
+        setShow(false);   
+    };
+    
+
     const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
@@ -65,6 +97,17 @@ export function T_CreateContest(props){
 
         console.log( formData );
     };
+
+    const postOnAPI = async ()=>{
+        try{
+             const result = await createProblem(formData);
+             console.log("from create contest api ",result.data);
+        }catch(error){
+          
+           console.log("from Login api",error)
+        }
+     }
+
 
     return(
         <>
