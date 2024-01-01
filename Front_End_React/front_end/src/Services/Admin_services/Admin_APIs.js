@@ -13,10 +13,10 @@ import axios from "axios";
 
 // }
 
-export async function getTecherList(adminId) {
+export async function getTecherList() {
   try {
     const response = await axios.get(
-      "http://localhost:9090/admin/getTeacherList?adimnId=" + adminId
+      "http://localhost:9090/admin/getTeacherList"
     );
     console.log("Api response => ", response);
     return response;

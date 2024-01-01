@@ -33,22 +33,98 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
 
-        <Route path="/student-register" element={<SRedirectIfLoggedIn><S_Register /></SRedirectIfLoggedIn>}></Route>
-        <Route path="/student-login" element={<SRedirectIfLoggedIn><S_Login /></SRedirectIfLoggedIn>}></Route>
-        <Route path="/student-dashboard" element={<SPrivateRoute><S_DashBoard /></SPrivateRoute>}></Route>
-        <Route path="/student-seeContest/:contest_id" element={<SPrivateRoute><S_Contest /></SPrivateRoute>}></Route>
-        <Route path="/student-attemptProblem/:contest_id/:problem_id" element={<SPrivateRoute><S_AttemptProblem /></SPrivateRoute>}></Route>
+        <Route
+          path="/student-register"
+          element={
+            <SRedirectIfLoggedIn>
+              <S_Register />
+            </SRedirectIfLoggedIn>
+          }
+        ></Route>
+        <Route
+          path="/student-login"
+          element={
+            <SRedirectIfLoggedIn>
+              <S_Login />
+            </SRedirectIfLoggedIn>
+          }
+        ></Route>
+        <Route
+          path="/student-dashboard"
+          element={
+            <SPrivateRoute>
+              <S_DashBoard />
+            </SPrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/student-seeContest/:contest_id"
+          element={
+            <SPrivateRoute>
+              <S_Contest />
+            </SPrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/student-attemptProblem/:problem_id"
+          element={
+            <SPrivateRoute>
+              <S_AttemptProblem />
+            </SPrivateRoute>
+          }
+        ></Route>
 
         <Route path="/admin-login" element={<A_Login />}></Route>
         <Route path="/admin-dashboard" element={<A_DashBoard />}></Route>
-        <Route path="/admin-create-new-teacher-account" element={<A_CreateTeacherAccount />}></Route>
-        <Route path="/admin-students-register-request" element={<A_StudentsRegisterRequests />}></Route>
+        <Route
+          path="/admin-create-new-teacher-account"
+          element={<A_CreateTeacherAccount />}
+        ></Route>
+        <Route
+          path="/admin-students-register-request"
+          element={<A_StudentsRegisterRequests />}
+        ></Route>
 
-        <Route path="/teacher-login" element={<TRedirectIfLoggedIn><T_Login /></TRedirectIfLoggedIn>}></Route>
-        <Route path="/teacher-dashboard" element={<TPrivateRoute><T_DashBoard /></TPrivateRoute>}></Route>
-        <Route path="/teacher-update-password"  element={<TPrivateRoute><T_UpdatePassword /></TPrivateRoute>}  ></Route>
-        <Route path="/teacher-create-contest/:contest_id"  element={<TPrivateRoute><T_CreateContest /></TPrivateRoute>}  ></Route>
-        <Route path="/teacher-see-attempts/:contest_id" element={<TPrivateRoute><T_SeeAttempts /></TPrivateRoute>}></Route>
+        <Route
+          path="/teacher-login"
+          element={
+            <TRedirectIfLoggedIn>
+              <T_Login />
+            </TRedirectIfLoggedIn>
+          }
+        ></Route>
+        <Route
+          path="/teacher-dashboard"
+          element={
+            <TPrivateRoute>
+              <T_DashBoard />
+            </TPrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/teacher-update-password"
+          element={
+            <TPrivateRoute>
+              <T_UpdatePassword />
+            </TPrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/teacher-create-contest/:contest_id"
+          element={
+            <TPrivateRoute>
+              <T_CreateContest />
+            </TPrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/teacher-see-attempts/:contest_id"
+          element={
+            <TPrivateRoute>
+              <T_SeeAttempts />
+            </TPrivateRoute>
+          }
+        ></Route>
       </Routes>
     </BrowserRouter>
   );

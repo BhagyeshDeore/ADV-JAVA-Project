@@ -7,8 +7,15 @@ public class NewTeacher {
 	private String email;
 	private String phoneNumber;
 	private String password;
+	//private String status;
 	
 	
+//	public String getStatus() {
+//		return status;
+//	}
+//	public void setStatus(String status) {
+//		this.status = status;
+//	}
 	public String getName() {
 		return name;
 	}

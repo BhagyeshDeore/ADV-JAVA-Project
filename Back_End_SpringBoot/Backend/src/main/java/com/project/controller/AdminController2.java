@@ -15,9 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.dto.NewContest;
 import com.project.dto.StatusT;
 import com.project.dto.StatusTU;
+import com.project.dto.StudentRegistrationStatus;
 import com.project.dto.TeacherDto;
+import com.project.dto.TeacherRegistrationStatus;
 import com.project.entity.Contest;
+import com.project.entity.Student;
 import com.project.entity.Teacher;
+import com.project.entity.Teacher.teacherStatus;
 import com.project.entity.Contest.ContestTopic;
 import com.project.repository.TeacherRepository;
 import com.project.services.AdminServices;
@@ -35,9 +39,9 @@ public class AdminController2 {
 
 
 	@GetMapping("/admin/getTeacherList")
-	public List<Teacher> getTeacherList(@RequestParam int adimnId) {
+	public List<Teacher> getTeacherList() {
 
-		return adminServices.getTeacherList(adimnId);
+		return adminServices.getTeacherList();
 		
 	}
 	
@@ -52,6 +56,7 @@ public ResponseEntity<StatusA> registerTeacher(@RequestBody NewTeacher newTeache
 		teacher.setEmail(newTeacher.getEmail());
 		teacher.setPhoneNumber(newTeacher.getPhoneNumber());
 		teacher.setPassword(newTeacher.getPassword());
+		teacher.setStatus(teacherStatus.ACTIVE);
 		StatusA status= adminServices.registerTeacher(teacher);
 		return new ResponseEntity<StatusA>(status,HttpStatus.CREATED);
 		
@@ -64,10 +69,12 @@ public ResponseEntity<StatusA> registerTeacher(@RequestBody NewTeacher newTeache
 	        String status = teacherDto.getStatus();
 
 	         StatusTU statusTU = adminServices.updateTeacherStatus(teacherDto);
-			return new ResponseEntity<StatusTU>(statusTU,HttpStatus.CREATED);
+			return new ResponseEntity<StatusTU>(statusTU,HttpStatus.ACCEPTED);
 
       
 	    }
+	 
+
 	}
 	
 
