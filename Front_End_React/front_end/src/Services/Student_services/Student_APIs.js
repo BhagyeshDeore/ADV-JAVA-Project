@@ -59,10 +59,10 @@ export async function getattemptProblem(problem_id){
         return error;
     }
   
-<<<<<<< HEAD
+
   }
-=======
-  }
+
+
 
 export async function attemptProblem2(data){
     try{
@@ -78,4 +78,4 @@ export async function attemptProblem2(data){
 }
 
 
->>>>>>> 57d4c6ecd077a84ed6ad7c28a645c65e45c7f225
+

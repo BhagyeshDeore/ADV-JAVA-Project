@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { ANavigationBar } from "./ANavigationBar";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function A_CreateTeacherAccount(props) {
   const [formData, setFormData] = useState({
@@ -10,7 +12,7 @@ export function A_CreateTeacherAccount(props) {
     phoneNumber: "",
     password: "",
   });
-
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -73,6 +75,7 @@ export function A_CreateTeacherAccount(props) {
         console.log("Response data:", response.data); // Assuming the backend returns some data
         alert("Account created successfully!");
         setFormSubmitted(true);
+        navigate("/admin-dashboard");
       } catch (error) {
         // Handle errors
         console.error("Error creating teacher account:", error);
