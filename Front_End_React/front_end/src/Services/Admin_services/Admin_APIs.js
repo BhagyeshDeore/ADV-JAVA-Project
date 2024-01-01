@@ -38,3 +38,16 @@ export async function updateTeacherStatus(updateTeacher) {
     return error;
   }
 }
+
+export async function registerNewTeacher(data) {
+  try {
+    const response = await axios.post(
+      "http://localhost:9090/admin/teacher-register",
+      data
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}

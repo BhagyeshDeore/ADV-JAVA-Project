@@ -4,19 +4,29 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.project.dto.TeacherDto;
 import com.project.dto.StatusA;
 import com.project.dto.StatusTU;
 import com.project.entity.Teacher;
 import com.project.entity.Teacher.teacherStatus;
+import com.project.repository.StudentRepository;
 import com.project.repository.TeacherRepository;
+import com.project.dto.StatusSU;
+import com.project.dto.StudentDto;
+import com.project.dto.AdminLoginStatus;
+import com.project.entity.*;
+import com.project.entity.Student.StudentStatus;
+import com.project.repository.AdminRepository;
 
 @Service
 public class AdminServices {
 	@Autowired
 	private TeacherRepository teacherRepository;
-	
+	@Autowired
+	private AdminRepository adminRepository;
+
 	
 	
 	
@@ -56,6 +66,56 @@ public class AdminServices {
 	        return statusTU;
 	       
 	    }
+	 
+	 
+	 //Vaishnavi 
+	 
+	 public ResponseEntity<AdminLoginStatus> adminLogin(Admin admin) {
+			
+			Optional<Admin> foundAdmin =  adminRepository.findByEmailAndPassword(admin.getEmail(), admin.getPassword());
+			AdminLoginStatus status = new AdminLoginStatus();
+			
+
+			if(foundAdmin.isPresent()) {
+				//found
+				 
+				status.setMessage("Successfully Logged In!");
+				status.setAdminId(foundAdmin.get().getAdminId());
+				  
+			}else{
+				
+				//not found
+				status.setMessage("Wrong Email Or Password!");
+				
+			}
+			return null;
+			
+		}
+	 
+	//studentlist
+		@Autowired
+		private StudentRepository studentRepository;;
+
+		//
+		public List<Student> getStudentList(int adminId)
+		{
+			System.out.println("LIST OF STUDENT");
+			return studentRepository.findAll();
+			}
+	 
+		//update s status
+				public StatusSU updateStudentStatus(StudentDto studentDto)
+				{
+					Optional<Student> foundstudent = studentRepository.findById( studentDto.getstudentId() );
+					StatusSU statusSU = new StatusSU();
+					Student student =foundstudent.get();
+					student.setStatus(StudentStatus.valueOf(studentDto.getStatus() ));
+					statusSU.setMessage("Student status updated!!");
+					studentRepository.save(student);
+					statusSU.setStatus(true);
+					return statusSU;
+					}
+	 
 	
 
 }
