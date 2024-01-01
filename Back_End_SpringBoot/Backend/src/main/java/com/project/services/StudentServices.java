@@ -65,7 +65,7 @@ public class StudentServices {
 	}
 
 	
-
+	//get problems json data using contestId
 	public ResponseEntity<List<Problem>> getProblemsByContestId(int contestId) {
 		Optional<Contest> contestOptional = contestRepository.findById(contestId);
 
@@ -125,6 +125,19 @@ public class StudentServices {
 			
 			return status;
 		}
+		
+		//get problem data by prolemId
+		public ResponseEntity<Problem> getProblemById(int problemId) {
+	        Optional<Problem> problemOptional = problemRepository.findById(problemId);
+
+	        if (problemOptional.isPresent()) {
+	            Problem problem = problemOptional.get();
+	            return new ResponseEntity<>(problem, HttpStatus.ACCEPTED);
+	        } else {
+	            // Problem not found
+	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        }
+	    }
 	
 
 }

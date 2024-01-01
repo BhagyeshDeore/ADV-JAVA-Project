@@ -68,6 +68,12 @@ public class StudentController2 {
 		
 	}
 	
+	@GetMapping("/problem/{problemId}")
+    public ResponseEntity<Problem> getProblemById(@PathVariable int problemId) {
+        ResponseEntity<Problem> response = studentServices.getProblemById(problemId);
+        return response;
+    }
+	
 	
 	
 	
