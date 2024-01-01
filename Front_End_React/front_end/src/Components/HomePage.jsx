@@ -44,7 +44,10 @@ export function HomePage() {
           <br />
           <br />
           <Link to="/student-register">
-            <Button variant="primary"> Create Account </Button>
+            <Button variant="primary"> Sign Up </Button>
+          </Link> &nbsp;
+          <Link to="/student-login">
+            <Button variant="primary"> Log In </Button>
           </Link>
           <br /> <br />
           <div className="container">
