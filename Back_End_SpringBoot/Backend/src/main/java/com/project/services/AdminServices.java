@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.project.dto.TeacherDto;
 import com.project.dto.StatusA;
 import com.project.dto.StatusTU;
-import com.project.entity.Teacher;
 import com.project.entity.Teacher.teacherStatus;
 import com.project.repository.StudentRepository;
 import com.project.repository.TeacherRepository;
@@ -26,6 +25,8 @@ public class AdminServices {
 	private TeacherRepository teacherRepository;
 	@Autowired
 	private AdminRepository adminRepository;
+	
+	
 
 	
 	
@@ -33,7 +34,7 @@ public class AdminServices {
 		
 	//Get All teacher List at Admin side	
 		
-	public List<Teacher> getTeacherList(  int adminId ) {
+	public List<Teacher> getTeacherList( ) {
 		
 		System.out.println("List of all teachers :");
 		return teacherRepository.findAll();
@@ -117,5 +118,17 @@ public class AdminServices {
 					}
 	 
 	
+				
+				//Register new teacher
+//				
+//				public int teacherRegister(Teacher teacher) {
+//					
+//						teacher.setStatus(teacherStatus.valueOf(ACTIVE));
+//						String email = student.getEmail();
+//						student.setStatus(StudentStatus.newAccount);
+//						studentRepository.save(student);
+//						return student.getStudentId();
+//					
+//				}
 
 }
