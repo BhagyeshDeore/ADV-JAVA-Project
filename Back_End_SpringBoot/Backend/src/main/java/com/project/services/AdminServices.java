@@ -29,19 +29,7 @@ public class AdminServices {
 		return teacherRepository.findAll();
 		
 		}
-	
-	//create Contest
-//	public StatusT createContest( Contest contest,  int teacherId ) {
-//		
-//		Optional<Teacher> foundTeacher = teacherRepository.findById(teacherId);
-//		contest.setTeacher(foundTeacher.get());
-//		contestRepository.save(contest);
-//		StatusT status = new StatusT();
-//		status.setMessage("Contest Created!");
-//		status.setStatus(true);
-//		
-//		return status;
-//	}
+
 
 
 //Register New Teacher

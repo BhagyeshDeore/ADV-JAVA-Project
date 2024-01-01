@@ -3,6 +3,7 @@
 import React from 'react';
 import { Table, Form, Button } from 'react-bootstrap';
 import { THeader } from '../Teacher_components/THeader';
+import { ANavigationBar } from './ANavigationBar';
 
 const data = [
  
@@ -106,6 +107,8 @@ const data = [
 
 const A_StudentsRegisterRequests = () => {
   return (
+    <>
+    <ANavigationBar/>
     <container>
         <div style={{ textAlign:"center" }}>
             <THeader text="Admin Accept/Reject Student Registration List  " ></THeader>
@@ -142,6 +145,7 @@ const A_StudentsRegisterRequests = () => {
         </Table>
         </div>
     </container>
+    </>
   );
 };
 

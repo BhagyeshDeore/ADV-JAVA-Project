@@ -66,6 +66,7 @@ export function CodeEditor(props) {
           value={solutionCode}
           options={options}
           theme='vs-dark' 
+          name="solutionCode"
         />
       </div>
     );

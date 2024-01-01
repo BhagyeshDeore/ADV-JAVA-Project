@@ -4,6 +4,7 @@ import { S_Contest_card } from "./S_Contest_card";
 import { useState , useEffect } from "react";
 import { Card, DropdownButton, Dropdown } from 'react-bootstrap';
 import { getStudentContest } from "../../Services/Student_services/Student_APIs";
+import { SNavigationBar } from "./SNavigationBar";
 
 export function S_DashBoard(props) {
   const [contestList, setContestList] = useState([]);
@@ -34,6 +35,7 @@ useEffect(()=>{
 
   return (
     <div>
+      <SNavigationBar/>
       <div>
       <THeader text="Student DashBoard Page "></THeader>
       </div>
