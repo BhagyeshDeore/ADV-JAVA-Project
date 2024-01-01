@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
+import { ANavigationBar } from "./ANavigationBar";
 
 export function A_CreateTeacherAccount(props) {
   const [formData, setFormData] = useState({
@@ -70,6 +71,8 @@ export function A_CreateTeacherAccount(props) {
   };
 
   return (
+    <>
+    <ANavigationBar/>
     <Container style={{ textAlign: "center" }}>
       <div
         className="container"
@@ -171,5 +174,6 @@ export function A_CreateTeacherAccount(props) {
         </Form>
       </div>
     </Container>
+    </>
   );
 }

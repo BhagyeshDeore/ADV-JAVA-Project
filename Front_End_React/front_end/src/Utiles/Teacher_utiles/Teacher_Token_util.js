@@ -6,3 +6,9 @@ export function getTeacherID(){
 export function Teacherlogout(){
     localStorage.removeItem("teacherId");
 }
+
+
+export function isTeacherAuthenticated(){
+    return getTeacherID() ? true : false;
+}
+

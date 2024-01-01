@@ -5,6 +5,7 @@ import {
   updateTeacherStatus,
 } from "../../Services/Admin_services/Admin_APIs";
 import { getAdminID } from "../../Utiles/Admin_utiles/Admin_Token_util";
+import { ANavigationBar } from "./ANavigationBar";
 
 export function A_DashBoard(props) {
   const [teacherData, setTeacherData] = useState([]);
@@ -80,6 +81,9 @@ export function A_DashBoard(props) {
   };
 
   return (
+    <>
+    <ANavigationBar/>
+    
     <div
       style={{
         padding: "20px",
@@ -137,5 +141,6 @@ export function A_DashBoard(props) {
         </tbody>
       </Table>
     </div>
+    </>
   );
 }

@@ -6,3 +6,8 @@ export function getAdminID(){
 export function Adminlogout(){
     localStorage.removeItem("adminId");
 }
+
+
+export function isAdminAuthenticated(){
+    return getAdminID() ? true : false;
+}

@@ -6,3 +6,7 @@ export function getStudentID(){
 export function Studentlogout(){
     localStorage.removeItem("studentId");
 }
+
+export function isStudentAuthenticated(){
+    return getStudentID() ? true : false;
+}

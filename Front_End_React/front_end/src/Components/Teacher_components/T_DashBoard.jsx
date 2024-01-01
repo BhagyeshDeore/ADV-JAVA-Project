@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { T_Contest_card } from "./T_Contest_card";
 import { createContest, getContest } from "../../Services/Teacher_services/Teacher_APIs";
 import { getTeacherID } from "../../Utiles/Teacher_utiles/Teacher_Token_util";
+import { TNavigationBar } from "./TNavigationBar";
 
 
 export function T_DashBoard(props){
@@ -95,6 +96,7 @@ export function T_DashBoard(props){
 
     return(
         <>
+            <TNavigationBar/>
             <THeader text="Teacher DashBoard Page "></THeader>
 
             

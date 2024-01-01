@@ -1,6 +1,7 @@
 import { InputGroup, Form, Button, Alert } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
+import { TNavigationBar } from "./TNavigationBar";
 export function T_UpdatePassword(props) {
   const [username, setUsername] = useState("");
   const [oldPassword, setOldPassword] = useState("");
@@ -45,6 +46,8 @@ export function T_UpdatePassword(props) {
   };
 
   return (
+    <>
+    <TNavigationBar/>
     <Form onSubmit={handleSubmit}>
       <div style={{ backgroundColor: '#837673', padding: '20px', borderRadius: '8px', height: '500px', width: '370px', margin: 'auto', marginTop: '50px' }}>
         <h2
@@ -119,5 +122,6 @@ export function T_UpdatePassword(props) {
         </div>
       </div>
     </Form>
+  </>
   );
 }

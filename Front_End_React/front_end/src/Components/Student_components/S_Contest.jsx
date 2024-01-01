@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { THeader } from "../Teacher_components/THeader";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProblems } from "../../Services/Teacher_services/Teacher_APIs";
+import { SNavigationBar } from "./SNavigationBar";
 
 const S_Contest = (props) => {
   const [problemData, setProblemData] = useState([]);
@@ -55,6 +56,8 @@ const S_Contest = (props) => {
   });
 
   return (
+    <>
+    <SNavigationBar/>
     <Container>
       <div>
         <THeader text="Student See-Contest Page "></THeader>
@@ -144,6 +147,7 @@ const S_Contest = (props) => {
         </Col>
       </Row>
     </Container>
+    </>
   );
 };
 
