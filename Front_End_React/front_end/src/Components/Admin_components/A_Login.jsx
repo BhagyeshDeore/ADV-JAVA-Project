@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { loginTeacher } from "../../Services/Teacher_services/Teacher_APIs";
+import { loginAdmin } from "../../Services/Admin_services/Admin_APIs";
 
 export function A_Login(props) {
   const [formData, setFormData] = useState({
-    adminUsername: "",
-    adminPassword: "",
+    email: "",
+    password: "",
   });
 
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -25,8 +29,8 @@ export function A_Login(props) {
 
     // Check hardcoded values for login
     if (
-      formData.adminUsername === "admin" &&
-      formData.adminPassword === "Admin@123"
+      formData.email === "admin" &&
+      formData.password === "Admin@123"
     ) {
       // Clear any previous error
       setError(null);
@@ -36,17 +40,30 @@ export function A_Login(props) {
 
       // Reset the form and state
       setFormData({
-        adminUsername: "",
-        adminPassword: "",
+        email: "",
+        password: "",
       });
       setFormSubmitted(false);
     } else {
       setError("Invalid username or password.");
     }
 
-    // Set formSubmitted to true
-    setFormSubmitted(true);
+    postOnAPI();
+
   };
+
+  const postOnAPI = async ()=>{
+    try{
+         const result = await loginAdmin(formData);
+         console.log("from login api ",result.data , result.data.adminId);
+         localStorage.setItem('adminId' , result.data.adminId);
+         navigate("/admin-dashboard");
+    }catch(error){
+       alert("Wrong admin Email or Password");    
+       console.log("from Login api",error.data)
+    }
+
+}
 
   return (
     <Container style={{ textAlign: "center" }}>
@@ -84,8 +101,8 @@ export function A_Login(props) {
           <Form.Control
             type="text"
             placeholder="Enter Admin Username"
-            name="adminUsername"
-            value={formData.adminUsername}
+            name="email"
+            value={formData.email}
             onChange={handleChange}
             disabled={formSubmitted}
           />
@@ -95,8 +112,8 @@ export function A_Login(props) {
           <Form.Control
             type="password"
             placeholder="Enter Admin Password"
-            name="adminPassword"
-            value={formData.adminPassword}
+            name="password"
+            value={formData.password}
             onChange={handleChange}
             disabled={formSubmitted}
           />
