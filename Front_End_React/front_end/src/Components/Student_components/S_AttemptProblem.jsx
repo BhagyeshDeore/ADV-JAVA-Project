@@ -2,9 +2,9 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { SHeader } from "./SHeader";
 import { CodeEditor } from "./CodeEditor";
 import { AHeader } from "../Admin_components/AHeader";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getattemptProblem } from "../../Services/Student_services/Student_APIs";
+import { getattemptProblem , attemptProblem2 } from "../../Services/Student_services/Student_APIs";
 import { SNavigationBar } from "./SNavigationBar";
 import { getStudentID } from "../../Utiles/Student_utiles/Student_Token_util";
 
@@ -12,6 +12,7 @@ export function S_AttemptProblem(props){
 
     const params = useParams();
     const [attemptProblem, setattemptProblem] = useState([]);
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         code : `import java.util.Scanner;
@@ -22,10 +23,10 @@ export function S_AttemptProblem(props){
             //write your code here
         }
     }`,
-        language: "JAVA" , 
+        language: "Java" , 
         obtainedMarks:10,
         result: "",
-        status : "",
+        status : "Solved",
         contestId : params.contest_id,
         problemId : params.problem_id,
         studentId: getStudentID()
@@ -39,6 +40,23 @@ export function S_AttemptProblem(props){
             }));
         console.log(formData)
     }
+
+    const submitAttempt = ()=>{
+        postOnAPI();
+    }
+
+    const postOnAPI = async ()=>{
+        try{
+             const result = await attemptProblem2(formData);
+             console.log("from attempt problem api ",result.data);
+             navigate(`/student-seeContest/${params.contest_id}`)
+
+        }catch(error){
+          
+           console.log("from attempt problem",error)
+        }
+     }
+
 
     const getFromApi = async () => {
         try {
@@ -82,7 +100,7 @@ export function S_AttemptProblem(props){
                                 {attemptProblem.sampleOutput}
                             </p>
 
-                            <Button variant="primary">Submit</Button>
+                            <Button variant="primary" onClick={submitAttempt}>Submit</Button>
                         </div>
                     </Col>
                     <Col>
