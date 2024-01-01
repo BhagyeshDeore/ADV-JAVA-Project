@@ -2,10 +2,29 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { SHeader } from "./SHeader";
 import { CodeEditor } from "./CodeEditor";
 import { AHeader } from "../Admin_components/AHeader";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getattemptProblem } from "../../Services/Student_services/Student_APIs";
 
 export function S_AttemptProblem(props){
 
-   
+    const params = useParams();
+    const [attemptProblem, setattemptProblem] = useState([]);
+
+    const getFromApi = async () => {
+        try {
+          const result = await getattemptProblem(params.problem_id);
+          console.log(result.data);
+          setattemptProblem(result.data);
+        } catch (error) {
+          setattemptProblem([]);
+          console.log("from api", error.data);
+        }
+      };
+
+      useEffect(() => {
+        getFromApi();
+      }, []);
 
     return(
         <>
@@ -14,26 +33,23 @@ export function S_AttemptProblem(props){
                 <Row>
                     <Col>
                         <div>
-                            <AHeader text="Smallest Greatest Element"></AHeader>
+                            <AHeader text={attemptProblem.title}></AHeader>
                             <hr></hr>
-                            <h6>Difficulty : HARD</h6>
+                            <h6>Difficulty: {attemptProblem.difficultyLevel}</h6>
                             <h5>Problem:</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam molestias corporis praesentium velit similique rem alias dolor ratione, obcaecati, soluta unde enim veniam dicta et! Voluptatibus officiis perferendis et culpa?</p>
+                            <p>{attemptProblem.problemStatement}</p>
 
                             <h5>Explanation:</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam molestias corporis praesentium velit similique rem alias dolor ratione, obcaecati, soluta unde enim veniam dicta et! Voluptatibus officiis perferendis et culpa?</p>
+                            <p>{attemptProblem.explanation}</p>
 
                             <h6>Input Format</h6>
                             <p>
-                                2
-                                2
-                                3
+                            {attemptProblem.sampleInput}
                             </p>
 
                             <h6>Output Format</h6>
                             <p>
-                                1000
-                                2000
+                                {attemptProblem.sampleOutput}
                             </p>
 
                             <Button variant="primary">Submit</Button>
