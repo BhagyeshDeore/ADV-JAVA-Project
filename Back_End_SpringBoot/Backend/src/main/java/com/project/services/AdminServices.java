@@ -33,7 +33,7 @@ public class AdminServices {
 	
 	
 	
-		
+	
 	//Get All teacher List at Admin side	
 		
 	public List<Teacher> getTeacherList( ) {
