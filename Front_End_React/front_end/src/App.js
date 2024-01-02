@@ -66,7 +66,7 @@ function App() {
           }
         ></Route>
         <Route
-          path="/student-attemptProblem/:problem_id"
+          path="/student-attemptProblem/:contest_id/:problem_id"
           element={
             <SPrivateRoute>
               <S_AttemptProblem />
