@@ -57,7 +57,7 @@ export function A_Login(props) {
          const result = await loginAdmin(formData);
          console.log("from login api ",result.data , result.data.adminId);
          localStorage.setItem('adminId' , result.data.adminId);
-       //  navigate("/admin-dashboard");
+        navigate("/admin-dashboard");
     }catch(error){
        alert("Wrong admin Email or Password");    
        console.log("from Login api",error.data)
