@@ -9,62 +9,42 @@ import { ANavigationBar } from "./ANavigationBar";
 
 export function A_DashBoard(props) {
   const [teacherData, setTeacherData] = useState([]);
-  const [updateTeacher, setUpateTeacher] = useState({
-    teacherId: "",
-    status: "",
-  });
 
-  //Get Teachers List
+  // Get Teachers List
   const getFromAdminApi = async () => {
-    console.log("AdminId   :", getAdminID());
     try {
-      ///TODO : Dynamic admin ID pass
       const result = await getTecherList(getAdminID());
-      //console.log(result.data);
       setTeacherData(result.data);
     } catch (error) {
-      console.log("APIException ", error.data);
+      console.log("API Exception ", error.data);
     }
   };
+
   useEffect(() => {
     getFromAdminApi();
   }, []);
 
-  //API Call for Upate teacher Status
-  const updateTeacherStatusFromApi = async () => {
+  // API Call for Update teacher Status
+  const updateTeacherStatusFromApi = async (teacherId, newStatus) => {
     try {
-      console.log("befre sending the api", updateTeacher);
-      const result = await updateTeacherStatus(updateTeacher);
-      console.log("Update status response => " + result.data);
+      const result = await updateTeacherStatus({
+        teacherId: teacherId,
+        status: newStatus,
+      });
+      console.log("Update status response => ", result.data);
+
+      // Assuming the API call is successful, update the teacherData state
+      getFromAdminApi();
     } catch (error) {
-      console.log("APIException ", error.data);
+      console.log("API Exception ", error.data);
     }
   };
 
-  const toggleStatus = async (teacherId, status) => {
-    var newstatus;
-    if (status == "ACTIVE") newstatus = "INACTIVE";
-    else newstatus = "ACTIVE";
+  const toggleStatus = async (teacherId, currentStatus) => {
+    const newStatus = currentStatus === "ACTIVE" ? "INACTIVE" : "ACTIVE";
 
-    //await updateTeacherData(teacherId, newstatus);
-    await setUpateTeacher({
-      teacherId: teacherId,
-      status: status,
-    });
-    //updateData;
-    setTimeout(updateTeacherStatusFromApi, 1000);
-    //updateTeacherStatusFromApi();
-    getFromAdminApi();
-    setTeacherData((prevData) =>
-      prevData.map((teacher) =>
-        teacher.teacherId === teacherId
-          ? {
-              ...teacher,
-              status: teacher.status === "ACTIVE" ? "DEACTIVE" : "ACTIVE",
-            }
-          : teacher
-      )
-    );
+    // Update teacher status through API call
+    await updateTeacherStatusFromApi(teacherId, newStatus);
   };
 
   return (

@@ -1,12 +1,14 @@
 package com.project.dto;
 
+import com.project.entity.Student.StudentStatus;
+
 public class StudentLoginStatus {
 	
 	private boolean status;
 	private String message;
 	private int studentId;
 	private String name;
-	
+	private StudentStatus studentStatus; // Add this field
 	
 	public boolean isStatus() {
 		return status;
@@ -31,6 +33,14 @@ public class StudentLoginStatus {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public StudentStatus getStudentStatus() {
+		return studentStatus;
+	}
+
+	public void setStudentStatus(StudentStatus studentStatus) {
+		this.studentStatus = studentStatus;
 	}
 	
 	

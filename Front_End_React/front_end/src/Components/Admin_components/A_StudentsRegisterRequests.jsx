@@ -4,16 +4,10 @@ import {
   getStudentList,
   updateStudentStatus,
 } from "../../Services/Admin_services/Admin_APIs2";
-//import { getAdminID } from "../../Utiles/Admin_utiles/Admin_Token_util";
 import { ANavigationBar } from "./ANavigationBar";
-// ... (imports and other code)
 
 export function A_StudentsRegisterRequests(props) {
   const [studentData, setStudentData] = useState([]);
-  // const [updateStudent, setUpateStudent] = useState({
-  //   studentId: "",
-  //   status: "",
-  // });
 
   const getFromAdminApi = async () => {
     try {
@@ -30,30 +24,30 @@ export function A_StudentsRegisterRequests(props) {
 
   const updateStudentStatusFromApi = async (studentId, status) => {
     try {
-      const result = await updateStudentStatus( 
-      {  studentId: studentId,
-        status: status,});
-       
-    // console.log("Update status response => " + result.data);
+      const result = await updateStudentStatus(studentId, status);
+      console.log("Update status response => ", result);
+  
+      // Assuming the API call is successful, update the studentData state
+      getFromAdminApi();
     } catch (error) {
       console.log("APIException ", error.data);
     }
   };
 
-  const toggleStatus =   (studentId, status) => {
+  const toggleStatus = async (studentId, currentStatus) => {
+    const newStatus = currentStatus === "Active" ? "Deactive" : "Active";
+
+    // Update student status through API call
+    await updateStudentStatusFromApi(studentId, newStatus);
+
+    // Update the studentData state locally based on the new status
     setStudentData((prevData) =>
       prevData.map((student) =>
         student.studentId === studentId
-          ? {
-              ...student,
-              status: student.status === "ACTIVE" ? "DEACTIVE" : "ACTIVE",
-            }
+          ? { ...student, status: newStatus }
           : student
       )
-      
     );
-
-    updateStudentStatusFromApi(studentId, status);
   };
 
   return (
@@ -97,25 +91,25 @@ export function A_StudentsRegisterRequests(props) {
                   <td>
                     <Button
                       variant={
-                        student.status === "ACTIVE" ? "success" : "danger"
+                        student.status === "Active" ? "success" : "danger"
                       }
                       size="sm"
                       disabled
                     >
-                      {student.status === "ACTIVE" ? "Active" : "Deactivate"}
+                      {student.status === "Active" ? "Active" : "Deactivate"}
                     </Button>
                   </td>
                   <td>
                     <Button
                       variant={
-                        student.status === "ACTIVE" ? "danger" : "success"
+                        student.status === "Active" ? "danger" : "success"
                       }
                       size="sm"
                       onClick={() =>
                         toggleStatus(student.studentId, student.status)
                       }
                     >
-                      {student.status === "ACTIVE"
+                      {student.status === "Active"
                         ? "Deactivate"
                         : "Activate"}
                     </Button>

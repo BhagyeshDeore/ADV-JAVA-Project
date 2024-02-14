@@ -1,11 +1,10 @@
-import { THeader } from "./THeader";
 import React, { useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
-import axios  from "axios";
 import { loginTeacher } from "../../Services/Teacher_services/Teacher_APIs";
 import { useNavigate } from "react-router-dom";
 
 export function T_Login(props) {
+  console.log("Rendering T_Login component");
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -63,17 +62,33 @@ export function T_Login(props) {
     }
   };
 
-  const postOnAPI = async ()=>{
-   try{
-        const result = await loginTeacher(formData);
-        console.log("from login api ",result.data , result.data.teacherId);
-        localStorage.setItem('teacherId' , result.data.teacherId);
+  const postOnAPI = async () => {
+    try {
+      const result = await loginTeacher(formData);
+      console.log("from login api ", result.data, result.data.teacherId);
+      const teachStatus = result.data.teachStatus;
+  
+      // Check the teacher status as an enum
+      if (teachStatus === "ACTIVE") {
+        localStorage.setItem('teacherId', result.data.teacherId);
         navigate("/teacher-dashboard");
-   }catch(error){
-      alert("wrong email or password");
-      console.log("from Login api",error.data)
-   }
-}
+      } else {
+        // Handle inactive status
+        alert("Your account is inactive. Please contact the administrator.");
+      }
+    } catch (error) {
+      console.log("Error object:", error);
+      
+      // Check if error.response.data is available
+      if (error.response && error.response.data) {
+        // Handle error response data
+        console.log("Error response data:", error.response.data);
+      } else {
+        // Fallback in case response data is not available
+        alert("wrong email or password");
+      }
+    }
+  };
 
   return (
     //jsx code for UI render

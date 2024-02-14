@@ -59,6 +59,7 @@ public class StudentServices {
 			status.setMessage("Successfully Logged In!");
 			status.setStudentId(foundStudent.get().getStudentId());
 			status.setName(foundStudent.get().getName());
+			status.setStudentStatus(foundStudent.get().getStatus()); // Set the student status
 			return new ResponseEntity<StudentLoginStatus>(status, HttpStatus.ACCEPTED);
 		}
 
