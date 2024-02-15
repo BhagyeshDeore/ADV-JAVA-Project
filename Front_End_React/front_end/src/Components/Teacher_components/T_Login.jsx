@@ -7,7 +7,7 @@ export function T_Login(props) {
   console.log("Rendering T_Login component");
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ export function T_Login(props) {
       [name]: undefined,
     }));
 
-    console.log( formData );
+    console.log(formData);
   };
 
   //   const handleUpdatePasswordClick = (e) => {
@@ -67,10 +67,10 @@ export function T_Login(props) {
       const result = await loginTeacher(formData);
       console.log("from login api ", result.data, result.data.teacherId);
       const teachStatus = result.data.teachStatus;
-  
+
       // Check the teacher status as an enum
       if (teachStatus === "ACTIVE") {
-        localStorage.setItem('teacherId', result.data.teacherId);
+        localStorage.setItem("teacherId", result.data.teacherId);
         navigate("/teacher-dashboard");
       } else {
         // Handle inactive status
@@ -78,7 +78,7 @@ export function T_Login(props) {
       }
     } catch (error) {
       console.log("Error object:", error);
-      
+
       // Check if error.response.data is available
       if (error.response && error.response.data) {
         // Handle error response data
@@ -171,7 +171,7 @@ export function T_Login(props) {
             >
               Update your Password{" "}
               <a
-                href="/"
+                href="/teacher-update-password"
                 style={{
                   color: "black",
                   textDecoration: "none",

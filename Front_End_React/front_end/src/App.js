@@ -84,6 +84,15 @@ function App() {
           path="/admin-students-register-request"
           element={<A_StudentsRegisterRequests />}
         ></Route>
+        {/* 
+        <Route
+          path="/teacher-login"
+          element={
+            <TRedirectIfLoggedIn>
+              <T_Login />
+            </TRedirectIfLoggedIn>
+          }
+        ></Route> */}
 
         <Route path="/teacher-login" element={<T_Login />}></Route>
         <Route
