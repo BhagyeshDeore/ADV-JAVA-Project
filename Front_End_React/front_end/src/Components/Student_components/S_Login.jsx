@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { loginStudent } from "../../Services/Student_services/Student_APIs";
@@ -53,9 +52,18 @@ export function S_Login(props) {
   const postOnAPI = async () => {
     try {
       const result = await loginStudent(formData);
-      console.log("from login api ", result.data, result.data.studentId);
-      localStorage.setItem("studentId", result.data.studentId);
-      navigate("/student-dashboard");
+      const studentId = result.data.studentId;
+      const studentStatus = result.data.studentStatus; // Assuming it's an enum
+
+      if (studentStatus === "Active") {
+        localStorage.setItem("studentId", studentId);
+        navigate("/student-dashboard");
+      } else {
+        // Handle other statuses or display appropriate messages
+        alert(
+          "Your account is blocked or inactive. Please contact the administrator."
+        );
+      }
     } catch (error) {
       alert("Wrong Student Email or Password");
       console.log("from Login api", error.data);

@@ -33,11 +33,10 @@ import com.project.services.AdminServices;
 //import com.project.dto.StatusA;
  
 @RestController
-@CrossOrigin
-public class AdminController {
+@CrossOrigin(origins = "http://localhost:3000")
+public class AdminController{
 	@Autowired
 	private AdminServices adminServices;
-	private StudentRepository studentRepository;	
 	
 	
 	//admin Login
@@ -61,17 +60,11 @@ public class AdminController {
 	public ResponseEntity<StatusSU> updateStudentStatus(@RequestBody StudentDto studentDto)
 	{
 		int studentId =studentDto.getstudentId();
-		String status = studentDto.getStatus();
+		Enum status = studentDto.getStatus();
 		StatusSU statuSU = adminServices.updateStudentStatus(studentDto) ;
 		return new ResponseEntity<StatusSU>(statuSU,HttpStatus.CREATED);
 		
 	}
-	
- 
-	
-	
-	
-	 
 
 }
 

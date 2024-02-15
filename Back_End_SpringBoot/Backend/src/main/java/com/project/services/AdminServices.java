@@ -14,6 +14,9 @@ import com.project.dto.StatusTU;
 import com.project.entity.Teacher.teacherStatus;
 import com.project.repository.StudentRepository;
 import com.project.repository.TeacherRepository;
+
+import jakarta.transaction.Transactional;
+
 import com.project.dto.StatusSU;
 import com.project.dto.StudentDto;
 import com.project.dto.AdminLoginStatus;
@@ -57,7 +60,7 @@ public class AdminServices {
 	
 		
 //Update Teacher Status
-	
+	@Transactional
 	 public StatusTU updateTeacherStatus(TeacherDto teacherDto) {
 	        Optional<Teacher> foundteacher = teacherRepository.findById( teacherDto.getTeacherId() );
 	        StatusTU statusTU =new StatusTU ()  ; 
@@ -109,30 +112,32 @@ public class AdminServices {
 			}
 	 
 		//update s status
-		public StatusSU updateStudentStatus(StudentDto studentDto)
-		{
-			Optional<Student> foundstudent = studentRepository.findById( studentDto.getstudentId() );
-			StatusSU statusSU = new StatusSU();
-			Student student =foundstudent.get();
-			student.setStatus(StudentStatus.valueOf(studentDto.getStatus() ));
-			statusSU.setMessage("Student status updated!!");
-			studentRepository.save(student);
-			statusSU.setStatus(true);
-			return statusSU;
-			}
-	 
-	
-				
-				//Register new teacher
-//				
-//				public int teacherRegister(Teacher teacher) {
-//					
-//						teacher.setStatus(teacherStatus.valueOf(ACTIVE));
-//						String email = student.getEmail();
-//						student.setStatus(StudentStatus.newAccount);
-//						studentRepository.save(student);
-//						return student.getStudentId();
-//					
-//				}
+		public StatusSU updateStudentStatus(StudentDto studentDto) {
+		    Optional<Student> foundStudent = studentRepository.findById(studentDto.getstudentId());
+		    StatusSU statusSU = new StatusSU();
+
+		    if (foundStudent.isPresent()) {
+		        Student student = foundStudent.get();
+
+		        // Fetch the current status from the database
+		        Student.StudentStatus currentStatus = student.getStatus();
+		        
+		        // Check if the new status is different from the current one
+		        if (!currentStatus.equals(studentDto.getStatus())) {
+		            student.setStatus(studentDto.getStatus());
+		            studentRepository.save(student);
+		            statusSU.setMessage("Student status updated!!");
+		            statusSU.setStatus(true);
+		        } else {
+		            statusSU.setMessage("New status is the same as the current status.");
+		            statusSU.setStatus(false);
+		        }
+		    } else {
+		        statusSU.setMessage("Student not found!");
+		        statusSU.setStatus(false);
+		    }
+
+		    return statusSU;
+		}
 
 }

@@ -1,21 +1,24 @@
 package com.project.dto;
 
+import com.project.entity.Student.StudentStatus;
+
 public class StudentDto {
-	int studentId;
-	private String status;
+    private int studentId;
+    private StudentStatus status;
 
-	public int getstudentId() {
-		return studentId;
-	}
+    public int getstudentId() {
+        return studentId;
+    }
 
-	public void setstudentId(int studentId) {
-		this.studentId = studentId;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public String getStatus() {
-		return status;
-	}
-	
+    public void setstudentId(int studentId) {
+        this.studentId = studentId;
+    }
+
+    public StudentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(StudentStatus status) {
+        this.status = status;
+    }
 }
