@@ -26,7 +26,7 @@ export function S_AttemptProblem(props){
         language: "Java" , 
         obtainedMarks:10,
         result: "",
-        status : "Solved",
+        status : "Incorrect",
         contestId : params.contest_id,
         problemId : params.problem_id,
         studentId: getStudentID()

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { registerStudent } from "../../Services/Student_services/Student_APIs";
 import { Navigate, useNavigate } from "react-router-dom";
+import { HNavbar } from "../HNavbar";
 
 export function S_Register(props) {
   const [formData, setFormData] = useState({
@@ -106,6 +107,8 @@ export function S_Register(props) {
   
 
   return (
+    <div>
+    <HNavbar />
     <Container style={{ textAlign: "center" }}>
       <div
         className="container"
@@ -311,5 +314,6 @@ export function S_Register(props) {
         </Form>
       </div>
     </Container>
+    </div>
   );
 }

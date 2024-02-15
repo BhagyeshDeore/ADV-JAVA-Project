@@ -3,6 +3,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { loginTeacher } from "../../Services/Teacher_services/Teacher_APIs";
 import { loginAdmin } from "../../Services/Admin_services/Admin_APIs";
+import { HNavbar } from "../HNavbar";
 
 export function A_Login(props) {
   const [formData, setFormData] = useState({
@@ -66,6 +67,8 @@ export function A_Login(props) {
 }
 
   return (
+    <div>
+    <HNavbar />
     <Container style={{ textAlign: "center" }}>
       <div
         className="container"
@@ -130,5 +133,6 @@ export function A_Login(props) {
         </Form>
       </div>
     </Container>
+    </div>
   );
 }

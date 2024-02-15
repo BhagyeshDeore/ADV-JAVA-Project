@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.dto.NewContest;
 import com.project.dto.NewProblem;
+import com.project.dto.ProblemWithStatus;
 import com.project.dto.StatusT;
 import com.project.dto.TeacherLoginStatus;
 import com.project.dto.TeacherUpdatePassword;
@@ -91,6 +92,13 @@ public class TeacherController {
 	public List<Problem> getProblemList(@RequestParam int contestId) {
 
 		return teacherServices.getProblemsList(contestId);
+		
+	}
+	
+	@GetMapping("/student/get-problem-list-with-attempts")
+	public List<ProblemWithStatus> getProblemListWithAttempts(@RequestParam int contestId, int studentId) {
+
+		return teacherServices.getProblemsListWithAttemptsForStudent(contestId, studentId);
 		
 	}
 	

@@ -91,6 +91,10 @@ public class StudentServices {
 
 	}
 	
+	public Attempt getAttempt( int AttemptId ) {
+		return attemptRepository.findById( AttemptId ).get();
+	}
+	
 	
 	
 	public int studentRegister(Student student) throws Exception {

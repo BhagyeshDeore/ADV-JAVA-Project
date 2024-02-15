@@ -50,6 +50,15 @@ public class StudentController2 {
         return response;
     }
 	
+	@GetMapping("/student/attempt")
+    public ResponseEntity<Attempt> getAttemptById(@RequestParam  int AttemptId) {
+        System.out.println("student/attempt/"+AttemptId+" called");
+
+        Attempt response = studentServices.getAttempt(AttemptId);
+        return new ResponseEntity<Attempt>(response, HttpStatus.OK);
+    }
+	
+	
 	@PostMapping("/student/attempt-problem")
 	public ResponseEntity<StatusT> createProblem(@RequestBody NewAttempt newAttempt) {
 		
@@ -70,6 +79,8 @@ public class StudentController2 {
         ResponseEntity<Problem> response = studentServices.getProblemById(problemId);
         return response;
     }
+	
+	
 	
 	
 	

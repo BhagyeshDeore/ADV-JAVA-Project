@@ -131,3 +131,25 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+//admin
+//viraj@gmail.com 
+//vir123
+
+//student
+//virajtandel72@gmail.com
+//vir123
+
+//teacher
+//virajtandel72@gmail.com
+//new123

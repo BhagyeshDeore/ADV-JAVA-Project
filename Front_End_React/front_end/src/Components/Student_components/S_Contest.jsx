@@ -4,6 +4,8 @@ import { THeader } from "../Teacher_components/THeader";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProblems } from "../../Services/Teacher_services/Teacher_APIs";
 import { SNavigationBar } from "./SNavigationBar";
+import { getProblemsWithAttempts } from "../../Services/Student_services/Student_APIs";
+import { getStudentID } from "../../Utiles/Student_utiles/Student_Token_util";
 
 const S_Contest = (props) => {
   const [problemData, setProblemData] = useState([]);
@@ -33,7 +35,8 @@ const S_Contest = (props) => {
 
   const getFromApi = async () => {
     try {
-      const result = await getProblems(params.contest_id);
+       const result = await getProblemsWithAttempts(params.contest_id, getStudentID());
+      // const result = await getProblems(params.contest_id);
       console.log(result.data);
       setProblemData(result.data);
     } catch (error) {
@@ -74,10 +77,13 @@ const S_Contest = (props) => {
               <h3>{problem.title}</h3>
               <h6>Marks: {problem.marks}</h6>
               <h6>Difficulty: {problem.difficultyLevel}</h6>
-              {problem.status === "SOLVED" ? (
+              <h4>Status : {problem.status === null ? "Unsolved" : problem.status}</h4>
+              {problem.status === "Solved" ? (
                 <Button
                   variant="outline-success"
                   onClick={() => QuestionPage(problem.problemId)}
+                  //http://localhost:9090/student/attempt?AttemptId=4
+                  //problem.attempt_id
                 >
                   SOLVED
                 </Button>
@@ -86,7 +92,7 @@ const S_Contest = (props) => {
                   variant="outline-danger"
                   onClick={() => QuestionPage(problem.problemId)}
                 >
-                  UNSOLVED
+                  Attempt
                 </Button>
               )}
               {/* Add more details as needed */}
