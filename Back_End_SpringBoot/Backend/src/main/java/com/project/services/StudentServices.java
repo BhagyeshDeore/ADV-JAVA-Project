@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.project.dto.LeaderboardEntry;
 import com.project.dto.StatusT;
 import com.project.dto.StudentLoginStatus;
 import com.project.entity.Attempt;
@@ -141,6 +142,19 @@ public class StudentServices {
 	        } else {
 	            // Problem not found
 	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        }
+	    }
+		
+		//get leaderboard list from attempt table
+		public ResponseEntity<List<LeaderboardEntry>> calculateTotalMarksForContestEntity(int contestId) {
+	        // Assuming you have access to the AttemptRepository (autowired or injected)
+	        List<LeaderboardEntry> leaderboardEntries = attemptRepository.calculateTotalMarksForContest(contestId);
+
+	        if (leaderboardEntries != null && !leaderboardEntries.isEmpty()) {
+	            return new ResponseEntity<>(leaderboardEntries, HttpStatus.OK);
+	        } else {
+	            // Handle case where leaderboardEntries is empty or null
+	            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        }
 	    }
 	

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.dto.LeaderboardEntry;
 import com.project.dto.NewAttempt;
 import com.project.dto.NewProblem;
 import com.project.dto.StatusT;
@@ -77,6 +78,12 @@ public class StudentController2 {
 	@GetMapping("/problem/{problemId}")
     public ResponseEntity<Problem> getProblemById(@PathVariable int problemId) {
         ResponseEntity<Problem> response = studentServices.getProblemById(problemId);
+        return response;
+    }
+	
+	@GetMapping("/contest/{contestId}/leaderboard")
+    public ResponseEntity<List<LeaderboardEntry>> getLeaderboardForContest(@PathVariable int contestId) {
+        ResponseEntity<List<LeaderboardEntry>> response = studentServices.calculateTotalMarksForContestEntity(contestId);
         return response;
     }
 	
