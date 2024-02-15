@@ -1,14 +1,14 @@
 import { THeader } from "./THeader";
 import React, { useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
-import axios  from "axios";
+import axios from "axios";
 import { loginTeacher } from "../../Services/Teacher_services/Teacher_APIs";
 import { useNavigate } from "react-router-dom";
 
 export function T_Login(props) {
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ export function T_Login(props) {
       [name]: undefined,
     }));
 
-    console.log( formData );
+    console.log(formData);
   };
 
   //   const handleUpdatePasswordClick = (e) => {
@@ -63,17 +63,17 @@ export function T_Login(props) {
     }
   };
 
-  const postOnAPI = async ()=>{
-   try{
-        const result = await loginTeacher(formData);
-        console.log("from login api ",result.data , result.data.teacherId);
-        localStorage.setItem('teacherId' , result.data.teacherId);
-        navigate("/teacher-dashboard");
-   }catch(error){
+  const postOnAPI = async () => {
+    try {
+      const result = await loginTeacher(formData);
+      console.log("from login api ", result.data, result.data.teacherId);
+      localStorage.setItem("teacherId", result.data.teacherId);
+      navigate("/teacher-dashboard");
+    } catch (error) {
       alert("wrong email or password");
-      console.log("from Login api",error.data)
-   }
-}
+      console.log("from Login api", error.data);
+    }
+  };
 
   return (
     //jsx code for UI render
@@ -156,7 +156,7 @@ export function T_Login(props) {
             >
               Update your Password{" "}
               <a
-                href="/"
+                href="/teacher-update-password"
                 style={{
                   color: "black",
                   textDecoration: "none",
