@@ -127,6 +127,7 @@ public class StudentServices {
 			StatusT status = new StatusT();
 			status.setMessage("Problem Attempted!");
 			status.setStatus(true);
+			status.setOutput( attempt.getResult() );
 			
 			return status;
 		}

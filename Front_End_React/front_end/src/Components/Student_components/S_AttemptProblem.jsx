@@ -7,15 +7,17 @@ import { useEffect, useState } from "react";
 import { getattemptProblem , attemptProblem2 } from "../../Services/Student_services/Student_APIs";
 import { SNavigationBar } from "./SNavigationBar";
 import { getStudentID } from "../../Utiles/Student_utiles/Student_Token_util";
+import JavaCodeOutput from "./JavaCodeOutput";
 
 export function S_AttemptProblem(props){
 
     const params = useParams();
     const [attemptProblem, setattemptProblem] = useState([]);
     const navigate = useNavigate();
+    const [output, setOutput] = useState('');
 
     const [formData, setFormData] = useState({
-        code : `import java.util.Scanner;
+        code : `import java.util.Scanner;\n     
     class Solution{
         public static void main(String args[]){
             Scanner sc = new Scanner(System.in);
@@ -49,7 +51,8 @@ export function S_AttemptProblem(props){
         try{
              const result = await attemptProblem2(formData);
              console.log("from attempt problem api ",result.data);
-             navigate(`/student-seeContest/${params.contest_id}`)
+             setOutput(result.data.output);
+             //navigate(`/student-seeContest/${params.contest_id}`)
 
         }catch(error){
           
@@ -102,6 +105,10 @@ export function S_AttemptProblem(props){
 
                             <Button variant="primary" onClick={submitAttempt}>Submit</Button>
                         </div>
+                        <div>
+                            <SHeader text="Java Code Execution Results"></SHeader>
+                            <JavaCodeOutput output={output} />
+                        </div>
                     </Col>
                     <Col>
                         <div>
@@ -109,6 +116,7 @@ export function S_AttemptProblem(props){
                             solutionCode={formData.code}  
                             updateCode={updateCode}/>
                         </div>
+                       
                     </Col>
                 </Row>
             </Container>
