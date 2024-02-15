@@ -45,8 +45,6 @@ export function A_Login(props) {
         password: "",
       });
       setFormSubmitted(false);
-    } else {
-      setError("Invalid username or password.");
     }
 
     postOnAPI();

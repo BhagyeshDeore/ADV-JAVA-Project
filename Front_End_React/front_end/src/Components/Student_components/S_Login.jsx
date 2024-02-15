@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { loginStudent } from "../../Services/Student_services/Student_APIs";
@@ -25,47 +24,52 @@ export function S_Login(props) {
       ...prevErrors,
       [name]: undefined,
     }));
-  
+
     console.log(formData);
   };
 
-  const  handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-        // Validate form fields
-        const validationErrors = {};
+    // Validate form fields
+    const validationErrors = {};
 
-        // Check for empty fields
-        Object.keys(formData).forEach((key) => {
-        if (formData[key].trim() === "") {
-            validationErrors[key] = "This field is required";
-        }
-        });
-
-        // Display validation errors inline
-        setErrors(validationErrors);
-
-        // If no errors, proceed with login or perform necessary actions
-        if (Object.keys(validationErrors).length === 0) {
-          
-          postOnAPI();
-        }
-      } 
-
-        const postOnAPI = async ()=>{
-          try{
-               const result = await loginStudent(formData);
-               console.log("from login api ",result.data , result.data.studentId);
-               localStorage.setItem('studentId' , result.data.studentId);
-               navigate("/student-dashboard");
-          }catch(error){
-             alert("Wrong Student Email or Password");
-             console.log("from Login api",error.data)
-          }
-      
+    // Check for empty fields
+    Object.keys(formData).forEach((key) => {
+      if (formData[key].trim() === "") {
+        validationErrors[key] = "This field is required";
       }
-    
-    
+    });
+
+    // Display validation errors inline
+    setErrors(validationErrors);
+
+    // If no errors, proceed with login or perform necessary actions
+    if (Object.keys(validationErrors).length === 0) {
+      postOnAPI();
+    }
+  };
+
+  const postOnAPI = async () => {
+    try {
+      const result = await loginStudent(formData);
+      const studentId = result.data.studentId;
+      const studentStatus = result.data.studentStatus; // Assuming it's an enum
+
+      if (studentStatus === "Active") {
+        localStorage.setItem("studentId", studentId);
+        navigate("/student-dashboard");
+      } else {
+        // Handle other statuses or display appropriate messages
+        alert(
+          "Your account is blocked or inactive. Please contact the administrator."
+        );
+      }
+    } catch (error) {
+      alert("Wrong Student Email or Password");
+      console.log("from Login api", error.data);
+    }
+  };
 
   return (
     <div>
@@ -97,8 +101,12 @@ export function S_Login(props) {
           }}
         >
           Student Login
-        </h2><br/>
-        <Form style={{ paddingTop: "10px", paddingBottom: "5px" }} onSubmit={handleSubmit}>
+        </h2>
+        <br />
+        <Form
+          style={{ paddingTop: "10px", paddingBottom: "5px" }}
+          onSubmit={handleSubmit}
+        >
           <Row className="mb-3">
             {/* Student ID */}
             <Col md={12}>
@@ -138,22 +146,25 @@ export function S_Login(props) {
           {/* Login Button */}
           <div style={{ textAlign: "center", marginTop: "20px" }}>
             <Button variant="outline-dark" type="submit">
-                Login
+              Login
             </Button>
 
             {/* Don't have an Account? Sign Up */}
-            <p className="tagging" style={{ fontSize: "13px", marginTop: "10px" }}>
-                Don't have an Account?{" "}
-                <a
+            <p
+              className="tagging"
+              style={{ fontSize: "13px", marginTop: "10px" }}
+            >
+              Don't have an Account?{" "}
+              <a
                 href="/student-register"
                 style={{
-                    color: "black",
-                    textDecoration: "none",
-                    fontWeight: "bold",
+                  color: "black",
+                  textDecoration: "none",
+                  fontWeight: "bold",
                 }}
-                >
+              >
                 Sign Up
-                </a>
+              </a>
             </p>
           </div>
         </Form>
@@ -162,4 +173,3 @@ export function S_Login(props) {
     </div>
   );
 }
-

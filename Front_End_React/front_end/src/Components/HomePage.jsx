@@ -3,6 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { Modal, Button, Card, Container, Row, Col } from 'react-bootstrap';
 import './style.css';
 import { HNavbar } from './HNavbar';
+import webdev from '../Assets/Designer.png'
+import DSA from '../Assets/DSA1.png'
+import OOPs from '../Assets/OPPs.png'
+import string from '../Assets/String2.png'
+import Exception from '../Assets/EXC_Handling.png'
+import multithreading from '../Assets/Multithreading.png'
 
 export function HomePage() {
   const [showWebModal, setShowWebModal] = useState(false);
@@ -51,16 +57,18 @@ export function HomePage() {
           <h2 className="mb-4 text-center">Important Topics in Programming</h2>
         </Col>
       </Row>
+      <br/>
+
       <section>
         <Container>
           <Row>
             <Col lg={4}>
               <div className="card-deck">
                 <Card>
-                  <Card.Img variant="top" src="https://cdn.shopify.com/s/files/1/0306/6419/6141/articles/coding_languages.png?v=1619126283" />
+                  <Card.Img variant="top" src={webdev} />
                   <Card.Body>
                     <Card.Title>Web Programming</Card.Title>
-                    <Card.Text>Description of Web Programming.</Card.Text>
+                    <Card.Text>Understanding Web Programming: Building Dynamic and Interactive Websites</Card.Text>
                     <Button variant="primary" onClick={() => setShowWebModal(true)} className="hover-effect">Show Info</Button>
                   </Card.Body>
                 </Card>
@@ -72,10 +80,10 @@ export function HomePage() {
             <Col lg={4}>
               <div className="card-deck">
                 <Card>
-                  <Card.Img variant="top" src="https://media.geeksforgeeks.org/wp-content/uploads/20230627113746/DSA-full-form.png" />
+                  <Card.Img variant="top" src={DSA}/>
                   <Card.Body>
                     <Card.Title>DSA</Card.Title>
-                    <Card.Text>Description of DSA.</Card.Text>
+                    <Card.Text>Exploring Data Structures: Organizing and Managing Information Efficiently</Card.Text>
                     <Button variant="primary" onClick={() => setShowDSAModal(true)} className="hover-effect">Show Info</Button>
                   </Card.Body>
                 </Card>
@@ -85,10 +93,10 @@ export function HomePage() {
             <Col lg={4}>
               <div className="card-deck">
                 <Card>
-                  <Card.Img variant="top" src="https://miro.medium.com/v2/resize:fit:750/format:webp/0*6Jism4uJOE7FbaTS.png" />
+                  <Card.Img variant="top" src={OOPs} />
                   <Card.Body>
                     <Card.Title>OOPs</Card.Title>
-                    <Card.Text>Description of OOPs.</Card.Text>
+                    <Card.Text>Mastering Object-Oriented Programming: Principles and Practices for Building Scalable Software</Card.Text>
                     <Button variant="primary" onClick={() => setShowOopsModal(true)} className="hover-effect">Show Info</Button>
                   </Card.Body>
                 </Card>
@@ -100,7 +108,7 @@ export function HomePage() {
             <Col lg={4}>
               <div className="card-deck">
                 <Card>
-                  <Card.Img variant="top" src="https://files.codingninjas.in/article_images/custom-upload-1677072692.webp" />
+                  <Card.Img variant="top" src={string} />
                   <Card.Body>
                     <Card.Title>String Manipulation</Card.Title>
                     <Card.Text>Explore techniques for string manipulation, concatenation, and pattern matching.</Card.Text>
@@ -113,7 +121,7 @@ export function HomePage() {
             <Col lg={4}>
               <div className="card-deck">
                 <Card>
-                  <Card.Img variant="top" src="https://www.scientecheasy.com/wp-content/uploads/2020/02/exception-handling-1.png" />
+                  <Card.Img variant="top" src={Exception} />
                   <Card.Body>
                     <Card.Title>Exception Handling</Card.Title>
                     <Card.Text>Learn how to handle exceptions gracefully and implement error recovery strategies.</Card.Text>
@@ -126,7 +134,7 @@ export function HomePage() {
             <Col lg={4}>
               <div className="card-deck">
                 <Card>
-                  <Card.Img variant="top" src="https://cdn.educba.com/academy/wp-content/uploads/2019/04/multithreading-In-Java.png.webp" />
+                  <Card.Img variant="top" src={multithreading} />
                   <Card.Body>
                     <Card.Title>Multithreading</Card.Title>
                     <Card.Text>Explore concurrent execution of multiple threads to improve performance and responsiveness.</Card.Text>
@@ -178,6 +186,7 @@ export function HomePage() {
               <Button variant="secondary" onClick={() => setShowDSAModal(false)}>Close</Button>
             </Modal.Footer>
           </Modal>
+          
           {/* OOPs Modal */}
           <Modal show={showOopsModal} onHide={() => setShowOopsModal(false)}>
             <Modal.Header closeButton>
