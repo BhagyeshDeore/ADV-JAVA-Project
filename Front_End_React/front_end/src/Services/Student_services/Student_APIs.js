@@ -48,6 +48,20 @@ export async function getProblems(contestId){
 
 } 
 
+
+export async function getProblemsWithAttempts(contestId, studentId){
+    try{
+
+        const response = await axios.get(`http://localhost:9090/student/get-problem-list-with-attempts?contestId=${contestId}&studentId=${studentId}`);
+        return response;
+
+    }catch(error){
+        console.log(error)
+        return error;
+    }
+
+}
+
 export async function getattemptProblem(problem_id){
     try{
   
@@ -77,5 +91,15 @@ export async function attemptProblem2(data){
 
 }
 
+ 
+  export const getLeaderboardData = async (contestId) => {
+    try {
+      const response = await axios.get(`http://localhost:9090/contest/${contestId}/leaderboard`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching leaderboard data:', error);
+      throw error;
+    }
+  };
 
 

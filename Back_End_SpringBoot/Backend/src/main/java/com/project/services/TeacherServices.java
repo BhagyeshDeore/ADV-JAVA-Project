@@ -1,26 +1,27 @@
 package com.project.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com.project.dto.NewProblem;
+import com.project.dto.ProblemWithStatus;
 import com.project.dto.StatusT;
 import com.project.dto.TeacherLoginStatus;
 import com.project.dto.TeacherUpdatePassword;
 import com.project.entity.Attempt;
 import com.project.entity.Contest;
 import com.project.entity.Problem;
+import com.project.entity.Student;
 import com.project.entity.Teacher;
 import com.project.repository.AttemptRepository;
 import com.project.repository.ContestRepository;
 import com.project.repository.ProblemRepository;
+import com.project.repository.StudentRepository;
 import com.project.repository.TeacherRepository;
 
 @Service
@@ -37,6 +38,11 @@ public class TeacherServices {
 	
 	@Autowired
 	private AttemptRepository attemptRepository;
+	
+	@Autowired
+	private StudentRepository studentRepository;
+	
+
 	
 	//teacher Login
 	public ResponseEntity<TeacherLoginStatus> teacherLogin(Teacher teacher) {
@@ -171,10 +177,41 @@ public class TeacherServices {
 		
 	}
 	
-	
 
-	    
-	
+	//list Contest for particular student with attempts
+	public List<ProblemWithStatus> getProblemsListWithAttemptsForStudent(  int ContestId , int StudentId ) {
+		
+		Optional<Contest> contest = contestRepository.findById(ContestId);
+		Optional<Student> student = studentRepository.findById( StudentId);
+		
+		List<Problem> allProblems = problemRepository.findAllByContest( contest.get() );
+		List<Attempt> allAttemptsOfStudents = attemptRepository.findByStudentAndContest(student.get(), contest.get());
+		
+		List<ProblemWithStatus> problemWithStatus = new ArrayList<ProblemWithStatus>();
+		
+		
+		for( int i = 0 ; i < allProblems.size(); i++ ) {
+			
+			Problem problem = allProblems.get(i);
+			ProblemWithStatus ps = new ProblemWithStatus( problem );
+			System.out.print("for problem id in for loop: "+ps.getProblemId());
+			
+			for(int j = 0 ; j < allAttemptsOfStudents.size(); j++) {
+				Attempt a = allAttemptsOfStudents.get(j);
+				
+				if(a.getProblem() == problem ) {
+					ps.setAttempt_id(a.getAttemptId());
+					ps.setStatus(a.getStatus());
+				}
+			}
+			
+			problemWithStatus.add(ps);
+		}
+		
+		return problemWithStatus;
+		
+	}
+
 		
 	//list Attempt
 	public List<Attempt> getAttemptsList(  int ContestId ) {

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Table } from "react-bootstrap";
 import { THeader } from "../Teacher_components/THeader";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { getProblems } from "../../Services/Teacher_services/Teacher_APIs";
 import { SNavigationBar } from "./SNavigationBar";
+import { getProblemsWithAttempts, getLeaderboardData } from "../../Services/Student_services/Student_APIs";
+import { getStudentID } from "../../Utiles/Student_utiles/Student_Token_util";
+import { useNavigate, useParams } from "react-router-dom";
 
 const S_Contest = (props) => {
   const [problemData, setProblemData] = useState([]);
+  const [leaderboardData, setLeaderboardData] = useState([]);
   const params = useParams();
   const [filter, setFilter] = useState({
     easy: true,
@@ -33,18 +35,32 @@ const S_Contest = (props) => {
 
   const getFromApi = async () => {
     try {
-      const result = await getProblems(params.contest_id);
-      console.log(result.data);
+      const result = await getProblemsWithAttempts(params.contest_id, getStudentID());
       setProblemData(result.data);
+
+      // Fetch leaderboard data after setting the problem data
+      await fetchLeaderboardData();
     } catch (error) {
       setProblemData([]);
-      console.log("from api", error.data);
+      console.error("Error from API:", error);
+    }
+  };
+
+  const fetchLeaderboardData = async () => {
+    try {
+      const leaderboardResult = await getLeaderboardData(params.contest_id);
+      setLeaderboardData(leaderboardResult);
+    } catch (error) {
+      setLeaderboardData([]);
+      console.error("Leaderboard fetch error:", error);
     }
   };
 
   useEffect(() => {
     getFromApi();
   }, []);
+
+  const sortedLeaderboardData = leaderboardData.sort((a, b) => b.totalMarks - a.totalMarks);
 
   const filteredProblems = problemData.filter((problem) => {
     const difficultyFilter =
@@ -74,7 +90,8 @@ const S_Contest = (props) => {
               <h3>{problem.title}</h3>
               <h6>Marks: {problem.marks}</h6>
               <h6>Difficulty: {problem.difficultyLevel}</h6>
-              {problem.status === "SOLVED" ? (
+              <h4>Status : {problem.status === null ? "Unsolved" : problem.status}</h4>
+              {problem.status === "Solved" ? (
                 <Button
                   variant="outline-success"
                   onClick={() => QuestionPage(problem.problemId)}
@@ -86,10 +103,9 @@ const S_Contest = (props) => {
                   variant="outline-danger"
                   onClick={() => QuestionPage(problem.problemId)}
                 >
-                  UNSOLVED
+                  Attempt
                 </Button>
               )}
-              {/* Add more details as needed */}
             </div>
           ))}
         </Col>
@@ -146,7 +162,37 @@ const S_Contest = (props) => {
           </Form>
         </Col>
       </Row>
-    </Container>
+      {/* Leaderboard section */}
+      <Row>
+      <Col md={{ span: 3, offset: 9 }}>
+      {/* Leaderboard section */}
+        <div className="border p-3 rounded" style={{ marginTop: "15px",marginLeft: "-12px",marginRight: "6px", backgroundColor: "lightgrey" }}>
+          <h3>Leaderboard</h3>
+            {sortedLeaderboardData === 0 ? (
+            <p>No brave souls have attempted this challenge yet. Be the first one and shine!</p>
+              ) : (
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Student Name</th>
+                      <th>Marks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sortedLeaderboardData.map((entry) => (
+                      <tr key={entry.studentId}>
+                        <td>{entry.studentName}</td>
+                        <td>{entry.totalMarks}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              )}
+          </div>
+            
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };

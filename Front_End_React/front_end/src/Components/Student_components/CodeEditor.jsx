@@ -14,6 +14,7 @@ export function CodeEditor(props) {
         lineHeight: 24,
         hideCursorInOverviewRuler: true,
         matchBrackets: 'always',
+        theme : "vs-dark",
         minimap: {
         enabled: true,
         },

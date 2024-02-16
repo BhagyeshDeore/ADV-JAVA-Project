@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { loginTeacher } from "../../Services/Teacher_services/Teacher_APIs";
 import { useNavigate } from "react-router-dom";
+import { HNavbar } from "../HNavbar";
 
 export function T_Login(props) {
   console.log("Rendering T_Login component");
@@ -92,6 +93,8 @@ export function T_Login(props) {
 
   return (
     //jsx code for UI render
+    <div>
+    <HNavbar />
     <Container style={{ textAlign: "center", marginTop: "40px" }}>
       <div
         className="container"
@@ -185,5 +188,6 @@ export function T_Login(props) {
         </form>
       </div>
     </Container>
+    </div>
   );
 }
