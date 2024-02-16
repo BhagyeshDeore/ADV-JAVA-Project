@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.project.dto.NewProblem;
 import com.project.dto.StatusT;
 import com.project.dto.TeacherLoginStatus;
 import com.project.dto.TeacherUpdatePassword;
@@ -123,6 +124,44 @@ public class TeacherServices {
 		return status;
 	}
 	
+	 public StatusT editProblem(int contestId, int problemId, Problem updatedProblem) {
+	        Optional<Problem> optionalExistingProblem = problemRepository.findByContestIdAndProblemId(contestId, problemId);
+
+	        if (optionalExistingProblem.isPresent()) {
+	            Problem existingProblem = optionalExistingProblem.get();
+
+	            
+	            existingProblem.setTitle(updatedProblem.getTitle());
+	            existingProblem.setProblemStatement(updatedProblem.getProblemStatement());
+	            existingProblem.setExplanation(updatedProblem.getExplanation());
+	            existingProblem.setDifficultyLevel(updatedProblem.getDifficultyLevel());
+	            existingProblem.setMarks(updatedProblem.getMarks());
+	            existingProblem.setSampleInput(updatedProblem.getSampleInput());
+	            existingProblem.setSampleOutput(updatedProblem.getSampleOutput());
+	            existingProblem.setTestCase(updatedProblem.getTestCase());
+	            existingProblem.setResulTestCase(updatedProblem.getResulTestCase());
+	            existingProblem.setSolutionCode(updatedProblem.getSolutionCode());
+
+	           
+	            problemRepository.save(existingProblem);
+
+	            
+	            StatusT status = new StatusT();
+	            status.setMessage("Problem Updated");
+	            status.setStatus(true);
+	            return status;
+	        } 
+	        else {
+	            
+	            StatusT status = new StatusT();
+	            status.setMessage("Problem not found");
+	            status.setStatus(false);
+	            return status;
+	        }
+	    }
+
+
+	
 	//list Contest
 	public List<Problem> getProblemsList(  int ContestId ) {
 		
@@ -131,6 +170,11 @@ public class TeacherServices {
 		return problemRepository.findAllByContest( contest.get() );
 		
 	}
+	
+	
+
+	    
+	
 		
 	//list Attempt
 	public List<Attempt> getAttemptsList(  int ContestId ) {

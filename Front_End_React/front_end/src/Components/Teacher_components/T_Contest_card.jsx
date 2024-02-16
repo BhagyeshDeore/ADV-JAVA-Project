@@ -9,7 +9,7 @@ export function T_Contest_card(props){
     }
 
     function editContest() {
-        navigate(`/teacher-create-contest/${props.ID}`)
+        navigate(`/teacher-create-contest/${props.ID}`,{ state: { contestId: props.ID } })
     }
 
     return(

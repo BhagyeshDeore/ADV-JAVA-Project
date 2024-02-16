@@ -6,6 +6,15 @@ public class StatusT {
 	private String message;
 	
 	
+	
+	public StatusT(String message ,boolean status) {
+		super();
+		this.status = status;
+		this.message = message;
+	}
+	public StatusT() {
+		// TODO Auto-generated constructor stub
+	}
 	public boolean isStatus() {
 		return status;
 	}
