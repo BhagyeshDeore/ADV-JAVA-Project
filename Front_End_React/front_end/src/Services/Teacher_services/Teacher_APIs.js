@@ -81,13 +81,31 @@ export async function createProblem(data) {
 
 export async function editProblem(contestId, problemId, formData) {
   try {
-      const response = await axios.post(
-          `http://localhost:9090/teacher/update-problem/${contestId}/${problemId}`,
-          formData
-      );
-      return response.data; 
+    const response = await axios.post(
+      `http://localhost:9090/teacher/update-problem/${contestId}/${problemId}`,
+      formData
+    );
+    return response.data;
   } catch (error) {
-      console.log(error);
-      return error;
+    console.log(error);
+    return error;
+  }
+}
+
+export async function updatePassword(data) {
+  try {
+    const response = await axios.post(
+      "http://localhost:9090/teacher/update-password",
+      data
+    );
+    return response;
+    // return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Error in loginTeacher:", error);
+
+    return {
+      success: false,
+      error: error.response ? error.response.data : "Network error",
+    };
   }
 }
