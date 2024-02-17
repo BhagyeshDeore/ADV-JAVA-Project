@@ -1,8 +1,11 @@
 package com.project.utils;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.StringWriter;
@@ -19,7 +22,10 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
 public class CodeExecutor {
-    public static String executeJavaCode(String code, String input) {
+    
+    
+    
+    public static String executeJavaCodeUsingShell(String code, String input) {
         try {
             // Capture standard output
             OutputStream outputStream = new ByteArrayOutputStream();
@@ -46,11 +52,13 @@ public class CodeExecutor {
             
             //adding classpath 
             List<String> options = new ArrayList<String>();
-            options.add("-classpath");
-            String currentDir = new File(".").getAbsolutePath();
             
-            System.out.println("current directory :"+currentDir);
-            options.add(currentDir);           
+            options.add("-source");
+	        options.add("11");
+	        options.add("-target");
+	        options.add("11");
+            
+                    
             
             JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, diagnosticCollector, options , null, compilationUnits);
 
@@ -69,18 +77,10 @@ public class CodeExecutor {
                 return String.join("\n", errorMessages);
             }
 
-
-            // Load and execute the compiled code using the default class loader
-            Class<?> loadedClass = Class.forName("Solution");
-            loadedClass.getMethod("main", String[].class).invoke(null, (Object) new String[]{input});
-
-            // Capture the output
-            String output = outputStream.toString();
-
-            // Restore the standard output
-            System.setOut(oldOut);
-
-            return output;
+            ///////////////////////////////////////////
+            String output = executeJavaProgram(input, 5000);
+            ///////////////////////////////////////////
+           return output;
         } catch (Exception e) {
             // If any exception occurs during code execution, return the error message
             e.printStackTrace();
@@ -88,4 +88,85 @@ public class CodeExecutor {
             
         }
     }
-}
+    public static String executeJavaProgram(String input, long timeLimitMillis) {
+        try {
+            // Command to execute the Java program
+            String javaCommand = "java -cp . Solution";
+
+            // Create ProcessBuilder instance with the command
+            ProcessBuilder processBuilder = new ProcessBuilder();
+            processBuilder.command("bash", "-c", javaCommand);
+
+            // Start the process
+            Process process = processBuilder.start();
+
+            // Write input to the process
+            if (input != null) {
+                process.getOutputStream().write(input.getBytes());
+                process.getOutputStream().flush();
+            }
+            //System.out.print("printing input to the java program"+input);
+            // Read output from the process
+            StringBuilder output = new StringBuilder();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+
+            // Read error output from the process
+            StringBuilder errorOutput = new StringBuilder();
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+         // Create a separate thread to monitor time limit
+            Thread timeLimitThread = new Thread(() -> {
+                try {
+                    Thread.sleep(timeLimitMillis); // Corrected line
+                    if (process.isAlive()) {
+                        process.destroy(); // Terminate the process if time limit is exceeded
+                    }
+                } catch (InterruptedException e) {
+                    // Do nothing if interrupted
+                }
+            });
+
+            timeLimitThread.start();
+
+            // Wait for the process to complete
+            int exitCode;
+            try {
+                exitCode = process.waitFor();
+            } catch (InterruptedException e) {
+                exitCode = -1; // Indicate an error condition
+            }
+
+            // Interrupt the time limit thread if it's not already interrupted
+            if (timeLimitThread.isAlive()) {
+                timeLimitThread.interrupt();
+            }
+            
+            if (exitCode != 0) {
+            	if(exitCode == 143 )
+            		return "Time limit exceeded";
+                return "Exited with error code " + exitCode + "\nError Output: " + errorOutput.toString();
+            }
+
+//            // Check if the time limit thread interrupted the main thread, indicating time limit exceeded
+//            if (process.isAlive() && timeLimitThread.isInterrupted()) {
+//                return "Time limit exceeded";
+//            }
+            
+            // Read output from the process
+            while ((line = reader.readLine()) != null) {
+                output.append(line).append("\n");
+            }
+
+            // Read error output from the process
+            while ((line = errorReader.readLine()) != null) {
+                errorOutput.append(line).append("\n");
+            }
+
+            return output.toString();
+        } catch (IOException e) {
+            return "Exception occurred: " + e.getMessage();
+        }
+    }
+
+    }

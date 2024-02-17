@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { SHeader } from "./SHeader";
 import { CodeEditor } from "./CodeEditor";
 import { AHeader } from "../Admin_components/AHeader";
@@ -15,6 +15,8 @@ export function S_AttemptProblem(props){
     const [attemptProblem, setattemptProblem] = useState([]);
     const navigate = useNavigate();
     const [output, setOutput] = useState('');
+    const [loading, setLoading] = useState(false); // Initialize loading state
+
 
     const [formData, setFormData] = useState({
         code : `import java.util.Scanner;\n     
@@ -26,7 +28,7 @@ export function S_AttemptProblem(props){
         }
     }`,
         language: "Java" , 
-        obtainedMarks:10,
+        obtainedMarks:0,
         result: "",
         status : "Incorrect",
         contestId : params.contest_id,
@@ -43,10 +45,14 @@ export function S_AttemptProblem(props){
         console.log(formData)
     }
 
-    const submitAttempt = ()=>{
-        postOnAPI();
-    }
-
+    const submitAttempt = async () => {
+        setLoading(true); // Set loading state to true when submitting
+        try {
+            await postOnAPI(); // Wait for the API call to finish
+        } finally {
+            setLoading(false); // Set loading state to false when API call finishes
+        }
+    };
     const postOnAPI = async ()=>{
         try{
              const result = await attemptProblem2(formData);
@@ -103,8 +109,16 @@ export function S_AttemptProblem(props){
                                 {attemptProblem.sampleOutput}
                             </p>
 
-                            <Button variant="primary" onClick={submitAttempt}>Submit</Button>
-                        </div>
+                            <Button variant="primary" onClick={submitAttempt} disabled={loading}>
+                                {loading ? ( // Show loading spinner if loading, otherwise show "Submit"
+                                    <Spinner animation="border" size="sm" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </Spinner>
+                                ) : (
+                                    "Submit"
+                                )}
+                            </Button>                        
+                            </div>
                         <div>
                             <SHeader text="Java Code Execution Results"></SHeader>
                             <JavaCodeOutput output={output} />
