@@ -78,3 +78,16 @@ export async function createProblem(data) {
     return error;
   }
 }
+
+export async function editProblem(contestId, problemId, formData) {
+  try {
+      const response = await axios.post(
+          `http://localhost:9090/teacher/update-problem/${contestId}/${problemId}`,
+          formData
+      );
+      return response.data; 
+  } catch (error) {
+      console.log(error);
+      return error;
+  }
+}

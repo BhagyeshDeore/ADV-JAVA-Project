@@ -3,6 +3,7 @@ import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { registerStudent } from "../../Services/Student_services/Student_APIs";
 import { Navigate, useNavigate } from "react-router-dom";
 import { HNavbar } from "../HNavbar";
+import backgroundImage from './image.jpg';
 
 export function S_Register(props) {
   const [formData, setFormData] = useState({
@@ -109,13 +110,23 @@ export function S_Register(props) {
   return (
     <div>
     <HNavbar />
+    <div style={{
+   backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    minHeight: "90vh", // Ensure the background covers the entire viewport
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }}
+  > 
     <Container style={{ textAlign: "center" }}>
       <div
         className="container"
         style={{
-          backgroundColor: "grey",
-          width: "650px",
-          marginTop: "40px",
+          backgroundColor: "#f0f8ff",
+          width: "450px",
+          marginTop: "5px",
           borderRadius: "15px",
           border: "2px solid black",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
@@ -143,7 +154,7 @@ export function S_Register(props) {
         >
           <Row className="mb-3">
             {/* Student Id */}
-            <Col md={6}>
+            <Col md={5}>
               <Form.Label>Student PRN Number</Form.Label>
               <Form.Control
                 type="text"
@@ -163,7 +174,7 @@ export function S_Register(props) {
             </Col>
 
             {/* Email */}
-            <Col md={6}>
+            <Col md={5}>
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="text"
@@ -185,7 +196,7 @@ export function S_Register(props) {
 
           <Row className="mb-3">
             {/* Name */}
-            <Col md={6}>
+            <Col md={5}>
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
@@ -205,7 +216,7 @@ export function S_Register(props) {
             </Col>
 
             {/* Mobile Number */}
-            <Col md={6}>
+            <Col md={5}>
               <Form.Label>Mobile Number</Form.Label>
               <Form.Control
                 type="number"
@@ -227,7 +238,7 @@ export function S_Register(props) {
 
           <Row className="mb-3">
             {/* Department */}
-            <Col md={6}>
+            <Col md={5}>
               <Form.Label>Department</Form.Label>
               <Form.Control
                 type="text"
@@ -247,7 +258,7 @@ export function S_Register(props) {
             </Col>
 
             {/* Password */}
-            <Col md={6}>
+            <Col md={5}>
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
@@ -269,7 +280,7 @@ export function S_Register(props) {
 
           <Row className="mb-3">
             {/* Confirm Password */}
-            <Col md={6}>
+            <Col md={5}>
               <Form.Label>Confirm Password</Form.Label>
               <Form.Control
                 type="password"
@@ -290,7 +301,7 @@ export function S_Register(props) {
           </Row>
 
           {/* Centered Sign Up button and text */}
-          <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <div style={{ textAlign: "center", marginTop: "15px" }}>
             <Button variant="outline-dark" type="submit">
               Sign Up
             </Button>
@@ -314,6 +325,7 @@ export function S_Register(props) {
         </Form>
       </div>
     </Container>
+    </div>
     </div>
   );
 }

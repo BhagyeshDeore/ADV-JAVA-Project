@@ -6,13 +6,19 @@ import { CodeEditor } from "../Teacher_components/CodeEditor";
 import { createProblem, getProblems } from "../../Services/Teacher_services/Teacher_APIs";
 import { useParams } from "react-router-dom";
 import { TNavigationBar } from "./TNavigationBar";
+import { useLocation } from "react-router-dom";
 
 export function T_CreateContest(props){
 
     const params = useParams();
+    //const contestID = useParams(contestId);
     const [show, setShow] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('EASY');
 
+    // const location = useLocation();
+    // const contestId = location.state.contestId;
+
+    //const contestId = params.contestId;
     const[formData, setFormData] = useState({
         title: "",
         problemStatement: "",
@@ -23,6 +29,7 @@ export function T_CreateContest(props){
         sampleOutput: "",
         testCase: "",
         resulTestCase: "",
+
         solutionCode: `import java.util.Scanner;
     class Solution{
         public static void main(String args[]){
@@ -31,7 +38,11 @@ export function T_CreateContest(props){
             //write your code here
         }
     }`,
-        contestId : params.contest_id})
+        contestId : params.contest_id
+       // contestId : params.contest
+        // problemId : params.problem_id
+    
+    })
 
 
     const handleClose = () => setShow(false);
@@ -47,7 +58,7 @@ export function T_CreateContest(props){
              
         }catch(error){
             setProblemList([]);
-           console.log("from api",error.data)
+           console.log("from api",error.data);
         }
      }
 
@@ -85,7 +96,11 @@ export function T_CreateContest(props){
             testCase: "",
             resulTestCase: "",
             solutionCode: "hello code",
-            contestId : params.contest_id});
+            contestId : params.contest_id
+           // contestId : params.contest.contestId
+           //contestId : params.contest
+            
+        });
         setShow(false);   
     };
     
@@ -124,6 +139,8 @@ export function T_CreateContest(props){
         }
      }
 
+     //console.log(contestId);
+     console.log(params.contest_id);
 
     return(
         <>
@@ -140,9 +157,18 @@ export function T_CreateContest(props){
                         <Col key={element.problemId}> 
                             <T_Problem_card title={element.title} 
                                 problemStatement={element.problemStatement} 
+                                problemExplanation={element.explanation}
                                 difficulty={element.difficultyLevel}
                                 ID={element.problemId}
-                                marks={element.marks}>
+                                marks={element.marks}
+                                sampleInput={element.sampleInput}
+                                sampleOutput={element.sampleOutput}
+                                testCase={element.testCase}
+                                resulTestCase={element.resulTestCase}
+                                contestId = {params.contest_id}
+                                problemId={element.problemId}
+                                getFromApi={getFromApi}
+                                >
                             </T_Problem_card>
                         </Col>
                     ))}

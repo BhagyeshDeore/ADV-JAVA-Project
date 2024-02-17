@@ -47,7 +47,7 @@ export function T_DashBoard(props){
     };
     const handleShow = () => setShow(true);
 
-    //dummy data as of now
+   
     const[contestList, setContestList] = useState( [ ]);
 
     const getFromApi = async ()=>{

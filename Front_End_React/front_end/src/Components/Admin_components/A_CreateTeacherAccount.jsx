@@ -4,6 +4,7 @@ import { ANavigationBar } from "./ANavigationBar";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import backgroundImage from './image.jpg';
 
 export function A_CreateTeacherAccount(props) {
   const [formData, setFormData] = useState({
@@ -100,19 +101,36 @@ export function A_CreateTeacherAccount(props) {
 
   return (
     <>
-      <ANavigationBar />
-      <Container style={{ textAlign: "center" }}>
+     <ANavigationBar/>
+    <div style={{
+   backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    minHeight: "100vh", // Ensure the background covers the entire viewport
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }}>
+    
+  
+      
+      <Container
+       style={{ textAlign: "center" }}>
+      
         <div
           className="container"
           style={{
-            backgroundColor: "grey",
+            backgroundColor: "#f0f8ff",
             width: "400px", // Adjusted width for a smaller form
-            marginTop: "40px",
+            marginTop: "5px",
             borderRadius: "15px",
-            border: "2px solid black",
+            border: "1px solid black",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
             textAlign: "left",
+            
             padding: "10px", // Adjusted padding for a smaller form
+
+            
           }}
         >
           <h2
@@ -201,7 +219,9 @@ export function A_CreateTeacherAccount(props) {
             </div>
           </Form>
         </div>
+        
       </Container>
+      </div>
     </>
   );
 }

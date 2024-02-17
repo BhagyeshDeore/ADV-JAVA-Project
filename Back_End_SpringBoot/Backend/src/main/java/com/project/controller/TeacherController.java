@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,7 @@ import com.project.entity.Contest.ContestTopic;
 import com.project.entity.Problem.DifficultyLevel;
 import com.project.entity.Problem;
 import com.project.entity.Teacher;
+import com.project.repository.ProblemRepository;
 import com.project.services.TeacherServices;
 
 @RestController
@@ -87,6 +89,27 @@ public class TeacherController {
 		return new ResponseEntity<StatusT> (status, HttpStatus.ACCEPTED);
 		
 	}
+	
+	@PostMapping("/teacher/update-problem/{contestId}/{problemId}")
+	public ResponseEntity<StatusT> editProblem(@PathVariable int contestId, @PathVariable int problemId, @RequestBody NewProblem updatedProblem) {
+	    Problem problemToUpdate = new Problem();
+	    problemToUpdate.setTitle(updatedProblem.getTitle());
+	    problemToUpdate.setProblemStatement(updatedProblem.getProblemStatement());
+	    problemToUpdate.setExplanation(updatedProblem.getExplanation());
+	    problemToUpdate.setDifficultyLevel(DifficultyLevel.valueOf(updatedProblem.getDifficultyLevel()));
+	    problemToUpdate.setMarks(updatedProblem.getMarks());
+	    problemToUpdate.setSampleInput(updatedProblem.getSampleInput());
+	    problemToUpdate.setSampleOutput(updatedProblem.getSampleOutput());
+	    problemToUpdate.setTestCase(updatedProblem.getTestCase());
+	    problemToUpdate.setResulTestCase(updatedProblem.getResulTestCase());
+	    problemToUpdate.setSolutionCode(updatedProblem.getSolutionCode());
+
+	    StatusT status = teacherServices.editProblem(contestId, problemId, problemToUpdate);
+	    return new ResponseEntity<>(status, HttpStatus.ACCEPTED);
+	}
+
+
+	
 	
 	@GetMapping("/teacher/get-problem-list")
 	public List<Problem> getProblemList(@RequestParam int contestId) {
