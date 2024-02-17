@@ -3,7 +3,7 @@ import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { loginTeacher } from "../../Services/Teacher_services/Teacher_APIs";
 import { useNavigate } from "react-router-dom";
 import { HNavbar } from "../HNavbar";
-import backgroundImage from './image.jpg';
+import backgroundImage from "./image.jpg";
 
 export function T_Login(props) {
   console.log("Rendering T_Login component");
@@ -95,111 +95,121 @@ export function T_Login(props) {
   return (
     //jsx code for UI render
     <div>
-    <HNavbar />
-    <div style={{
-   backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    minHeight: "90vh", // Ensure the background covers the entire viewport
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  }}
-  >
-    <Container style={{ textAlign: "center", marginTop: "40px" }}>
+      <HNavbar />
       <div
-        className="container"
         style={{
-          backgroundColor: "#f0f8ff",
-          width: "400px",
-          borderRadius: "5px",
-          border: "2px solid black",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          textAlign: "left",
-          padding: "15px",
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          minHeight: "90vh", // Ensure the background covers the entire viewport
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <h2
-          className="heading"
-          style={{
-            textAlign: "center",
-            backgroundColor: "darkgrey",
-            margin: "-15px  -15px",
-            paddingBottom: "10px",
-            marginLeft: "-15px",
-            marginRight: "-15px",
-            borderRadius: "15px 15px 0 0",
-          }}
-        >
-          TEACHER LOGIN
-        </h2>
-        <br />
-        <form
-          style={{ paddingTop: "10px", paddingBottom: "5px" }}
-          onSubmit={handleSubmit}
-        >
-          <Row className="mb-3">
-            {/* UserName*/}
-            <Col md={12}>
-              <Form.Label>User Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Email..."
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                isInvalid={!!errors.email}
-              />
-              <Form.Control.Feedback type="invalid" style={{ color: "maroon" }}>
-                {errors.teacherId}
-              </Form.Control.Feedback>
-            </Col>
-          </Row>
-
-          <Row className="mb-3">
-            {/*Password */}
-            <Col md={12}>
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter Password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                isInvalid={!!errors.password}
-              />
-              <Form.Control.Feedback type="invalid" style={{ color: "maroon" }}>
-                {errors.teacherPassword}
-              </Form.Control.Feedback>
-            </Col>
-          </Row>
-          {/* Login Button */}
-          <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <Button variant="outline-dark" type="submit">
-              Login
-            </Button>
-            {/* Update Password line on browser*/}
-            <p
-              className="tagging"
-              style={{ fontSize: "13px", marginTop: "10px" }}
+        <Container style={{ textAlign: "center", marginTop: "40px" }}>
+          <div
+            className="container"
+            style={{
+              backgroundColor: "#f0f8ff",
+              width: "400px",
+              borderRadius: "5px",
+              border: "2px solid black",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              textAlign: "left",
+              padding: "15px",
+            }}
+          >
+            <h2
+              className="heading"
+              style={{
+                textAlign: "center",
+                backgroundColor: "darkgrey",
+                margin: "-15px  -15px",
+                paddingBottom: "10px",
+                marginLeft: "-15px",
+                marginRight: "-15px",
+                borderRadius: "15px 15px 0 0",
+              }}
             >
-              Update your Password{" "}
-              <a
-                href="/teacher-update-password"
-                style={{
-                  color: "black",
-                  textDecoration: "none",
-                  fontWeight: "bold",
-                }}
-              >
-                Update Password
-              </a>
-            </p>
+              TEACHER LOGIN
+            </h2>
+            <br />
+            <form
+              style={{ paddingTop: "10px", paddingBottom: "5px" }}
+              onSubmit={handleSubmit}
+            >
+              <Row className="mb-3">
+                {/* UserName*/}
+                <Col md={12}>
+                  <Form.Label>User Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter Email..."
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    isInvalid={!!errors.email}
+                  />
+                  <Form.Control.Feedback
+                    type="invalid"
+                    style={{ color: "maroon" }}
+                  >
+                    {errors.teacherId}
+                  </Form.Control.Feedback>
+                </Col>
+              </Row>
+
+              <Row className="mb-3">
+                {/*Password */}
+                <Col md={12}>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Enter Password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    isInvalid={!!errors.password}
+                  />
+                  <Form.Control.Feedback
+                    type="invalid"
+                    style={{ color: "maroon" }}
+                  >
+                    {errors.teacherPassword}
+                  </Form.Control.Feedback>
+                </Col>
+              </Row>
+              {/* Login Button */}
+              <div style={{ textAlign: "center", marginTop: "20px" }}>
+                <Button variant="outline-dark" type="submit">
+                  Login
+                </Button>
+                {/* Update Password line on browser*/}
+                <p
+                  className="tagging"
+                  style={{
+                    textAlign: "center",
+                    fontSize: "13px",
+                    marginTop: "10px",
+                  }}
+                >
+                  <a
+                    href="/"
+                    style={{
+                      color: "black",
+                      textDecoration: "none",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Forgot password?
+                  </a>
+                </p>
+              </div>
+            </form>
           </div>
-        </form>
+        </Container>
       </div>
-    </Container>
-    </div>
     </div>
   );
 }
