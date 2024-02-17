@@ -24,6 +24,7 @@ import com.project.entity.Attempt;
 import com.project.entity.Contest;
 import com.project.entity.Problem;
 import com.project.entity.Student;
+import com.project.repository.ProblemRepository;
 import com.project.entity.Attempt.CodingLanguage;
 import com.project.entity.Attempt.ProblemAttemptStatus;
 import com.project.entity.Problem.DifficultyLevel;
@@ -37,9 +38,7 @@ public class StudentController2 {
 	@Autowired
 	private StudentServices studentServices;
 	
-	
-	private CodeExecutor codeExecutor;
-	
+		
 	@PostMapping("/student/login")
 	public ResponseEntity<StudentLoginStatus> studentLogin(@RequestBody Student student){
 		
@@ -65,49 +64,13 @@ public class StudentController2 {
 	
 	
 	@PostMapping("/student/attempt-problem")
-	public ResponseEntity<StatusT> createProblem(@RequestBody NewAttempt newAttempt) {
+	public ResponseEntity<StatusT> AttemptProblem(@RequestBody NewAttempt newAttempt) {
 		
-		Attempt attempt = new Attempt();
-		String code = newAttempt.getCode();
-		attempt.setCode( code );
-		String output;
-		//code execution starts here
-		try {
-			output = codeExecutor.executeJavaCode(code, " 1 2 3");
-		}catch(Exception e) {
-			System.out.println(e.getMessage());
-			output = e.getMessage();
-		}
-		attempt.setResult(output);
-		//code excution ends here
 		
-		attempt.setLanguage(CodingLanguage.valueOf(newAttempt.getLanguage()));
-		attempt.setObtained_marks(newAttempt.getObtainedMarks());
-		//attempt.setResult(newAttempt.getResult());
-		attempt.setStatus(ProblemAttemptStatus.valueOf(newAttempt.getStatus()));
-		
-
-		StatusT status = studentServices.createAttempt(attempt, newAttempt.getProblemId() , newAttempt.getContestId(), newAttempt.getStudentId());
-		return new ResponseEntity<StatusT> (status, HttpStatus.ACCEPTED);
+				return studentServices.attemptExecuteCode(newAttempt);
 		
 	}
-// copy of previous code
-//	@PostMapping("/student/attempt-problem")
-//	public ResponseEntity<StatusT> createProblem(@RequestBody NewAttempt newAttempt) {
-//		
-//		Attempt attempt = new Attempt();
-//		String code = newAttempt.getCode();
-//		attempt.setCode( code );
-//		
-//		attempt.setLanguage(CodingLanguage.valueOf(newAttempt.getLanguage()));
-//		attempt.setObtained_marks(newAttempt.getObtainedMarks());
-//		attempt.setResult(newAttempt.getResult());
-//		attempt.setStatus(ProblemAttemptStatus.valueOf(newAttempt.getStatus()));
-//
-//		StatusT status = studentServices.createAttempt(attempt, newAttempt.getProblemId() , newAttempt.getContestId(), newAttempt.getStudentId());
-//		return new ResponseEntity<StatusT> (status, HttpStatus.ACCEPTED);
-//		
-//	}
+
 
 	@GetMapping("/problem/{problemId}")
     public ResponseEntity<Problem> getProblemById(@PathVariable int problemId) {
@@ -120,11 +83,6 @@ public class StudentController2 {
         ResponseEntity<List<LeaderboardEntry>> response = studentServices.calculateTotalMarksForContestEntity(contestId);
         return response;
     }
-	
-	
-	
-	
-	
-	
+		
 }
 
