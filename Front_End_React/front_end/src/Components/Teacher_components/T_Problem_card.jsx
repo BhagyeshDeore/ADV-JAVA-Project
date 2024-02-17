@@ -36,12 +36,14 @@ export function T_Problem_card(props) {
         }));
     };
 
-    const updateCode = (val) => {
+    const updateCode = (val) =>{
+        console.log(val);
         setFormData((prevData) => ({
             ...prevData,
             solutionCode: val,
-        }));
-    };
+            }));
+        //console.log(formData)
+    }
 
     const handleSaveChanges = () => {
         const { contestId, problemId } = formData;
@@ -70,6 +72,22 @@ export function T_Problem_card(props) {
                 console.error("Error updating problem:", error);
             });
     };
+    useEffect(() => {
+        setFormData({
+            title: props.title,
+            problemStatement: props.problemStatement,
+            explanation: props.explanation,
+            sampleInput: props.sampleInput,
+            sampleOutput: props.sampleOutput,
+            testCase: props.testCase,
+            resulTestCase: props.resulTestCase,
+            marks: props.marks,
+            solutionCode: props.solutionCode,
+            difficultyLevel: props.difficulty,
+            contestId: props.contestId,
+            problemId: props.problemId
+        });
+    }, [props]);
 
     // useEffect(() => {
     //     setLocalData(props);
