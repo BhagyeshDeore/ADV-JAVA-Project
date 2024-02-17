@@ -3,6 +3,7 @@ import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { loginTeacher } from "../../Services/Teacher_services/Teacher_APIs";
 import { useNavigate } from "react-router-dom";
 import { HNavbar } from "../HNavbar";
+import backgroundImage from './image.jpg';
 
 export function T_Login(props) {
   console.log("Rendering T_Login component");
@@ -95,13 +96,23 @@ export function T_Login(props) {
     //jsx code for UI render
     <div>
     <HNavbar />
+    <div style={{
+   backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    minHeight: "90vh", // Ensure the background covers the entire viewport
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }}
+  >
     <Container style={{ textAlign: "center", marginTop: "40px" }}>
       <div
         className="container"
         style={{
-          backgroundColor: "grey",
-          width: "450px",
-          borderRadius: "15px",
+          backgroundColor: "#f0f8ff",
+          width: "400px",
+          borderRadius: "5px",
           border: "2px solid black",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           textAlign: "left",
@@ -188,6 +199,7 @@ export function T_Login(props) {
         </form>
       </div>
     </Container>
+    </div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { loginTeacher } from "../../Services/Teacher_services/Teacher_APIs";
 import { loginAdmin } from "../../Services/Admin_services/Admin_APIs";
 import { HNavbar } from "../HNavbar";
+import backgroundImage from './image.jpg';
 
 export function A_Login(props) {
   const [formData, setFormData] = useState({
@@ -67,13 +68,22 @@ export function A_Login(props) {
   return (
     <div>
     <HNavbar />
+    <div style={{
+   backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    minHeight: "90vh", // Ensure the background covers the entire viewport
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  }}>
     <Container style={{ textAlign: "center" }}>
       <div
         className="container"
         style={{
-          backgroundColor: "grey",
-          width: "300px",
-          marginTop: "40px",
+          backgroundColor: "#f0f8ff",
+          width: "350px",
+          marginTop: "5px",
           borderRadius: "15px",
           border: "2px solid black",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
@@ -131,6 +141,7 @@ export function A_Login(props) {
         </Form>
       </div>
     </Container>
+    </div>
     </div>
   );
 }
