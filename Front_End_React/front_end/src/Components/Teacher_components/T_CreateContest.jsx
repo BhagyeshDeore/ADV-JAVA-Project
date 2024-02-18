@@ -140,7 +140,7 @@ export function T_CreateContest(props){
      }
 
      //console.log(contestId);
-     console.log(params.contest_id);
+     //console.log(params.contest_id);
 
     return(
         <>
@@ -157,13 +157,14 @@ export function T_CreateContest(props){
                         <Col key={element.problemId}> 
                             <T_Problem_card title={element.title} 
                                 problemStatement={element.problemStatement} 
-                                problemExplanation={element.explanation}
+                                explanation={element.explanation}
                                 difficulty={element.difficultyLevel}
                                 ID={element.problemId}
                                 marks={element.marks}
                                 sampleInput={element.sampleInput}
                                 sampleOutput={element.sampleOutput}
                                 testCase={element.testCase}
+                                solutionCode={element.solutionCode}
                                 resulTestCase={element.resulTestCase}
                                 contestId = {params.contest_id}
                                 problemId={element.problemId}
