@@ -98,13 +98,15 @@ export async function updatePassword(data) {
       "http://localhost:9090/teacher/update-password",
       data
     );
+
+    console.log("from updatePassword api :", response);
     return response;
     // return { success: true, data: response.data };
   } catch (error) {
-    console.error("Error in loginTeacher:", error);
+    console.error("Error in password:", error);
 
     return {
-      success: false,
+      status: false,
       error: error.response ? error.response.data : "Network error",
     };
   }

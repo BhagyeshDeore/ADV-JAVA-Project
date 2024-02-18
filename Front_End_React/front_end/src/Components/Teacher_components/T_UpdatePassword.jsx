@@ -56,8 +56,7 @@ export function T_UpdatePassword(props) {
     }
 
     setError("");
-    navigate("/teacher-dashboard");
-    alert("Updated Successfully");
+
     UpdatePasswordOnAPI();
   };
 
@@ -71,7 +70,13 @@ export function T_UpdatePassword(props) {
   const UpdatePasswordOnAPI = async () => {
     try {
       const result = await updatePassword(formData);
-      console.log("from updatePassword api ", result.data);
+      console.log("from updatePassword api ", result.status);
+      if (result.status) {
+        navigate("/teacher-dashboard");
+        alert("Updated Successfully");
+      } else {
+        alert("Something went wrong");
+      }
     } catch (error) {
       console.log("from updatePassword api", error);
     }
