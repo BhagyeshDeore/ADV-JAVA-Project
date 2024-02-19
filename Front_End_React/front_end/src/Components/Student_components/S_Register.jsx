@@ -240,15 +240,17 @@ export function S_Register(props) {
             {/* Department */}
             <Col md={5}>
               <Form.Label>Department</Form.Label>
-              <Form.Control
-                type="text"
+              <Form.Select
                 placeholder="Enter Department"
                 name="department"
                 value={formData.department}
                 onChange={handleChange}
                 isInvalid={!!errors.department}
                 disabled={formSubmitted}
-              />
+              >
+                <option value="CDAC">PG-DAC</option>
+                <option value="DBDA">PG-DBDA</option>
+              </Form.Select>
               <Form.Control.Feedback
                 type="invalid"
                 style={{ color: "maroon" }}

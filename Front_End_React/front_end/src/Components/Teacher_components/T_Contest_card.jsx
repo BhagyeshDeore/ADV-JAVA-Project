@@ -23,7 +23,7 @@ export function T_Contest_card(props){
                     <h6>End Time : {props.end_time} </h6> */}
                 </Card.Text>
                 <Button  onClick={seeAttemptPage} variant="primary">See Results</Button> &nbsp;&nbsp;
-                <Button  onClick={editContest} variant="success">Edit contest</Button>
+                <Button  onClick={editContest} variant="success">Add Problem to contest</Button>
             </Card.Body>
             <Card.Footer className="text-muted">Created AT : {props.created_at}</Card.Footer>
         </Card>

@@ -68,7 +68,7 @@ export function A_DashBoard(props) {
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Password</th>
+              {/* <th>Password</th> */}
               <th>Created At</th>
               <th>Status</th>
               <th>Action</th>
@@ -81,7 +81,7 @@ export function A_DashBoard(props) {
                 <td>{teacher.name}</td>
                 <td>{teacher.email}</td>
                 <td>{teacher.phoneNumber}</td>
-                <td>{teacher.password}</td>
+                {/* <td>{teacher.password}</td> */}
                 <td>{teacher.createdAt}</td>
                 <td>
                   <Button

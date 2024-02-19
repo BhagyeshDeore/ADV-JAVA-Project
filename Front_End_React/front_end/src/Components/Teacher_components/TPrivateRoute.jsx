@@ -5,5 +5,5 @@ export function TPrivateRoute(props) {
   if (isTeacherAuthenticated()) {
     return <>{props.children}</>;
   }
-  //   return <Navigate to="/teacher-login"></Navigate>;
+    return <Navigate to="/teacher-login"></Navigate>;
 }

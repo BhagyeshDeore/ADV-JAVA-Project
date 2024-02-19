@@ -71,7 +71,7 @@ export function A_StudentsRegisterRequests(props) {
               <th>Email</th>
               <th>Pnr</th>
               <th>Phone</th>
-              <th>Password</th>
+              {/* <th>Password</th> */}
               <th>Created At</th>
               <th>Status</th>
               <th>Action</th>
@@ -86,7 +86,7 @@ export function A_StudentsRegisterRequests(props) {
                   <td>{student.email}</td>
                   <td>{student.pnr}</td>
                   <td>{student.mobileNumber}</td>
-                  <td>{student.password}</td>
+                  {/* <td>{student.password}</td> */}
                   <td>{student.createdAt}</td>
                   <td>
                     <Button
