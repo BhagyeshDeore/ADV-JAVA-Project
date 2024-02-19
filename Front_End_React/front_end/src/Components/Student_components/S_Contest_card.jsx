@@ -19,8 +19,8 @@ export function S_Contest_card(props){
                     </hr>
                     <br/>
                     <h6>Topic : {props.topic} </h6>
-                    <h6>Start Time : {props.start_time} </h6>
-                    <h6>End Time : {props.end_time} </h6>
+                    <h6>Created Time : {props.created_at} </h6>
+                    {/* <h6>End Time : {props.end_time} </h6> */}
                 </Card.Text>
                 <Button onClick={ProblemPage} variant="primary">Start</Button>
             </Card.Body>

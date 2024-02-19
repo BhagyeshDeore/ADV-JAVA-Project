@@ -61,6 +61,7 @@ useEffect(()=>{
                   description={element.description}
                   topic={element.topic}
                   ID={element.contestId}
+                  created_at = {element.createdAt}
                   start_time={element.satrtTime}
                   end_time={element.endTime}
                 />
