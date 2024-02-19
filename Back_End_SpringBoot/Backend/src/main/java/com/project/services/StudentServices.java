@@ -196,44 +196,72 @@ public class StudentServices {
 			
 			//get problem object
 			Problem problem = getProblem(newAttempt.getProblemId());
-			String testCases = problem.getTestCase();
-			String resultOfTestCases = problem.getResulTestCase();
+			
+			String sampleTestCases_s = problem.getSampleInput();
+			String sampleOutputOfTestcases_s = problem.getSampleOutput();
+			
+			
 			
 			//get submitted code
-			String code = newAttempt.getCode();
-			String output;
-			ProblemAttemptStatus result;
+			String code_s = newAttempt.getCode();
+			String output_s;
+			ProblemAttemptStatus result_p;
 			//code execution starts here
 			
 			try {
 				
-				output = CodeExecutor.executeJavaCodeUsingShell(code, testCases );
-				result = matchResults(output, resultOfTestCases);
+				output_s = CodeExecutor.executeJavaCodeUsingShell(code_s, sampleTestCases_s );
+				result_p = matchResults(output_s, sampleOutputOfTestcases_s);
 				
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
-				output = e.getMessage();
-				result = ProblemAttemptStatus.CompileTimeError;
+				output_s = e.getMessage();
+				result_p = ProblemAttemptStatus.CompileTimeError;
 			}
-			
 			
 			
 			//careting attempt object
 			Attempt attempt = new Attempt();
-			attempt.setCode( code );
-			attempt.setResult(output);
+			attempt.setCode( code_s );
+			attempt.setResult(output_s);
 			attempt.setLanguage(CodingLanguage.valueOf(newAttempt.getLanguage()));
-			attempt.setObtained_marks( getObtainedMarks( result , problem.getMarks()) );
-			attempt.setStatus(result);
+			attempt.setObtained_marks(0);
+			attempt.setStatus(result_p);
+			
+			
+			String testCaseOutput_s = null;
+			ProblemAttemptStatus resultTestacases_p = result_p;
+			//checking hidden testcases
+			String testCases_s = problem.getTestCase();
+			String resultOfTestCases_s = problem.getResulTestCase();
+			if( result_p == ProblemAttemptStatus.Solved) {
+				try {
+					
+					testCaseOutput_s = CodeExecutor.executeJavaProgram(testCases_s, 5000);
+					resultTestacases_p = matchResults(testCaseOutput_s, resultOfTestCases_s);
+					attempt.setObtained_marks( getObtainedMarks( resultTestacases_p , problem.getMarks()) );
+					attempt.setStatus(resultTestacases_p);
+					
+				}catch(Exception e) {
+					System.out.println(e.getMessage());
+					testCaseOutput_s = e.getMessage();
+					resultTestacases_p = ProblemAttemptStatus.CompileTimeError;
+				}
+			}
+			
 			
 			StatusT status = createAttempt(attempt, newAttempt.getProblemId() , newAttempt.getContestId(), newAttempt.getStudentId());
+			
+			setStatus(status, resultTestacases_p);
+			
+			
 			return new ResponseEntity<StatusT> (status, HttpStatus.ACCEPTED);
 			
 		}
 		
 		public ProblemAttemptStatus matchResults( String output , String resultOfTestCases ) {
-			output = output.trim();
-			resultOfTestCases = resultOfTestCases.trim();
+//			output = output.trim();
+//			resultOfTestCases = resultOfTestCases.trim();
 			
 			if( output.equals(resultOfTestCases))
 				return ProblemAttemptStatus.Solved;
@@ -252,6 +280,19 @@ public class StudentServices {
 			if( result == ProblemAttemptStatus.Solved)
 				return marks;
 			return 0;
+		}
+		
+		public void setStatus(StatusT statust , ProblemAttemptStatus result) {
+			if(result == ProblemAttemptStatus.Solved)
+				statust.setMessage("Test-case passed and Accepted");
+			else if(result == ProblemAttemptStatus.Incorrect)
+				statust.setMessage("Test-cases Failed!! ");
+			else if(result == ProblemAttemptStatus.CompileTimeError)
+				statust.setMessage("Compile Time error ");
+			else if(result == ProblemAttemptStatus.RunTimeError)
+				statust.setMessage("Run Time error ");
+			else if(result == ProblemAttemptStatus.TimeExceed)
+				statust.setMessage("Time Exceeded");
 		}
 		
 		
