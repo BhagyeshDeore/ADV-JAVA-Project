@@ -18,6 +18,7 @@ export function S_AttemptProblem(props){
     const [loading, setLoading] = useState(false); // Initialize loading state
 
 
+    const[ resultMessage, setResultMessage] = useState("");
     const [formData, setFormData] = useState({
         code : `import java.util.Scanner;\n     
     class Solution{
@@ -30,7 +31,7 @@ export function S_AttemptProblem(props){
         language: "Java" , 
         obtainedMarks:0,
         result: "",
-        status : "Incorrect",
+        status : "",
         contestId : params.contest_id,
         problemId : params.problem_id,
         studentId: getStudentID()
@@ -49,6 +50,7 @@ export function S_AttemptProblem(props){
         setLoading(true); // Set loading state to true when submitting
         try {
             await postOnAPI(); // Wait for the API call to finish
+            
         } finally {
             setLoading(false); // Set loading state to false when API call finishes
         }
@@ -58,6 +60,7 @@ export function S_AttemptProblem(props){
              const result = await attemptProblem2(formData);
              console.log("from attempt problem api ",result.data);
              setOutput(result.data.output);
+             setResultMessage(result.data.message);
              //navigate(`/student-seeContest/${params.contest_id}`)
 
         }catch(error){
@@ -97,27 +100,35 @@ export function S_AttemptProblem(props){
                             <p>{attemptProblem.problemStatement}</p>
 
                             <h5>Explanation:</h5>
-                            <p>{attemptProblem.explanation}</p>
+                            <pre>{attemptProblem.explanation}</pre>
 
                             <h6>Input Format</h6>
-                            <p>
+                            <pre>
                             {attemptProblem.sampleInput}
-                            </p>
+                            </pre>
 
                             <h6>Output Format</h6>
-                            <p>
+                            <pre>
                                 {attemptProblem.sampleOutput}
-                            </p>
-
-                            <Button variant="primary" onClick={submitAttempt} disabled={loading}>
-                                {loading ? ( // Show loading spinner if loading, otherwise show "Submit"
-                                    <Spinner animation="border" size="sm" role="status">
-                                        <span className="sr-only">Loading...</span>
-                                    </Spinner>
-                                ) : (
-                                    "Submit"
-                                )}
-                            </Button>                        
+                            </pre>
+                            {
+                                (resultMessage == "Test-case passed and Accepted") ? 
+                                ( <h5 style={{ color: "blue" }}>Submitted</h5> ):
+                                (
+                                    <Button variant="primary" onClick={submitAttempt} disabled={loading} id="run_button">
+                                    {loading ? ( // Show loading spinner if loading, otherwise show "Submit"
+                                        <Spinner animation="border" size="sm" role="status">
+                                            <span className="sr-only"></span>
+                                        </Spinner>
+                                    ) : (
+                                        
+                                        "Run"
+                                    )}
+                                    </Button> 
+                                )
+                            }
+                              
+                            <h4 style={{ color: "green" }}>{resultMessage}</h4>                      
                             </div>
                         <div>
                             <SHeader text="Java Code Execution Results"></SHeader>

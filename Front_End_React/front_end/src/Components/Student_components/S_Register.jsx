@@ -248,8 +248,8 @@ export function S_Register(props) {
                 isInvalid={!!errors.department}
                 disabled={formSubmitted}
               >
-                <option value="CDAC">PG-DAC</option>
-                <option value="DBDA">PG-DBDA</option>
+                <option value="CDAC" name="department">PG-DAC</option>
+                <option value="DBDA" name="department">PG-DBDA</option>
               </Form.Select>
               <Form.Control.Feedback
                 type="invalid"
