@@ -142,12 +142,7 @@ public class CodeExecutor {
                 timeLimitThread.interrupt();
             }
             
-            if (exitCode != 0) {
-            	if(exitCode == 143 )
-            		return "Time limit exceeded";
-                return "Exited with error code " + exitCode + "\nError Output: " + errorOutput.toString();
-            }
-
+            
 //            // Check if the time limit thread interrupted the main thread, indicating time limit exceeded
 //            if (process.isAlive() && timeLimitThread.isInterrupted()) {
 //                return "Time limit exceeded";
@@ -161,6 +156,12 @@ public class CodeExecutor {
             // Read error output from the process
             while ((line = errorReader.readLine()) != null) {
                 errorOutput.append(line).append("\n");
+            }
+            
+            if (exitCode != 0) {
+            	if(exitCode == 143 )
+            		return "Time limit exceeded";
+                return "Exited with error code " + exitCode + "\nError Output: " + errorOutput.toString();
             }
 
             return output.toString();
