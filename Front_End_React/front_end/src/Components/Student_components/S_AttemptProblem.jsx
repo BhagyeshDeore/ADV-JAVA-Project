@@ -19,8 +19,21 @@ export function S_AttemptProblem(props) {
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false); // Initialize loading state
 
+<<<<<<< HEAD
   const [formData, setFormData] = useState({
     code: `import java.util.Scanner;\n     
+=======
+    const params = useParams();
+    const [attemptProblem, setattemptProblem] = useState([]);
+    const navigate = useNavigate();
+    const [output, setOutput] = useState('');
+    const [loading, setLoading] = useState(false); // Initialize loading state
+
+
+    const[ resultMessage, setResultMessage] = useState("");
+    const [formData, setFormData] = useState({
+        code : `import java.util.Scanner;\n     
+>>>>>>> refs/remotes/origin/main
     class Solution{
         public static void main(String args[]){
             Scanner sc = new Scanner(System.in);
@@ -28,6 +41,7 @@ export function S_AttemptProblem(props) {
             //write your code here
         }
     }`,
+<<<<<<< HEAD
     language: "Java",
     obtainedMarks: 0,
     result: "",
@@ -36,6 +50,16 @@ export function S_AttemptProblem(props) {
     problemId: params.problem_id,
     studentId: getStudentID(),
   });
+=======
+        language: "Java" , 
+        obtainedMarks:0,
+        result: "",
+        status : "",
+        contestId : params.contest_id,
+        problemId : params.problem_id,
+        studentId: getStudentID()
+    })
+>>>>>>> refs/remotes/origin/main
 
   const updateCode = (val) => {
     console.log(val);
@@ -65,6 +89,7 @@ export function S_AttemptProblem(props) {
     }
   };
 
+<<<<<<< HEAD
   const getFromApi = async () => {
     try {
       const result = await getattemptProblem(params.problem_id);
@@ -75,6 +100,24 @@ export function S_AttemptProblem(props) {
       console.log("from api", error.data);
     }
   };
+=======
+    const submitAttempt = async () => {
+        setLoading(true); // Set loading state to true when submitting
+        try {
+            await postOnAPI(); // Wait for the API call to finish
+            
+        } finally {
+            setLoading(false); // Set loading state to false when API call finishes
+        }
+    };
+    const postOnAPI = async ()=>{
+        try{
+             const result = await attemptProblem2(formData);
+             console.log("from attempt problem api ",result.data);
+             setOutput(result.data.output);
+             setResultMessage(result.data.message);
+             //navigate(`/student-seeContest/${params.contest_id}`)
+>>>>>>> refs/remotes/origin/main
 
   useEffect(() => {
     getFromApi();
@@ -103,6 +146,7 @@ export function S_AttemptProblem(props) {
               <h6>Output Format</h6>
               <pre>{attemptProblem.sampleOutput}</pre>
 
+<<<<<<< HEAD
               <Button
                 variant="primary"
                 onClick={submitAttempt}
@@ -135,3 +179,54 @@ export function S_AttemptProblem(props) {
     </>
   );
 }
+=======
+                            <h5>Explanation:</h5>
+                            <pre>{attemptProblem.explanation}</pre>
+
+                            <h6>Input Format</h6>
+                            <pre>
+                            {attemptProblem.sampleInput}
+                            </pre>
+
+                            <h6>Output Format</h6>
+                            <pre>
+                                {attemptProblem.sampleOutput}
+                            </pre>
+                            {
+                                (resultMessage == "Test-case passed and Accepted") ? 
+                                ( <h5 style={{ color: "blue" }}>Submitted</h5> ):
+                                (
+                                    <Button variant="primary" onClick={submitAttempt} disabled={loading} id="run_button">
+                                    {loading ? ( // Show loading spinner if loading, otherwise show "Submit"
+                                        <Spinner animation="border" size="sm" role="status">
+                                            <span className="sr-only"></span>
+                                        </Spinner>
+                                    ) : (
+                                        
+                                        "Run"
+                                    )}
+                                    </Button> 
+                                )
+                            }
+                              
+                            <h4 style={{ color: "green" }}>{resultMessage}</h4>                      
+                            </div>
+                        <div>
+                            <SHeader text="Java Code Execution Results"></SHeader>
+                            <JavaCodeOutput output={output} />
+                        </div>
+                    </Col>
+                    <Col>
+                        <div>
+                            <CodeEditor
+                            solutionCode={formData.code}  
+                            updateCode={updateCode}/>
+                        </div>
+                       
+                    </Col>
+                </Row>
+            </Container>
+        </>
+    )
+}
+>>>>>>> refs/remotes/origin/main

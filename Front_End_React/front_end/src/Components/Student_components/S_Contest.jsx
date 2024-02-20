@@ -94,7 +94,7 @@ const S_Contest = (props) => {
               {problem.status === "Solved" ? (
                 <Button
                   variant="outline-success"
-                  onClick={() => QuestionPage(problem.problemId)}
+                  //onClick={() => QuestionPage(problem.problemId)}
                 >
                   SOLVED
                 </Button>
