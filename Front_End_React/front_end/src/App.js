@@ -26,6 +26,7 @@ import { TPrivateRoute } from "./Components/Teacher_components/TPrivateRoute";
 import { TRedirectIfLoggedIn } from "./Components/Teacher_components/TRedirectIfLoggedIn";
 import { SRedirectIfLoggedIn } from "./Components/Student_components/SRedirectIfLoggedIn";
 import { SPrivateRoute } from "./Components/Student_components/SPrivateRoute";
+import AboutUs from "./Components/About_us";
 
 function App() {
   return (
@@ -127,6 +128,7 @@ function App() {
             </TPrivateRoute>
           }
         ></Route>
+        <Route path="/about-us" element={<AboutUs />}></Route>
       </Routes>
     </BrowserRouter>
   );
@@ -134,18 +136,8 @@ function App() {
 
 export default App;
 
-
-
-
-
-
-
-
-
-
-
 //admin
-//viraj@gmail.com 
+//viraj@gmail.com
 //vir123
 
 //student

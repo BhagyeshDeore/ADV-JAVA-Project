@@ -70,8 +70,8 @@ export function T_UpdatePassword(props) {
   const UpdatePasswordOnAPI = async () => {
     try {
       const result = await updatePassword(formData);
-      console.log("from updatePassword api ", result.status);
-      if (result.status) {
+      console.log("from updatePassword api ", result.data);
+      if (result.data.status) {
         navigate("/teacher-dashboard");
         alert("Updated Successfully");
       } else {

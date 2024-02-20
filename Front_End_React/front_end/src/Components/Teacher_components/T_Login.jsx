@@ -186,7 +186,7 @@ export function T_Login(props) {
                   Login
                 </Button>
                 {/* Update Password line on browser*/}
-                <p
+                {/* <p
                   className="tagging"
                   style={{
                     textAlign: "center",
@@ -204,7 +204,7 @@ export function T_Login(props) {
                   >
                     Forgot password?
                   </a>
-                </p>
+                </p> */}
               </div>
             </form>
           </div>
