@@ -72,7 +72,7 @@ export function A_StudentsRegisterRequests(props) {
               <th>Pnr</th>
               <th>Phone</th>
               {/* <th>Password</th> */}
-              <th>Created At</th>
+              
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -87,7 +87,7 @@ export function A_StudentsRegisterRequests(props) {
                   <td>{student.pnr}</td>
                   <td>{student.mobileNumber}</td>
                   {/* <td>{student.password}</td> */}
-                  <td>{student.createdAt}</td>
+                  
                   <td>
                     <Button
                       variant={
